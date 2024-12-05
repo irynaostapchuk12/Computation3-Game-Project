@@ -4,5 +4,8 @@
     <content url="file://$MODULE_DIR$" />
     <orderEntry type="jdk" jdkName="c3_project" jdkType="Python SDK" />
     <orderEntry type="sourceFolder" forTests="false" />
+    <orderEntry type="module" module-name="images" />
+    <orderEntry type="module" module-name="leters" />
+    <orderEntry type="module" module-name="backgroundgame_level" />
   </component>
 </module>

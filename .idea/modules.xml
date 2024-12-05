@@ -2,7 +2,10 @@
 <project version="4">
   <component name="ProjectModuleManager">
     <modules>
+      <module fileurl="file://$PROJECT_DIR$/images/backgroundgame_level/.idea/backgroundgame_level.iml" filepath="$PROJECT_DIR$/images/backgroundgame_level/.idea/backgroundgame_level.iml" />
       <module fileurl="file://$PROJECT_DIR$/.idea/c3_Home_Project.iml" filepath="$PROJECT_DIR$/.idea/c3_Home_Project.iml" />
+      <module fileurl="file://$PROJECT_DIR$/images/.idea/images.iml" filepath="$PROJECT_DIR$/images/.idea/images.iml" />
+      <module fileurl="file://$PROJECT_DIR$/leters/.idea/leters.iml" filepath="$PROJECT_DIR$/leters/.idea/leters.iml" />
     </modules>
   </component>
 </project>
