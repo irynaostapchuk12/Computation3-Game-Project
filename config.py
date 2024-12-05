@@ -22,3 +22,11 @@ fps = 60
 player_size = (50, 100)
 enemy_size = (40, 40)
 bullet_size = 10
+
+
+
+#CHARACTER
+height_character = 0
+width_character = 0
+speed_character = 0
+health_character = 0
