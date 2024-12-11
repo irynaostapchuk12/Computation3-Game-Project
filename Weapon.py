@@ -15,6 +15,7 @@ import math
 import config
 
 
+
 class Sword:
     def __init__(self, x_character, y_character, direction_character, weapon_reach):
         self.x_character = x_character

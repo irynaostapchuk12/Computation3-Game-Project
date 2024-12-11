@@ -14,6 +14,7 @@ yellow = (255, 255, 0)
 red = (150, 0, 24)
 cute_purple = (128, 0, 128)
 greenish = (182, 215, 168)
+
 # SCREEN RESOLUTION
 resolution = (720, 720)  # height/width
 resolution_title = (350,350)
@@ -35,3 +36,9 @@ width_character = 0
 speed_character = 0
 health_character = 0
 
+
+# ENEMIES (change later)
+VAMPIRE_COLOR = (255, 0, 0)
+BAT_COLOR = (0, 0, 255)
+SKELETON_COLOR = (200, 200, 200)
+ZOMBIE_COLOR = (0, 255, 0)
