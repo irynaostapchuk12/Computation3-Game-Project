@@ -21,6 +21,8 @@ greenish = (182, 215, 168)
 
 # SCREEN RESOLUTION
 resolution = (720, 720)  # height/width
+width = 720
+height = 720
 resolution_scrollable_shop = (720, 3440)
 
 resolution_title = (350,350)
@@ -38,7 +40,6 @@ fps = 60
 
 
 # SIZES
-
 shop_image_size = (300, 300)
 coin_shop_image_size = (50, 50)
 player_size = (50, 100)
@@ -59,7 +60,6 @@ health_character = 0
 
 
 # SHOP POSITIONS
-
 shop_text_position = (360, 30)
 
 
@@ -112,7 +112,6 @@ corbelfont = pygame.font.SysFont("Corbel", 40)
 
 
 # PRICES
-
 chest_price = 0
 health_elixir_price = 0
 speed_elixir_price = 0
@@ -120,8 +119,6 @@ invincibility_powerup_price = 0
 de_spawner_powerup_price = 0
 double_jump_powerup_price = 0
 double_coins_powerup_price = 0
-
-
 
 
 

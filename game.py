@@ -1,9 +1,9 @@
 import math
 
-from enemy import Enemy
+#from enemy import Enemy
 from config import *
 import pygame
-from player import Player
+#from player import Player
 from shed import shed
 import math
 
