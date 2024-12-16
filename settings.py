@@ -48,7 +48,7 @@ while True:
     overlay = pygame.Surface((width, height))
     overlay.fill(deep_black)
     overlay.set_alpha(255 - brightness_level)  # Adjust transparency based on brightness
-    resolution.blit(overlay, (0, 0))
+    screen_resolution.blit(overlay, (0, 0))
 
     # Update the display
     pygame.display.flip()

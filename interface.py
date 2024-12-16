@@ -11,11 +11,11 @@ def interface():
     pygame.init()  # calling pygame
 
     # creating the screen at the set resolution
-    screen = pygame.display.set_mode(resolution)  # show the user something
+    screen = pygame.display.set_mode(screen_resolution)  # show the user something
 
     # Carregar a imagem e redimensionar
     imagem_inicial = pygame.image.load("backgroundgame_level/principal_page_menu_segundatentativa.png")
-    imagem_inicial = pygame.transform.scale(imagem_inicial, resolution)
+    imagem_inicial = pygame.transform.scale(imagem_inicial, screen_resolution)
     settings = pygame.image.load("backgroundgame_level/settings_button.png")
     # load image for background levels
     # image_level_one  = pygame.image.load("backgroundgame_level/background_of_level1.png").convert()
@@ -186,7 +186,7 @@ def credits_():
 
     # basic settings #
 
-    screen = pygame.display.set_mode(resolution)
+    screen = pygame.display.set_mode(screen_resolution)
 
     # creating the fonts:
     custom_font = "leters/Cocogoose-Classic-Medium-trial.ttf"
@@ -304,7 +304,7 @@ def settings_():
     pygame.init()  # calling pygame
 
     # definições da tela
-    screen = pygame.display.set_mode(resolution)  # show the user something
+    screen = pygame.display.set_mode(screen_resolution)  # show the user something
     pygame.display.set_caption("Jungle Rex")
     clock = pygame.time.Clock()
 
@@ -315,7 +315,7 @@ def settings_():
     back_text = poppins.render("BACK", True, deep_black)
     back_of_credits = pygame.image.load("backgroundgame_level/menus_back.png")
     botao_atras = pygame.image.load("backgroundgame_level/botao_atras_das_palavras.png")
-    back_of_credits_ = pygame.transform.scale(back_of_credits, resolution)
+    back_of_credits_ = pygame.transform.scale(back_of_credits, screen_resolution)
 
     # retângulo para o butão
     back_rect = back_text.get_rect(center=(349,440))

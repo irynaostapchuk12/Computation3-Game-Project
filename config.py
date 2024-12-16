@@ -19,20 +19,21 @@ red = (150, 0, 24)
 cute_purple = (128, 0, 128)
 greenish = (182, 215, 168)
 
-# SCREEN RESOLUTION
-resolution = (720, 720)  # height/width
-width = 720
-height = 720
-resolution_scrollable_shop = (720, 3440)
 
-resolution_title = (350,350)
-resolution_back_jungle = (720, 720)
+
+# SCREEN RESOLUTION
+screen_resolution = (720, 720)  # height/width
+screen_width = screen_resolution[0]
+screen_height = screen_resolution[1]
+
+
+resolution_title = (350,350)  #--------------------------------------------------------
+resolution_back_jungle = (720, 720)  #------------------------------------------------
 resolution_credits = (600, 600)
 
-
-screen_width, screen_height = resolution[0], resolution[1]
-scrollable_width = resolution_scrollable_shop[0]
-scrollable_height = resolution_scrollable_shop[1]
+scrollable_shop_resolution = (720, 3440)
+scrollable_shop_width = scrollable_shop_resolution[0]
+scrollable_shop_height = scrollable_shop_resolution[1]
 
 fps = 60
 
@@ -42,20 +43,22 @@ fps = 60
 # SIZES
 shop_image_size = (300, 300)
 coin_shop_image_size = (50, 50)
-player_size = (50, 100)
+
+avatar_size = (50, 100)
+avatar_width = avatar_size[0]
+avatar_height = avatar_size[1]
+
 enemy_size = (40, 40)
-bullet_size = 10
+
+
+arrow_size = 10
 
 
 
-#CHARACTER
-height_character = 0
-width_character = 0
+#CHARACTER STATS
 
 speed_character = 0
 health_character = 0
-
-
 
 
 

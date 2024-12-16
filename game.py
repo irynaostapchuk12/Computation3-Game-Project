@@ -38,7 +38,7 @@ def execute_game(player):
     clock = pygame.time.Clock()
 
     # screen setup:
-    screen = pygame.display.set_mode(resolution)
+    screen = pygame.display.set_mode(screen_resolution)
     pygame.display.set_caption("Jungle Rex")
 
     # creating an empty group for the player (that we received as input)
