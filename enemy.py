@@ -15,7 +15,7 @@ class Vampire(Enemy):
         super().__init__(x, y, 50, 50, VAMPIRE_COLOR)
         self.last_bullet_time = 0
 
-    def shoot_bat(self, bullets_group):
+    def shoot_bat(self, bats_group):
         now = pygame.time.get_ticks()
         if now - self.last_bullet_time > 1000:  # Shoot every second
             self.last_bullet_time = now

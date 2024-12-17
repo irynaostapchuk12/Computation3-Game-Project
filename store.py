@@ -1,7 +1,6 @@
 import pygame
 
 #from game import execute_game
-from utils import *  # no need to import pygame because the import is in utils
 from config import *  # importing colors and the like
 
 import sys

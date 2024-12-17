@@ -1,12 +1,12 @@
 import pygame
-from player import Player
 from config import *
-from shed import shed
-from interface import Settings_
+from settings import *
+from avatar import Avatar
+from settings import settings
 
 # define the tile size
 tile_size = 130
-screen = pygame.display.set_mode((width, height))
+screen = pygame.display.set_mode(screen_resolution)
 
 
 class World:
@@ -51,7 +51,7 @@ world_data = [
 world = World(world_data)
 
 
-def execute_game(player):
+def execute_game(avatar):
     # SETUP:
 
     # setting up the background:
@@ -71,7 +71,7 @@ def execute_game(player):
 
     # Create a sprite group and add the player
     all_sprites = pygame.sprite.Group()
-    all_sprites.add(player)
+    all_sprites.add(avatar)
 
     while running:
 
@@ -107,7 +107,7 @@ def execute_game(player):
         world.draw()
 
         # Draw all sprites
-        all_sprites.draw(screen)
+        #all_sprites.draw(screen)
         # settings image - click
         settings = pygame.image.load("backgroundgame_level/settings_button.png")
 
@@ -121,7 +121,7 @@ def execute_game(player):
 
             if event.type == pygame.MOUSEBUTTONDOWN:
                 if settings_rect.collidepoint(event.pos):
-                    Settings_()
+                    settings()
 
             # showing settings image
         screen.blit(settings, (30, 50))
@@ -136,14 +136,14 @@ def execute_game(player):
 
 def game_loop():
     # creating the player for the game - only done once :)
-    player = Player()
+    avatar = Avatar(100, 100, "images/icons/chest.png")
 
     # by default I start the game in the main area
     current_state = "main"
 
     # "endless" game loop:
     while True:
-        if current_state == "main":
-            current_state = execute_game(player)
-        elif current_state == "shed":
-            current_state = shed(player)
+        current_state = execute_game(avatar)
+        screen.blit(avatar.generate())
+
+

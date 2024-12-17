@@ -51,14 +51,16 @@ avatar_height = avatar_size[1]
 enemy_size = (40, 40)
 
 
-arrow_size = 10
+arrow_size = (10, 10)
+
+game_icons_size = (10,10)
 
 
 
 #CHARACTER STATS
 
-speed_character = 0
-health_character = 0
+speed_avatar = 0
+health_avatar = 0
 
 
 
@@ -108,10 +110,14 @@ chest_shop_position = (210, 2000)
 
 #FONT
 corbelfont = pygame.font.SysFont("Corbel", 40)
+poppins = pygame.font.Font("fonts/Cocogoose-Classic-Medium-trial.ttf")
 
+# setting the fonts
+font_size = 45
 
-
-
+custom_font_intro = pygame.font.SysFont("poppins", font_size)
+poppins = pygame.font.SysFont("letere", 40)
+verdana = pygame.font.SysFont("Verdana", 55)
 
 
 # PRICES

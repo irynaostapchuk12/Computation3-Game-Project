@@ -1,10 +1,10 @@
 import sys
 import pygame.image
 from pygame import mouse
-from game import game_loop
-from utils import *  # no need to import pygame because the import is in utils
+from game import *
 from config import *  # importing colors and the like
-from utils import under_construction
+from store import shop
+from settings import settings
 
 
 def interface():
@@ -26,13 +26,7 @@ def interface():
     # Configurar o relógio para controlar os FPS
     clock = pygame.time.Clock()
 
-    # setting the fonts
-    poppins = pygame.font.Font("leters/Cocogoose-Classic-Medium-trial.ttf")
-    font_size = 45
-    custom_font_intro = pygame.font.SysFont("poppins", font_size)
 
-    # poppins = pygame.font.SysFont("letere", 40)
-    verdana = pygame.font.SysFont("Verdana", 55)
 
     # render the text (will be used in the game button)
     game_name_text = verdana.render("JungleRex", True, deep_black)
@@ -71,7 +65,8 @@ def interface():
 
             if ev.type == pygame.MOUSEBUTTONDOWN:
                 if store_rect.collidepoint(ev.pos):
-                    under_construction()
+                    shop()
+
 
             # settings button - click
             # if ev.type == pygame.MOUSEBUTTONDOWN:
@@ -81,8 +76,7 @@ def interface():
             # rules button - click
             if ev.type == pygame.MOUSEBUTTONDOWN:
                 if rules_rect.collidepoint(ev.pos):
-                    under_construction()
-
+                    pass
             # credits button - click
             if ev.type == pygame.MOUSEBUTTONDOWN:
                 if credits_rect.collidepoint(ev.pos):
@@ -96,36 +90,36 @@ def interface():
             # settings image - click
             if ev.type == pygame.MOUSEBUTTONDOWN:
                 if settings_rect.collidepoint(ev.pos):
-                    settings_()
+                    settings()
 
             # if the user has the mouse over the word-changes color
             # for quit
             if quit_rect.collidepoint(mouse):
-                quit_text = custom_font_intro.render("QUIT", True, dry_green)
+                quit_text = custom_font_intro.render("QUIT", True, green)
             else:
                 quit_text = custom_font_intro.render("QUIT", True, deep_black)
 
             # for rules
             if rules_rect.collidepoint(mouse):
-                rules_text = custom_font_intro.render("RULES", True, dry_green)
+                rules_text = custom_font_intro.render("RULES", True, green)
             else:
                 rules_text = custom_font_intro.render("RULES", True, deep_black)
 
             # for settings
             if start_rect.collidepoint(mouse):
-                start_text = custom_font_intro.render("START", True, dry_green)
+                start_text = custom_font_intro.render("START", True, green)
             else:
                 start_text = custom_font_intro.render("START", True, deep_black)
 
             # for credits
             if credits_rect.collidepoint(mouse):
-                credits_text = custom_font_intro.render("CREDITS", True, dry_green)
+                credits_text = custom_font_intro.render("CREDITS", True, green)
             else:
                 credits_text = custom_font_intro.render("CREDITS", True, deep_black)
 
             # for store
             if store_rect.collidepoint(mouse):
-                store_text = custom_font_intro.render("STORE", True, dry_green)
+                store_text = custom_font_intro.render("STORE", True, green)
             else:
                 store_text = custom_font_intro.render("STORE", True, deep_black)
 
@@ -212,8 +206,8 @@ def credits_():
     background_height = background_credits.get_height()
 
     # Calcular as coordenadas para centralizar
-    x = (width - resolution_credits[0]) // 2
-    y = (height - resolution_credits[1]) // 2
+    x = (screen_width - resolution_credits[0]) // 2
+    y = (screen_height - resolution_credits[1]) // 2
 
     # Margem superior dentro da imagem
     margin_top = 100
@@ -266,7 +260,7 @@ def credits_():
                 if back_rect.collidepoint(ev.pos):
                     interface()
             if back_rect.collidepoint(mouse):
-                back_text = poppins.render("BACK", True, dry_green)
+                back_text = poppins.render("BACK", True, green)
             else:
                 back_text = poppins.render("BACK", True, deep_black)
 
@@ -300,71 +294,8 @@ def rules():
     print("???")
 
 
-def settings_():
-    pygame.init()  # calling pygame
-
-    # definições da tela
-    screen = pygame.display.set_mode(screen_resolution)  # show the user something
-    pygame.display.set_caption("Jungle Rex")
-    clock = pygame.time.Clock()
-
-    # letra
-    poppins = pygame.font.SysFont("Poppins-Regular.ttf", 35)
-
-    # text "back"
-    back_text = poppins.render("BACK", True, deep_black)
-    back_of_credits = pygame.image.load("backgroundgame_level/menus_back.png")
-    botao_atras = pygame.image.load("backgroundgame_level/botao_atras_das_palavras.png")
-    back_of_credits_ = pygame.transform.scale(back_of_credits, screen_resolution)
-
-    # retângulo para o butão
-    back_rect = back_text.get_rect(center=(349,440))
-    botao_atras_rect = botao_atras.get_rect(center=(266 + 200 // 2, 493 + 60 // 2))
 
 
-    # main interface loop (will run until the user quits)
-    while True:
-        # filling the screen
-        screen.fill(deep_black)
-
-        # getting the mouse position (future need)
-        mouse = pygame.mouse.get_pos()
-
-        # event detection (future work)
-        for ev in pygame.event.get():
-            # seeing if the user hits the red x button
-            if ev.type == pygame.QUIT:
-                pygame.quit()
-                return
-
-            # clicar no "back"
-            if ev.type == pygame.MOUSEBUTTONDOWN:
-                if back_rect.collidepoint(ev.pos):
-                    return # se clicar volta à página do menu principal
-                # Mudar a cor do botão quando o rato está por cima
-
-            if back_rect.collidepoint(mouse):
-                back_text = poppins.render("BACK", True, dry_green)
-
-            else:
-                back_text = poppins.render("BACK", True, deep_black)
-
-
-
-        #inserir fundo
-        screen.blit(back_of_credits_, (0, 0))
-        # desenhar o botão back
-        screen.blit(botao_atras,botao_atras_rect)
-        screen.blit(back_text, back_rect)
-
-        # update the display so that the loop changes will appear
-        pygame.display.update()
-        # Controlar os FPS
-        clock.tick(fps)
-
-
-def wilderness_explorer():
-    under_construction()
 
 ##    pygame.init()  # calling pygame
 
