@@ -145,6 +145,10 @@ def game_loop():
     # "endless" game loop:
     while True:
         current_state = execute_game(avatar)
-        screen.blit(avatar.generate())
+        screen.blit(avatar.image, (avatar.x, avatar.y))
+        #avatar.jump()
+        avatar.lateral_movement()
+        avatar.fall()
+        avatar.attack()
 
 
