@@ -17,37 +17,79 @@ class Invincibility(pygame.sprite.Sprite):
         self.invincibility_x_spawn = invincibility_x_spawn
         self.invincibility_y_spawn = invincibility_y_spawn
 
-        self.invincibility_image = pygame.image.load(f"images/icons/").convert_alpha()
+        self.invincibility_image = pygame.image.load(f"images/icons/invincibility.png").convert_alpha()
         self.invincibility_image = pygame.transform.scale(self.invincibility_image, game_icons_size)
         self.invincibility_rect = self.invincibility_image.get_rect(topleft=(self.invincibility_x_spawn, self.invincibility_y_spawn))
 
-        self.invincibility_used = False
-        self.invincibility_timer = fps * 4
+        self.invincibility_not_used = True
+        self.invincibility_timer = 0
 
-    def invincibility_icon(self): # criar parametro em get_dameage para nulificar
+    def invincibility_icon(self): 
 
-        if not self.invincibility_used:
+        if self.invincibility_not_used:
             screen.blit(self.invincibility_image, (self.invincibility_x_spawn, self.invincibility_y_spawn))
 
 
-        if avatar.Avatar.rect_avatar.colliderect(self.invincibility_rect): or self.invincibility_in_use:
+        if avatar.Avatar.rect_avatar.colliderect(self.invincibility_rect) and self.invincibility_not_used:
+            self.invincibility_not_used = False
             self.invincibility_timer = fps*4
-
-
-            self.invincibility_in_use = True
-
-        if self.invincibility_in_use is True and self.invincibility_timer > 0:
-            pass
+            avatar.Avatar.invincibility_in_use = True
 
 
 
+        if not self.invincibility_not_used and self.invincibility_timer > 0:
+            self.invincibility_timer -= 1
+
+
+        elif not self.invincibility_not_used and self.invincibility_timer <= 0:
+            avatar.Avatar.invincibility_in_use = False
+            self.kill()
+
+
+
+class Double_jump(pygame.sprite.Sprite):
+    def __init__(self, double_jump_x_spawn, double_jump_y_spawn):
+        super().__init__()
+
+        self.double_jump_x_spawn = double_jump_x_spawn
+        self.double_jump_y_spawn = double_jump_y_spawn
+
+        self.double_jump_image = pygame.image.load(f"images/icons/double_jump.png").convert_alpha()
+        self.double_jump_image = pygame.transform.scale(self.double_jump_image, game_icons_size)
+        self.double_jump_rect = self.double_jump_image.get_rect(topleft=(self.double_jump_x_spawn, self.double_jump_y_spawn))
+
+        self.double_jump_not_used = True
+        self.double_jump_timer = 0
+
+    def double_jump_icon(self):
+        if self.double_jump_not_used:
+            screen.blit(self.double_jump_image, (self.double_jump_x_spawn, self.double_jump_y_spawn))
+
+        if avatar.Avatar.rect_avatar.colliderect(self.double_jump_rect) and self.double_jump_not_used:
+            self.double_jump_not_used = False
+            self.double_jump_timer = fps * 4
+            avatar.Avatar.double_jump_in_use = True  
+
+
+
+        if not self.double_jump_not_used and self.double_jump_timer > 0:
+            self.double_jump_timer -= 1
+
+        elif not self.double_jump_not_used and self.double_jump_timer <= 0:
+            avatar.Avatar.double_jump_in_use = False
+            self.kill()  
+
+
+
+
+
+
+def double_coins_icon(self):
+        pass
+
+class De_spawner(pygame.sprite.Sprite):
 
 
     def de_spawner_icon(self):
         pass
 
-    def double_jump_icon(self): # usar double_jump parameter
-        pass
-
-    def double_coins_icon(self):
-        pass

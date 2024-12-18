@@ -18,7 +18,8 @@ class Avatar(pygame.sprite.Sprite):
 
         self.gravity = 1
         self.jumping = False
-
+        self.invincibility_in_use = False
+        self.double_jump = False
 
 
 
@@ -124,6 +125,10 @@ class Avatar(pygame.sprite.Sprite):
 
         self.rise_timer -= 1
 
+
+    def get_hurt(self, damage):
+        if self.invincibility_in_use:
+            self.health_avatar -= damage
 
 
 
