@@ -81,9 +81,6 @@ def execute_game(avatar):
         # Get the mouse position
         mouse = pygame.mouse.get_pos()
 
-        # Update and draw all sprites
-        all_sprites.update()
-
         # Check if the player is moving
         # keys = pygame.key.get_pressed()
         # if keys[pygame.K_LEFT] or keys[pygame.K_RIGHT]:
@@ -106,8 +103,6 @@ def execute_game(avatar):
         # Draw the world
         world.draw()
 
-        # Draw all sprites
-        #all_sprites.draw(screen)
         # settings image - click
         settings = pygame.image.load("backgroundgame_level/settings_button.png")
 
@@ -125,6 +120,12 @@ def execute_game(avatar):
 
             # showing settings image
         screen.blit(settings, (30, 50))
+
+        # Update and draw all sprites
+        all_sprites.update()
+        all_sprites.draw(screen)  # Ensure all sprites are drawn
+
+        screen.blit(*avatar.generate())  # Ensure the avatar is blitted to the screen
 
         # Update the display
         pygame.display.flip()

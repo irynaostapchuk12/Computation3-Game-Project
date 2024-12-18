@@ -11,7 +11,7 @@ class Avatar(pygame.sprite.Sprite):
         self.x_avatar = x_avatar_spawn
         self.y_avatar = y_avatar_spawn
 
-        self.avatar_image = pygame.image.load(image)
+        self.avatar_image = pygame.image.load(image).convert_alpha()  # Ensure image is loaded correctly
         self.avatar_image = pygame.transform.scale(self.avatar_image, (config.avatar_width, config.avatar_height))
         self.avatar_rect = self.avatar_image.get_rect(topleft=(self.x_avatar, self.y_avatar))
 
@@ -34,18 +34,12 @@ class Avatar(pygame.sprite.Sprite):
         self.sword = weapon.Sword(999, self.x_avatar, self.y_avatar, self.direction_avatar)    # # need to fill it with var necessary
         self.bow_arrow = weapon.BowArrow("images/icons/chest.png", self.x_avatar, self.y_avatar, self.direction_avatar)  # need to fill it with var necessary
 
-
-
-
+    def update(self):
+        # Ensure the avatar's rect is updated with its position
+        self.avatar_rect.topleft = (self.x_avatar, self.y_avatar)
 
     def generate(self):
-
-
         return self.avatar_image, (self.x_avatar, self.y_avatar)
-
-
-
-
 
     def lateral_movement(self, list_of_left_wall=list, list_of_right_wall=list):
         key = pygame.key.get_pressed()

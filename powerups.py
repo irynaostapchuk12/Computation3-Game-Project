@@ -4,10 +4,7 @@ import avatar
 
 
 
-class Powerups(pygame.sprite.Sprite):
-    def __init__(self, powerups_time):
-        super().__init__()
-        self.powerups_time = powerups_time
+
 
 class Invincibility(pygame.sprite.Sprite):
 
@@ -65,7 +62,7 @@ class Double_jump(pygame.sprite.Sprite):
         if self.double_jump_not_used:
             screen.blit(self.double_jump_image, (self.double_jump_x_spawn, self.double_jump_y_spawn))
 
-        if avatar.Avatar.rect_avatar.colliderect(self.double_jump_rect) and self.double_jump_not_used:
+        if avatar.Avatar.avatar_rect.colliderect(self.double_jump_rect) and self.double_jump_not_used:
             self.double_jump_not_used = False
             self.double_jump_timer = fps * 4
             avatar.Avatar.double_jump_in_use = True  
