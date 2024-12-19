@@ -118,7 +118,7 @@ font_size = 45
 custom_font_intro = pygame.font.SysFont("poppins", font_size)
 poppins = pygame.font.SysFont("letere", 40)
 verdana = pygame.font.SysFont("Verdana", 55)
-
+verdana_settings = pygame.font.SysFont("Verdana", 28)
 
 # PRICES
 chest_price = 0
