@@ -11,7 +11,6 @@ pygame.init()  # calling pygame
 store_dict = {
     "others": {
                 "coin": {"image": None},
-                "shop": {"text": None, "position": shop_text_position},
                 "chest": {
                             "image": None,
                             "text": None,
@@ -137,13 +136,13 @@ def get_combined(type, name):
 
 
 
-    combined_width = max(image_width, text_width, coin_width + tag_width)
-    combined_height = image_height + text_height + max(coin_width, tag_width) + 30
+    combined_width = max(image_width, text_width, coin_width + tag_width) + 30
+    combined_height = image_height + text_height + max(coin_width, tag_width) + 40
     combined_surface = pygame.Surface((combined_width + 50, combined_height + 50), pygame.SRCALPHA)
 
 
     wood_board = pygame.image.load(f"images/menus/wood_board.png").convert_alpha()
-    wood_board = pygame.transform.scale(wood_board,(combined_width + 50, combined_height + 70))
+    wood_board = pygame.transform.scale(wood_board,(combined_width + 40, combined_height + 60))
 
     combined_surface.blit(wood_board, (0, 0))
     combined_surface.blit(text, (30, 40))
@@ -152,7 +151,7 @@ def get_combined(type, name):
     combined_surface.blit(coin, (tag_width + 10 + 30, text_height + image_height + 10 + 10 + 40))
     combined_rect = combined_surface.get_rect(topleft=combined_position)
 
-
+    print(combined_height)
 
 
     store_dict[type][name]["text"] = text
@@ -167,7 +166,11 @@ def get_combined(type, name):
     store_dict[type][name]["combined"]["rect"] = combined_rect
 
 
-def shop():
+def store():
+
+
+    pygame.display.set_caption("Store")
+
     scroll_y = 0
     scroll_speed = 1
 
@@ -184,7 +187,6 @@ def shop():
 
 
 
-    store_dict["others"]["shop"]["text"] = corbelfont().render("SHOP", True, white)
     store_dict["others"]["chest"]["text"] = corbelfont().render("CHEST", True, white)
     store_dict["elixir"]["health"]["text"] = corbelfont().render("HEALTH ELIXIR", True, white)
     store_dict["elixir"]["speed"]["text"] = corbelfont().render("SPEED ELIXIR", True, white)
@@ -218,7 +220,6 @@ def shop():
     get_combined("powerup", "double_jump")
     get_combined("powerup", "double_coins")
 
-    store_dict["others"]["shop"]["rect"] = store_dict["others"]["shop"]["text"].get_rect(midtop=shop_text_position)
 
 
 
@@ -258,7 +259,6 @@ def shop():
 
 
 
-        scroll_surface.blit(store_dict["others"]["shop"]["text"], store_dict["others"]["shop"]["rect"] )
         scroll_surface.blit(store_dict["others"]["chest"]["combined"]["surface"], store_dict["others"]["chest"]["combined"]["rect"].topleft)
         scroll_surface.blit(store_dict["elixir"]["health"]["combined"]["surface"], store_dict["elixir"]["health"]["combined"]["rect"].topleft)
         scroll_surface.blit(store_dict["elixir"]["speed"]["combined"]["surface"], store_dict["elixir"]["speed"]["combined"]["rect"].topleft)

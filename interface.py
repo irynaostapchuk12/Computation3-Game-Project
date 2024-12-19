@@ -3,7 +3,7 @@ import pygame.image
 from pygame import mouse
 from game import *
 from config import *  # importing colors and the like
-from store import shop
+from store import store
 from settings import settings_function
 
 
@@ -65,7 +65,7 @@ def interface():
 
             if ev.type == pygame.MOUSEBUTTONDOWN:
                 if store_rect.collidepoint(ev.pos):
-                    shop()
+                    store()
 
 
             # settings button - click

@@ -65,15 +65,13 @@ health_avatar = 0
 
 
 # SHOP POSITIONS
-shop_text_position = (360, 30)
-
 
 # 30 is the padding
 # 50 is the letter
 # 60 for space between rects
 # 30+50+60=140+110=250
-health_elixir_shop_position = (30, 140)
-speed_elixir_shop_position = (390, 140)
+health_elixir_shop_position = (30, 100)
+speed_elixir_shop_position = (390, 100)
 
 # 250 is the previous space
 # 50 is the letter
@@ -82,8 +80,8 @@ speed_elixir_shop_position = (390, 140)
 # 60 is the new space between rects
 # 110 for coin and tag
 # 140+50+300+10+60=560+110=780
-invincibility_powerup_shop_position = (30,670)
-de_spawner_powerup_shop_position = (390,670)
+invincibility_powerup_shop_position = (30,420)
+de_spawner_powerup_shop_position = (390,420)
 
 
 # 670 is previous space
@@ -93,11 +91,11 @@ de_spawner_powerup_shop_position = (390,670)
 # 60 is the new space between rects
 # 110 is coin and tag
 # 560+50+300+10+60=980
-double_jump_powerup_shop_position = (30,1200)
-double_coins_powerup_shop_position = (390,1200)
+double_jump_powerup_shop_position = (30,740)
+double_coins_powerup_shop_position = (390,740)
 
 
-chest_shop_position = (210, 2000)
+chest_shop_position = (210, 1060)
 
 
 
