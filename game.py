@@ -29,8 +29,7 @@ class World:
             col_count = 0
             for tile in row:
                 if tile == 1:
-                    img = pygame.transform.scale(self.platform_for_game,
-                                                 (tile_size, tile_size))  # Load the platform image
+                    img = pygame.transform.scale(self.platform_for_game,(tile_size, tile_size))  # Load the platform image
                     img_rect = img.get_rect()  # Get the rectangle of the platform image
                     img_rect.x = col_count * (tile_size * 0.715)  # Position the platform in the column
                     img_rect.y = row_count * (tile_size * 0.715)  # Position the platform in the row
@@ -61,6 +60,128 @@ world = World()
 fps = 60
 
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+# Classe para as Plataformas
+class Platform(pygame.sprite.Sprite):
+    def __init__(self, x, y, width, height, color=GREEN):
+        super().__init__()
+        self.image = pygame.Surface((width, height))
+        self.image.fill(color)
+        self.rect = self.image.get_rect()
+        self.rect.x = x
+        self.rect.y = y
+
+        self.list_of_left_wall = []
+        self.list_of_right_wall = []
+        self.list_of_roofs = []
+        self.list_of_grounds = []
+
+
+    def get_limits(self):
+
+
+        left_wall = pygame.Rect(self.rect.x, self.rect.y, 0, self.rect.get_height())  # (x=100, y=100, width=200, height=150)
+        right_wall = pygame.Rect(self.rect.x + self.rect.get_width(), self.rect.y, 0, self.rect.get_height())  # (x=100, y=100, width=200, height=150)
+        roof = pygame.Rect,(self.rect.x, self.rect.y, self.rect.get_width(), 0)  # (x=100, y=100, width=200, height=150)
+        ground = pygame.Rect(self.rect.x, self.rect.y + self.rect.get_height(), self.rect.get_width(), 0)  # (x=100, y=100, width=200, height=150)
+
+        self.list_of_left_wall.append(left_wall)
+        self.list_of_right_wall.append(right_wall)
+        self.list_of_roofs.append(roof)
+        self.list_of_grounds.append(ground)
+
+
+
+
+
+
+# Grupo de plataformas
+platforms = pygame.sprite.Group()
+
+# Criar as plataformas
+ground = Platform(0, HEIGHT - 20, WIDTH, 20, GRAY)  # Chão
+platform1 = Platform(200, 600, 200, 20)
+platform2 = Platform(450, 450, 150, 20)
+platform3 = Platform(100, 300, 180, 20)
+platform4 = Platform(350, 150, 200, 20)
+
+list_of_left_wall = []
+list_of_right_wall = []
+list_of_roofs = []
+list_of_grounds = []
+list_of_list = [list_of_left_wall, list_of_right_wall, list_of_roofs, list_of_grounds]
+
+for a in range(4):
+    pre_list = get_walls(eval(f"platform{a+1}"))
+    for b in range(4):
+        list_of_list.append(pre_list[b])
+
+
+
+
+platforms.add(ground, platform1, platform2, platform3, platform4)
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 def execute_game(player):
     # SETUP:
     bigimage = pygame.image.load("backgroundgame_level/background_of_level1.png").convert()
@@ -80,6 +201,14 @@ def execute_game(player):
         all_sprites.update()
         scroll_speed = 0
         # world.update()  # Update the world to scroll platforms
+
+        avatar = Avatar()
+        avatar.update()
+        avatar.lateral_movement()
+        avatar.fall()
+        avatar.jump()
+        avatar.attack()
+
 
         # Check if the player is in the middle of the screen
         if player.rect.centerx > 750 // 2:
@@ -112,7 +241,7 @@ def execute_game(player):
                 running = False
             if event.type == pygame.MOUSEBUTTONDOWN:
                 if settings_rect.collidepoint(event.pos):
-                    Settings_()
+                    settings_function()
 
         pygame.display.flip()
     pygame.display.update()
@@ -150,18 +279,16 @@ def button_when_scroll_stop():
 
 
 def game_loop():
-    # creating the player for the game - only done once :)
-    player = Player()
-
     # by default I start the game in the main area
-    current_state = "main"
+    current_state = "level_1"
 
     # "endless" game loop:
     while True:
-        if current_state == "main":
-            current_state = execute_game(player)
-        elif current_state == "shed":
-            current_state = shed(player)
+        if current_state == "level_1":
+            current_state = execute_game(avatar)
+        elif current_state == "level_2":
+            pass
+            #current_state = shed(avatar)
 
 
 

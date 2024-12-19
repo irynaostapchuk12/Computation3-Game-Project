@@ -31,7 +31,7 @@ resolution_title = (350,350)  #-------------------------------------------------
 resolution_back_jungle = (720, 720)  #------------------------------------------------
 resolution_credits = (600, 600)
 
-scrollable_shop_resolution = (720, 3440)
+scrollable_shop_resolution = (720, 1400)
 scrollable_shop_width = scrollable_shop_resolution[0]
 scrollable_shop_height = scrollable_shop_resolution[1]
 
