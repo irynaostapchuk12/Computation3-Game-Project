@@ -1,8 +1,8 @@
-from interface import *
+from store import *
 
 
 def main():
-    interface()
+    shop()
 
 
 if __name__ == '__main__':

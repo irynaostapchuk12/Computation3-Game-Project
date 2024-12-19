@@ -59,12 +59,12 @@ class Fist:
 
 class BowArrow(pygame.sprite.Sprite):
 
-    def __init__(self, image, x_avatar, y_avatar, direction_avatar):
+    def __init__(self, image, x_avatar, y_avatar, direction):
         super().__init__()
 
         self.x_avatar = x_avatar
         self.y_avatar = y_avatar
-        self.direction_avatar = direction_avatar
+        self.direction = direction
 
 
 
@@ -91,18 +91,18 @@ class BowArrow(pygame.sprite.Sprite):
         self.x_arrow = self.x_arrow_spawn
         self.y_arrow = self.y_arrow_spawn
 
-        self.arrow_rect = self.arrow_image.get_rect(center=(self.x_arrow, self.y_arrow))
+        self.rect = self.image.get_rect(center=(self.x_arrow, self.y_arrow))
 
 
-        if self.direction_avatar: # for the right
-            self.rotated_arrow_image = pygame.transform.rotate(self.arrow_image, self.right_angle)
-            self.rotated_arrow_rect = self.rotated_arrow_image.get_rect(center=self.rotated_arrow_image)
-            screen.blit(self.rotated_arrow_image, self.rotated_arrow_rect)
+        if self.direction: # for the right
+            self.image = pygame.transform.rotate(self.image, self.right_angle)
+            self.rect = self.image.get_rect(center=self.image.center)
+            screen.blit(self.image, self.rect)
 
         else: # for the left
-            self.rotated_arrow_image = pygame.transform.rotate(self.arrow_image, self.left_angle)
-            self.rotated_arrow_rect = self.rotated_arrow_image.get_rect(center=self.rotated_arrow_image.center)
-            screen.blit(self.rotated_arrow_image, self.rotated_arrow_rect)
+            self.image = pygame.transform.rotate(self.image, self.left_angle)
+            self.rect = self.image.get_rect(center=self.image.center)
+            screen.blit(self.image, self.rect)
 
 
     def move_arrow(self):
@@ -113,9 +113,9 @@ class BowArrow(pygame.sprite.Sprite):
 
 
         # in here i need the vars of the screen size
-        if (self.rotated_arrow_rect < 0 or
-            self.rotated_arrow_rect.x > avatar_width or
-            self.rotated_arrow_rect.y < 0 or
-            self.rotated_arrow_rect.y > avatar_height):
+        if (self.rect < 0 or
+            self.rect.x > avatar_width or
+            self.rect.y < 0 or
+            self.rect.y > avatar_height):
             
             self.kill()

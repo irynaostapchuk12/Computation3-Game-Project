@@ -1,6 +1,6 @@
 from config import *
 import pygame
-import Weapon
+import weapon
 import config
 
 

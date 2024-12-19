@@ -41,7 +41,7 @@ fps = 60
 
 
 # SIZES
-shop_image_size = (300, 300)
+shop_image_size = (150, 150)
 coin_shop_image_size = (50, 50)
 
 avatar_size = (50, 100)
@@ -105,11 +105,11 @@ chest_shop_position = (210, 2000)
 
 
 
-
-
-
 #FONT
-corbelfont = pygame.font.SysFont("Corbel", 40)
+def corbelfont(size=20):
+    return pygame.font.SysFont("Corbel", size)
+
+#corbelfont = pygame.font.SysFont("Corbel", 20)
 poppins = pygame.font.Font("fonts/Cocogoose-Classic-Medium-trial.ttf")
 
 # setting the fonts
