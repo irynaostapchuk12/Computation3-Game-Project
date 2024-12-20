@@ -92,7 +92,7 @@ def interface():
                 if settings_rect.collidepoint(ev.pos):
                     settings_function()
 
-                if se
+
 
             # if the user has the mouse over the word-changes color
             # for quit

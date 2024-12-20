@@ -84,14 +84,8 @@ class BowArrow(pygame.sprite.Sprite):
 
 
     def generate_arrow(self):
-
-
-
-        self.x_arrow_spawn = self.x_avatar + (avatar_width // 2)
-        self.y_arrow_spawn = self.y_avatar + (avatar_height // 2)
-
-        self.x_arrow = self.x_arrow_spawn
-        self.y_arrow = self.y_arrow_spawn
+        self.x_arrow = self.x_avatar + (avatar_width // 2)
+        self.y_arrow = self.y_avatar + (avatar_height // 2)
 
         self.rect = self.image.get_rect(center=(self.x_arrow, self.y_arrow))
 
