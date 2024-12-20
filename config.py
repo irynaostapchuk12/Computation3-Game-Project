@@ -59,7 +59,7 @@ game_icons_size = (10,10)
 
 #CHARACTER STATS
 
-speed_avatar = 1
+speed_avatar = 3
 health_avatar = 0
 
 

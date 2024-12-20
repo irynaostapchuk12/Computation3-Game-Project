@@ -1,7 +1,6 @@
 import pygame
 import sys
 from config import *
-from interface import interface
 
 
 
