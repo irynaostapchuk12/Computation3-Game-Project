@@ -1,6 +1,6 @@
 import pygame
 import sys
-from avatar import Avatar
+from character import Avatar
 from settings import settings_function
 from config import *
 
@@ -183,17 +183,7 @@ def execute_game():
 
 
 
-def game_loop():
-    # by default I start the game in the main area
-    current_state = "level_1"
 
-    # "endless" game loop:
-    while True:
-        if current_state == "level_1":
-            current_state = execute_game()
-        elif current_state == "level_2":
-            pass
-            #current_state = shed(avatar)
 
 
 

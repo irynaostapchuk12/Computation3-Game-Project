@@ -1,6 +1,6 @@
 import pygame
 import sys
-from avatar import Avatar
+from character import Avatar
 from settings import settings_function
 from config import *
 from thrid_level import execute_game_third_level
