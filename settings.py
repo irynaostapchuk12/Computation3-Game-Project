@@ -4,6 +4,7 @@ from config import *
 from interface import interface
 
 
+
 def settings_function():
     screen = pygame.display.set_mode(screen_resolution)
 

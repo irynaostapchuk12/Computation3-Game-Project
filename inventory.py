@@ -29,7 +29,7 @@ inventory_dict = {
             }
 
 
-def purchase_item(type, name, quantity, price):
+def purchase_item(type, name, price):
     if price <= inventory_dict["others"]["coin"]:
         inventory_dict[type][name] += 1
         inventory_dict["others"]["coin"] -= price

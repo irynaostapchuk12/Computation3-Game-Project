@@ -31,7 +31,7 @@ resolution_title = (350,350)  #-------------------------------------------------
 resolution_back_jungle = (720, 720)  #------------------------------------------------
 resolution_credits = (600, 600)
 
-scrollable_shop_resolution = (720, 3440)
+scrollable_shop_resolution = (720, 1400)
 scrollable_shop_width = scrollable_shop_resolution[0]
 scrollable_shop_height = scrollable_shop_resolution[1]
 
@@ -41,7 +41,7 @@ fps = 60
 
 
 # SIZES
-shop_image_size = (300, 300)
+shop_image_size = (150, 150)
 coin_shop_image_size = (50, 50)
 
 avatar_size = (50, 100)
@@ -51,7 +51,7 @@ avatar_height = avatar_size[1]
 enemy_size = (40, 40)
 
 
-arrow_size = (10, 10)
+arrow_size = (100, 100)
 
 game_icons_size = (10,10)
 
@@ -59,21 +59,19 @@ game_icons_size = (10,10)
 
 #CHARACTER STATS
 
-speed_avatar = 0
+speed_avatar = 1
 health_avatar = 0
 
 
 
 # SHOP POSITIONS
-shop_text_position = (360, 30)
-
 
 # 30 is the padding
 # 50 is the letter
 # 60 for space between rects
 # 30+50+60=140+110=250
-health_elixir_shop_position = (30, 140)
-speed_elixir_shop_position = (390, 140)
+health_elixir_shop_position = (30, 100)
+speed_elixir_shop_position = (390, 100)
 
 # 250 is the previous space
 # 50 is the letter
@@ -82,8 +80,8 @@ speed_elixir_shop_position = (390, 140)
 # 60 is the new space between rects
 # 110 for coin and tag
 # 140+50+300+10+60=560+110=780
-invincibility_powerup_shop_position = (30,670)
-de_spawner_powerup_shop_position = (390,670)
+invincibility_powerup_shop_position = (30,420)
+de_spawner_powerup_shop_position = (390,420)
 
 
 # 670 is previous space
@@ -93,14 +91,11 @@ de_spawner_powerup_shop_position = (390,670)
 # 60 is the new space between rects
 # 110 is coin and tag
 # 560+50+300+10+60=980
-double_jump_powerup_shop_position = (30,1200)
-double_coins_powerup_shop_position = (390,1200)
+double_jump_powerup_shop_position = (30,740)
+double_coins_powerup_shop_position = (390,740)
 
 
-chest_shop_position = (210, 2000)
-
-
-
+chest_shop_position = (210, 1060)
 
 
 
@@ -109,7 +104,10 @@ chest_shop_position = (210, 2000)
 
 
 #FONT
-corbelfont = pygame.font.SysFont("Corbel", 40)
+def corbelfont(size=20):
+    return pygame.font.SysFont("Corbel", size)
+
+#corbelfont = pygame.font.SysFont("Corbel", 20)
 poppins = pygame.font.Font("fonts/Cocogoose-Classic-Medium-trial.ttf")
 
 # setting the fonts
