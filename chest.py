@@ -24,7 +24,7 @@ def chest():
         for ev in pygame.event.get():
             if ev.type == pygame.MOUSEBUTTONDOWN:
                 if chest_rect.collidepoint(ev.pos):
-                    screen.blit(card, card_rect)
+                    chest = card
 
         screen.blit(background, (0,0))
         screen.blit(chest, chest_rect)

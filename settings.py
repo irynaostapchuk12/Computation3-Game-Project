@@ -1,7 +1,6 @@
 import pygame
 import sys
 from config import *
-from interface import interface
 
 
 
@@ -87,8 +86,8 @@ def settings_function():
                     pygame.mixer.music.set_volume(music_volume)  # Normalize for Pygame
 
                 # BACK
-                if back_board_rect.collidepoint(ev.pos):
-                    interface()
+                #if back_board_rect.collidepoint(ev.pos):
+                    #interface()
 
         # BRIGHTNESS level bar
         br_level_index = (brightness_level - min_brightness) // brightness_step
