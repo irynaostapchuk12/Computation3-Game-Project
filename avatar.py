@@ -39,7 +39,7 @@ class Avatar(pygame.sprite.Sprite):
         self.rect.topleft = (self.x, self.y)
 
 
-    def lateral_movement(self, list_of_left_wall=list, list_of_right_wall=list):
+    def lateral_movement(self, list_of_left_wall, list_of_right_wall):
         key = pygame.key.get_pressed()
 
         collided_left_wall = False
@@ -83,7 +83,7 @@ class Avatar(pygame.sprite.Sprite):
 
 
 
-    def jump(self, double_jump, list_of_roofs=list):
+    def jump(self, double_jump, list_of_roofs):
         key = pygame.key.get_pressed()
 
         collided_roof = False
