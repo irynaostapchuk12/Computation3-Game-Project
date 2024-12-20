@@ -51,7 +51,7 @@ avatar_height = avatar_size[1]
 enemy_size = (40, 40)
 
 
-arrow_size = (10, 10)
+arrow_size = (100, 100)
 
 game_icons_size = (10,10)
 
@@ -59,7 +59,7 @@ game_icons_size = (10,10)
 
 #CHARACTER STATS
 
-speed_avatar = 0
+speed_avatar = 1
 health_avatar = 0
 
 

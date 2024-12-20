@@ -59,12 +59,14 @@ class Fist:
 
 class BowArrow(pygame.sprite.Sprite):
 
-    def __init__(self, image, x_avatar, y_avatar, direction):
+    def __init__(self, image, x_avatar, y_avatar, direction, screen):
         super().__init__()
 
         self.x_avatar = x_avatar
         self.y_avatar = y_avatar
         self.direction = direction
+
+        self.screen = screen
 
 
 
@@ -96,24 +98,25 @@ class BowArrow(pygame.sprite.Sprite):
 
         if self.direction: # for the right
             self.image = pygame.transform.rotate(self.image, self.right_angle)
-            self.rect = self.image.get_rect(center=self.image.center)
-            screen.blit(self.image, self.rect)
+            self.rect = self.image.get_rect(center=self.rect.center)
+            self.screen.blit(self.image, self.rect)
+
 
         else: # for the left
             self.image = pygame.transform.rotate(self.image, self.left_angle)
-            self.rect = self.image.get_rect(center=self.image.center)
-            screen.blit(self.image, self.rect)
+            self.rect = self.image.get_rect(center=self.rect.center)
+            self.screen.blit(self.image, self.rect)
+        print("generate")
 
 
     def move_arrow(self):
 
-        self.x_arrow += int(self.speed * math.cos(self.direction_avatar))
-        self.y_arrow += int(self.speed * math.sin(self.direction_avatar))
+        self.x_arrow += int(self.speed * math.cos(self.direction))
 
 
 
         # in here i need the vars of the screen size
-        if (self.rect < 0 or
+        if (self.rect.x < 0 or
             self.rect.x > avatar_width or
             self.rect.y < 0 or
             self.rect.y > avatar_height):

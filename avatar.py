@@ -16,10 +16,13 @@ class Avatar(pygame.sprite.Sprite):
         self.rect = self.image.get_rect(topleft=(self.x, self.y))
 
 
-        self.gravity = 1
+        self.gravity = 2
         self.jumping = False
         self.invincibility_in_use = False
         self.double_jump = False
+
+        self.rise_timer = 0
+        self.in_ground = True
 
 
 
@@ -32,12 +35,15 @@ class Avatar(pygame.sprite.Sprite):
         self.current_weapon = "sword"
 
         self.sword = weapon.Sword(999, self.x, self.y, self.direction)    # # need to fill it with var necessary
-        self.bow_arrow = weapon.BowArrow("images/icons/chest.png", self.x, self.y, self.direction)  # need to fill it with var necessary
+        self.bow_arrow = weapon.BowArrow("images/weapon/Weapon_Arrow.png", self.x, self.y, self.direction, screen)  # need to fill it with var necessary
 
-    def update(self):
-        # Ensure the avatar's rect is updated with its position
+    def update(self, list_of_left_wall, list_of_right_wall, list_of_grounds, double_jump, list_of_roofs):
+        self.lateral_movement(list_of_left_wall, list_of_right_wall)
+        self.fall(list_of_grounds)
+        self.jump(double_jump, list_of_roofs)
+        self.attack()
+
         self.rect.topleft = (self.x, self.y)
-
 
     def lateral_movement(self, list_of_left_wall, list_of_right_wall):
         key = pygame.key.get_pressed()
@@ -59,14 +65,20 @@ class Avatar(pygame.sprite.Sprite):
         if key[pygame.K_LEFT] and self.x > 0 and not collided_left_wall:
             self.x -= self.speed
             self.direction_avatar = False
+            print(self.x)
 
-        if key[pygame.K_RIGHT] and self.x < 720 and not collided_right_wall:
+
+        elif key[pygame.K_RIGHT] and self.x < 720 and not collided_right_wall:
             self.x += self.speed
             self.direction = True
+            print(self.x)
 
 
-    def fall(self, list_of_grounds=list):
+
+
+    def fall(self, list_of_grounds):
         collided_ground = False
+
 
         for ground in list_of_grounds:
             if self.rect.colliderect(ground):
@@ -80,9 +92,6 @@ class Avatar(pygame.sprite.Sprite):
 
         else:
             self.in_ground = True
-
-
-
     def jump(self, double_jump, list_of_roofs):
         key = pygame.key.get_pressed()
 
@@ -102,10 +111,11 @@ class Avatar(pygame.sprite.Sprite):
             Avatar.jump(self, False, list_of_roofs)
 
         elif self.jumping and self.rise_timer > 0:
-            self.y += self.gravity*2
+            self.y -= self.gravity*2
 
         if self.rise_timer <= 0 or collided_roof:
             self.rise_timer = 0
+            self.jumping = False
 
 
 
@@ -120,18 +130,14 @@ class Avatar(pygame.sprite.Sprite):
         if self.invincibility_in_use:
             self.health -= damage
 
-
-
     def attack(self):
         key = pygame.key.get_pressed()
 
-
         if key[pygame.K_SPACE]:  # attack
-
             if self.current_weapon == "bow and arrow":
                 self.bow_arrow.generate_arrow()
                 self.bow_arrow.move_arrow()
-
+                print("space")
 
             if self.current_weapon == "sword":
                 self.sword.attack_area()
@@ -139,6 +145,7 @@ class Avatar(pygame.sprite.Sprite):
 
         if key[pygame.K_a]:       # switch to bow and arrow
             self.current_weapon = "bow and arrow"
+            print("arrow")
 
         if key[pygame.K_s]:      # switch to sword
             self.current_weapon = "sword"

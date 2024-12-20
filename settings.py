@@ -3,6 +3,7 @@ import sys
 from config import *
 
 
+
 def settings_function():
     screen = pygame.display.set_mode(screen_resolution)
 

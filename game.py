@@ -54,10 +54,10 @@ class World:
 
         for tile in self.tile_list:
             self.rect = tile[1]
-            left_wall = pygame.Rect(self.rect.x, self.rect.y, 0, self.rect.height)  # (x=100, y=100, width=200, height=150)
-            right_wall = pygame.Rect(self.rect.x + self.rect.width, self.rect.y, 0, self.rect.height)  # (x=100, y=100, width=200, height=150)
-            roof = pygame.Rect, (self.rect.x, self.rect.y, self.rect.width, 0)  # (x=100, y=100, width=200, height=150)
-            ground = pygame.Rect(self.rect.x, self.rect.y + self.rect.height, self.rect.width,0)  # (x=100, y=100, width=200, height=150)
+            left_wall = pygame.Rect(self.rect.x, self.rect.y + 80, 1, self.rect.height)  # (x=100, y=100, width=200, height=150)
+            right_wall = pygame.Rect(self.rect.x + self.rect.width, self.rect.y +80, 1, self.rect.height)  # (x=100, y=100, width=200, height=150)
+            roof = pygame.Rect(self.rect.x, self.rect.y + self.rect.height, self.rect.width, 1)  # (x=100, y=100, width=200, height=150)
+            ground = pygame.Rect(self.rect.x, self.rect.y + 70, self.rect.width, 1)  # (x=100, y=100, width=200, height=150)
 
             self.list_of_left_wall.append(left_wall)
             self.list_of_right_wall.append(right_wall)
@@ -98,7 +98,7 @@ def execute_game():
     bg_x = 0
     bg_width = bigimage.get_width()
 
-    avatar = Avatar(0, 0, "images/avatar/JungleRex (1).png", screen)
+    avatar = Avatar(40, 0, "images/avatar/JungleRex (1).png", bigimage)
 
     all_sprites = pygame.sprite.Group()
     all_sprites.add(avatar)
@@ -106,15 +106,12 @@ def execute_game():
     while running:
         clock.tick(fps)  # Control frame rate
         mouse = pygame.mouse.get_pos()
-        all_sprites.update()
+        all_sprites.update(list_of_left_wall, list_of_right_wall, list_of_grounds, double_jump, list_of_roofs)
         scroll_speed = 0
         # world.update()  # Update the world to scroll platforms
 
-        avatar.update()
-        avatar.lateral_movement(list_of_left_wall, list_of_right_wall)
-        avatar.fall(list_of_grounds)
-        avatar.jump(double_jump, list_of_roofs)
-        avatar.attack()
+
+
 
 
         # Check if the player is in the middle of the screen
@@ -137,6 +134,7 @@ def execute_game():
         screen.blit(bigimage, (bg_x, -125))  # Draw the background
         world.draw(scroll_speed)  # Draw the platforms
         all_sprites.draw(screen)  # Draw the player
+
 
         # setting the settings button
         settings = pygame.image.load("backgroundgame_level/settings_button.png")
