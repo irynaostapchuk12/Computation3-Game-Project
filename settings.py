@@ -1,16 +1,24 @@
 import pygame
 import sys
 from config import *
+from interface import interface
 
 
 def settings_function():
     screen = pygame.display.set_mode(screen_resolution)
 
+    # BACKGROUND
     background = pygame.image.load("backgroundgame_level/menus_back.png")
     background = pygame.transform.scale(background, screen_resolution)
 
     settings_menu = pygame.image.load("images/menus/settings_menu.png").convert_alpha()
     settings_menu_rect = settings_menu.get_rect(center= (360, 360))
+
+    # BACK BUTTON
+    back_board = pygame.image.load("images/menus/wooden_board_2.png").convert_alpha()
+    back_board_rect = back_board.get_rect(center = (360, 550))
+
+    back_text = verdana_settings.render("Back", True, deep_black)
 
     # BRIGHTNESS
     brightness_text = verdana_settings.render("Brightness", True, deep_black)
@@ -53,7 +61,7 @@ def settings_function():
     min_vol = 0
     max_vol = 5
 
-    # Clock for controlling frame rate
+
     clock = pygame.time.Clock()
 
 
@@ -63,17 +71,23 @@ def settings_function():
 
         for ev in pygame.event.get():
             if ev.type == pygame.MOUSEBUTTONDOWN:
+                #BRIGHTNESS
                 if add_br_button_rect.collidepoint(ev.pos):
                     brightness_level = min(brightness_level + brightness_step, 255)
                 if subtract_br_button_rect.collidepoint(ev.pos):
                     brightness_level = max(brightness_level - brightness_step, min_brightness)
 
+                # VOLUME
                 if add_vol_button_rect.collidepoint(ev.pos):
                     music_volume = min(music_volume + volume_step, max_vol)
                     pygame.mixer.music.set_volume(music_volume)
                 if subtract_vol_button_rect.collidepoint(ev.pos):
                     music_volume = max(music_volume - volume_step, min_vol)
                     pygame.mixer.music.set_volume(music_volume)  # Normalize for Pygame
+
+                # BACK
+                if back_board_rect.collidepoint(ev.pos):
+                    interface()
 
         # BRIGHTNESS level bar
         br_level_index = (brightness_level - min_brightness) // brightness_step
@@ -98,7 +112,10 @@ def settings_function():
         screen.blit(add_vol_button, add_vol_button_rect)
         screen.blit(subtract_vol_button, subtract_vol_button_rect)
 
-        # Draw bat image
+        # BACK
+        screen.blit(back_text, back_board_rect)
+
+        # Draw level bar image
         screen.blit(br_level_image, br_level_image_rect)
         screen.blit(vol_level_image, vol_level_image_rect)
 
