@@ -15,25 +15,36 @@ class Avatar(pygame.sprite.Sprite):
         self.image = pygame.transform.scale(self.image, (config.avatar_width, config.avatar_height))
         self.rect = self.image.get_rect(topleft=(self.x, self.y))
 
-
+        # gravity and movement attributes
         self.gravity = 2
         self.jumping = False
         self.invincibility_in_use = False
         self.double_jump = False
-
         self.rise_timer = 0
         self.in_ground = True
 
-
-
         self.speed = config.speed_avatar
         self.health = config.health_avatar
-
-
         self.direction = True  # true if it is to the right
-
         self.current_weapon = "sword"
 
+        # load animation frames
+        self.run_1 = pygame.image.load("run_1.png").convert_alpha()
+        self.run_1 = pygame.transform.scale(self.run_1, (config.avatar_width, config.avatar_height))
+
+        self.run_2 = pygame.image.load("run_2.png").convert_alpha()
+        self.run_2 = pygame.transform.scale(self.run_2, (config.avatar_width, config.avatar_height))
+
+        self.stopped = pygame.image.load("stopped.png").convert_alpha()
+        self.stopped = pygame.transform.scale(self.stopped, (config.avatar_width, config.avatar_height))
+
+        # animation control variables
+        self.animation_timer = 0
+        self.animation_interval = 500  # 500ms between frame switches
+        self.current_frame = 0  # 0 for run_1, 1 for run_2
+        self.is_moving = False
+
+        # weapons        
         self.sword = weapon.Sword(999, self.x, self.y, self.direction)    # # need to fill it with var necessary
         self.bow_arrow = weapon.BowArrow("images/weapon/Weapon_Arrow.png", self.x, self.y, self.direction, screen)  # need to fill it with var necessary
 
@@ -42,6 +53,7 @@ class Avatar(pygame.sprite.Sprite):
         self.fall(list_of_grounds)
         self.jump(double_jump, list_of_roofs)
         self.attack()
+        self.animate()
 
         self.rect.topleft = (self.x, self.y)
 
@@ -60,8 +72,6 @@ class Avatar(pygame.sprite.Sprite):
                 collided_right_wall = True
                 break
 
-
-
         if key[pygame.K_LEFT] and self.x > 0 and not collided_left_wall:
             self.x -= self.speed
             self.direction_avatar = False
@@ -73,7 +83,20 @@ class Avatar(pygame.sprite.Sprite):
             self.direction = True
             print(self.x)
 
+    def animate(self):
+        current_time = pygame.time.get_ticks()
 
+        if self.is_moving:
+            # switching frames every 500ms
+            if current_time - self.animation_timer > self.animation_interval:
+                self.animation_timer = current_time
+                self.current_frame = 1 - self.current_frame  # Toggle between 0 and 1
+
+            # updating the image based on the current frame
+            self.image = self.run_1 if self.current_frame == 0 else self.run_2
+        else:
+            # stopped image when not moving
+            self.image = self.stopped
 
 
     def fall(self, list_of_grounds):
@@ -92,6 +115,8 @@ class Avatar(pygame.sprite.Sprite):
 
         else:
             self.in_ground = True
+
+    
     def jump(self, double_jump, list_of_roofs):
         key = pygame.key.get_pressed()
 
@@ -116,8 +141,6 @@ class Avatar(pygame.sprite.Sprite):
         if self.rise_timer <= 0 or collided_roof:
             self.rise_timer = 0
             self.jumping = False
-
-
 
         if self.in_ground:
             collided_roof = False
