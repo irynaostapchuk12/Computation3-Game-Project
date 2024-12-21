@@ -1,11 +1,12 @@
 from config import *
 import pygame
+from weapon import *
 
 
 class Enemy(pygame.sprite.Sprite):
-    def __init__(self, enemy_x, enemy_y, enemy_width, enemy_height, color):
+    def __init__(self, x, y, width, height, color, skin):
         super().__init__()
-        self.image = pygame.Surface((enemy_width, enemy_height))
+        self.image = pygame.Surface(width, height)
         self.image.fill(color)
         self.rect = self.image.get_rect(topleft=(enemy_x, enemy_y))
         self.color = color
@@ -14,6 +15,7 @@ class Vampire(Enemy):
     def __init__(self, x, y):
         super().__init__(x, y, 50, 50, VAMPIRE_COLOR)
         self.last_bullet_time = 0
+
 
     def shoot_bat(self, bats_group):
         now = pygame.time.get_ticks()

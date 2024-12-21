@@ -61,39 +61,30 @@ def interface():
             if ev.type == pygame.QUIT:
                 pygame.quit()
 
-            # JungleRex button - START
-            if ev.type == pygame.MOUSEBUTTONDOWN:
-                if start_rect.collidepoint(ev.pos):
-                    game_loop()
-
-            if ev.type == pygame.MOUSEBUTTONDOWN:
-                if store_rect.collidepoint(ev.pos):
-                    store()
-
-
-            # settings button - click
-            # if ev.type == pygame.MOUSEBUTTONDOWN:
-            #   if start_rect.collidepoint(ev.pos):
-            #      under_construction()
-
-            # rules button - click
-            if ev.type == pygame.MOUSEBUTTONDOWN:
-                if rules_rect.collidepoint(ev.pos):
-                    pass
-            # credits button - click
-            if ev.type == pygame.MOUSEBUTTONDOWN:
-                if credits_rect.collidepoint(ev.pos):
-                    credits_()
-
             # quit button - click
             if ev.type == pygame.MOUSEBUTTONDOWN:
                 if quit_rect.collidepoint(ev.pos):
                     pygame.quit()
 
-            # settings image - click
-            if ev.type == pygame.MOUSEBUTTONDOWN:
+
+                # JungleRex button - START
+                if start_rect.collidepoint(ev.pos):
+                    return "level_1"
+
+                if store_rect.collidepoint(ev.pos):
+                    return "store"
+
+                # rules button - click
+                if rules_rect.collidepoint(ev.pos):
+                    return "rules"
+
+                # credits button - click
+                if credits_rect.collidepoint(ev.pos):
+                    return "credits"
+
+                # settings image - click
                 if settings_rect.collidepoint(ev.pos):
-                    settings.run()
+                    return "settings"
 
 
 

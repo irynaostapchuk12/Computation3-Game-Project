@@ -1,26 +1,29 @@
 from config import *
 import pygame
-from characters import weapon
+from weapons import *
 import config
 
 
 class Avatar(pygame.sprite.Sprite):
-    def __init__(self, x_avatar_spawn, y_avatar_spawn, screen, skin):
+    def __init__(self, screen, x=0, y=0, skin="JungleRex"):
         super().__init__()
 
-        self.x = x_avatar_spawn
-        self.y = y_avatar_spawn
+        self.screen = screen
 
-
-        self.samurai_1, self.samurai_2, self.samurai_stop = self.load_skin(skin, "sword")# load animation frames
+        self.x = x
+        self.y = y
+        self.samurai_1, self.samurai_2, self.samurai_stop = self.load_skin(skin, "sword")  # load animation frames
         self.archery_1, self.archery_2, self.archery_stop = self.load_skin(skin, "Archery")
 
         self.rect = self.image.get_rect(topleft=(self.x, self.y))
 
+        self.image = None
+
+
         # gravity and movement attributes
         self.gravity = 2
         self.jumping = False
-        self.invincibility_in_use = False
+        self.invincibility_not_used = False
         self.double_jump = False
         self.rise_timer = 0
         self.in_ground = True
@@ -41,24 +44,26 @@ class Avatar(pygame.sprite.Sprite):
         self.is_moving = False
 
         # weapons        
-        self.sword = weapon.Sword(999, self.x, self.y, self.direction)    # # need to fill it with var necessary
-        self.bow_arrow = weapon.BowArrow("images/weapon/Weapon_Arrow.png", self.x, self.y, self.direction, screen)  # need to fill it with var necessary
+        self.sword = Sword(999, self.x, self.y, self.direction)    # # need to fill it with var necessary
+        self.bow_arrow = BowArrow("images/weapon/Weapon_Arrow.png", screen)  # need to fill it with var necessary
 
     def update(self, list_of_left_wall, list_of_right_wall, list_of_grounds, double_jump, list_of_roofs):
         self.lateral_movement(list_of_left_wall, list_of_right_wall)
         self.fall(list_of_grounds)
         self.jump(double_jump, list_of_roofs)
         self.attack()
-        self.animate()
 
         self.rect.topleft = (self.x, self.y)
 
+    def generate(self, x, y, skin):
+        self.x = x
+        self.y = y
+        self.samurai_1, self.samurai_2, self.samurai_stop = self.load_skin(skin, "sword")  # load animation frames
+        self.archery_1, self.archery_2, self.archery_stop = self.load_skin(skin, "Archery")
 
-    def generate(self):
-        pass
+        self.rect = self.image.get_rect(topleft=(self.x, self.y))
 
-
-
+        self.screen.blit(self.image, (self.x, self.y))
 
     def load_skin(self, skin, weapon):
         run_1 = pygame.image.load(f"images/{skin}_{weapon} (1).png").convert_alpha()
@@ -71,7 +76,6 @@ class Avatar(pygame.sprite.Sprite):
         stopped = pygame.transform.scale(stopped, (config.avatar_width, config.avatar_height))
 
         return run_1, run_2, stopped
-
 
     def animate(self, image_1, image_2, image_stop):
         current_time = pygame.time.get_ticks()
@@ -88,8 +92,6 @@ class Avatar(pygame.sprite.Sprite):
         else:
             # stopped image when not moving
             self.image = image_stop
-
-
 
     def lateral_movement(self, list_of_left_wall, list_of_right_wall):
         key = pygame.key.get_pressed()
@@ -123,9 +125,6 @@ class Avatar(pygame.sprite.Sprite):
         elif self.current_weapon == "bow and arrow":
             self.animate(self.archery_1, self.archery_2, self.archery_stop)
 
-
-
-
     def fall(self, list_of_grounds):
         collided_ground = False
 
@@ -143,7 +142,6 @@ class Avatar(pygame.sprite.Sprite):
         else:
             self.in_ground = True
 
-    
     def jump(self, double_jump, list_of_roofs):
         key = pygame.key.get_pressed()
 
@@ -175,19 +173,20 @@ class Avatar(pygame.sprite.Sprite):
 
         self.rise_timer -= 1
 
-
     def get_hurt(self, damage):
-        if self.invincibility_in_use:
+        if self.invincibility_not_used:
             self.health -= damage
+
+            if self.health <= 0:
+                self.kill()
 
     def attack(self):
         key = pygame.key.get_pressed()
 
         if key[pygame.K_SPACE]:  # attack
             if self.current_weapon == "bow and arrow":
-                self.bow_arrow.generate_arrow()
+                self.bow_arrow.generate_arrow(self.x, self.y, self.direction)
                 self.bow_arrow.move_arrow()
-                print("space")
 
             if self.current_weapon == "sword":
                 self.sword.attack_area()
@@ -195,7 +194,6 @@ class Avatar(pygame.sprite.Sprite):
 
         if key[pygame.K_a]:       # switch to bow and arrow
             self.current_weapon = "bow and arrow"
-            print("arrow")
 
         if key[pygame.K_s]:      # switch to sword
             self.current_weapon = "sword"

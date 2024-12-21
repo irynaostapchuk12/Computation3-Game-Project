@@ -23,7 +23,7 @@ class Invincibility(pygame.sprite.Sprite):
             screen.blit(self.invincibility_image, (self.invincibility_x_spawn, self.invincibility_y_spawn))
 
 
-        if avatar.Avatar.rect_avatar.colliderect(self.invincibility_rect) and self.invincibility_not_used:
+        if avatar.Avatar.rect.colliderect(self.invincibility_rect) and self.invincibility_not_used:
             self.invincibility_not_used = False
             self.invincibility_timer = fps*4
             avatar.Avatar.invincibility_in_use = True

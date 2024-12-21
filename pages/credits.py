@@ -103,7 +103,7 @@ def credits_():
                 sys.exit()
             if ev.type == pygame.MOUSEBUTTONDOWN:
                 if back_rect.collidepoint(ev.pos):
-                    interface()
+                    return "interface"
             if back_rect.collidepoint(mouse):
                 back_text = poppins.render("BACK", True, green)
             else:
