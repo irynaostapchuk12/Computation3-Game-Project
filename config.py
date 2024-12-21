@@ -41,9 +41,9 @@ fps = 60
 
 
 # SIZES
-shop_image_size = (150, 150)
-coin_shop_image_size = (50, 50)
-
+chest_image_size = (150, 150)
+coin_shop_image_size = (20, 20)
+double_coins_image_size = (190, 144)
 avatar_size = (50, 100)
 avatar_width = avatar_size[0]
 avatar_height = avatar_size[1]
@@ -117,6 +117,7 @@ custom_font_intro = pygame.font.SysFont("poppins", font_size)
 poppins = pygame.font.SysFont("letere", 40)
 verdana = pygame.font.SysFont("Verdana", 55)
 verdana_settings = pygame.font.SysFont("Verdana", 28)
+verdana_store = pygame.font.SysFont("Verdana", 20)
 
 # PRICES
 chest_price = 0
