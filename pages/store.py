@@ -138,17 +138,26 @@ def get_combined(type, name):
 
     combined_width = max(image_width, text_width, coin_width + tag_width) + 30
     combined_height = image_height + text_height + max(coin_width, tag_width) + 40
-    combined_surface = pygame.Surface((combined_width + 50, combined_height + 50), pygame.SRCALPHA)
+    combined_surface = pygame.Surface((combined_width + 90, combined_height + 90), pygame.SRCALPHA)
 
 
+<<<<<<< Updated upstream:pages/store.py
     wood_board = pygame.image.load(f"../images/menus/wood_board.png").convert_alpha()
     wood_board = pygame.transform.scale(wood_board,(combined_width + 40, combined_height + 60))
+=======
+    wood_board = pygame.image.load(f"images/menus/wood_board.png").convert_alpha()
+    #wood_board = pygame.transform.scale(wood_board,(combined_width + 40, combined_height + 60))
+>>>>>>> Stashed changes:store.py
 
-    combined_surface.blit(wood_board, (0, 0))
-    combined_surface.blit(text, (30, 40))
-    combined_surface.blit(image, (30, text_height + 10 + 40))
-    combined_surface.blit(tag, (30, text_height + image_height + 10 + 10 + 40))
-    combined_surface.blit(coin, (tag_width + 10 + 30, text_height + image_height + 10 + 10 + 40))
+    # to center the boards
+    #wood_board_x = (combined_surface.get_width() - wood_board.get_width()) // 2
+    #wood_board_y = (combined_surface.get_height() - wood_board.get_height()) // 2
+
+    combined_surface.blit(wood_board, (25, 0))
+    combined_surface.blit(text, (60, 40))
+    combined_surface.blit(image, (75, text_height + 10 + 40))
+    combined_surface.blit(tag, (60, text_height + image_height + 10 + 10 + 26))
+    combined_surface.blit(coin, (tag_width + 10 +55, text_height + image_height + 10 + 38 ))
     combined_rect = combined_surface.get_rect(topleft=combined_position)
 
     print(combined_height)
@@ -181,36 +190,40 @@ def store():
 
 
 
+<<<<<<< Updated upstream:pages/store.py
     background_image_shop = pygame.image.load(f"../images/backgrounds/back_of_credits.jpg").convert_alpha()
+=======
+    background_image_shop = pygame.image.load(f"images/menus/menus_back.png").convert_alpha()
+>>>>>>> Stashed changes:store.py
     background_image_shop = pygame.transform.scale(background_image_shop, screen_resolution)
 
 
 
 
-    store_dict["others"]["chest"]["text"] = corbelfont().render("CHEST", True, white)
-    store_dict["elixir"]["health"]["text"] = corbelfont().render("HEALTH ELIXIR", True, white)
-    store_dict["elixir"]["speed"]["text"] = corbelfont().render("SPEED ELIXIR", True, white)
-    store_dict["powerup"]["invincibility"]["text"] = corbelfont().render("INVINCIBILITY", True, white)
-    store_dict["powerup"]["de_spawner"]["text"] = corbelfont().render("DE-SPAWNER", True, white)
-    store_dict["powerup"]["double_jump"]["text"] = corbelfont().render("DOUBLE JUMP", True, white)
-    store_dict["powerup"]["double_coins"]["text"] = corbelfont().render("DOUBLE COINS", True, white)
+    store_dict["others"]["chest"]["text"] = verdana_store.render("CHEST", True, white)
+    store_dict["elixir"]["health"]["text"] = verdana_store.render("HEALTH ELIXIR", True, white)
+    store_dict["elixir"]["speed"]["text"] = verdana_store.render("SPEED ELIXIR", True, white)
+    store_dict["powerup"]["invincibility"]["text"] = verdana_store.render("INVINCIBILITY", True, white)
+    store_dict["powerup"]["de_spawner"]["text"] = verdana_store.render("DE-SPAWNER", True, white)
+    store_dict["powerup"]["double_jump"]["text"] = verdana_store.render("DOUBLE JUMP", True, white)
+    store_dict["powerup"]["double_coins"]["text"] = verdana_store.render("DOUBLE COINS", True, white)
 
-    store_dict["others"]["chest"]["tag"] = corbelfont(50).render(f"{chest_price}", True, white)
-    store_dict["elixir"]["health"]["tag"] = corbelfont(50).render(f"{health_elixir_price}", True, white)
-    store_dict["elixir"]["speed"]["tag"] = corbelfont(50).render(f"{speed_elixir_price}", True, white)
-    store_dict["powerup"]["invincibility"]["tag"] = corbelfont(50).render(f"{invincibility_powerup_price}", True, white)
-    store_dict["powerup"]["de_spawner"]["tag"] = corbelfont(50).render(f"{de_spawner_powerup_price}", True, white)
-    store_dict["powerup"]["double_jump"]["tag"] = corbelfont(50).render(f"{double_jump_powerup_price}", True, white)
-    store_dict["powerup"]["double_coins"]["tag"] = corbelfont(50).render(f"{double_coins_powerup_price}", True, white)
+    store_dict["others"]["chest"]["tag"] = verdana_store.render(f"{chest_price}", True, white)
+    store_dict["elixir"]["health"]["tag"] = verdana_store.render(f"{health_elixir_price}", True, white)
+    store_dict["elixir"]["speed"]["tag"] = verdana_store.render(f"{speed_elixir_price}", True, white)
+    store_dict["powerup"]["invincibility"]["tag"] = verdana_store.render(f"{invincibility_powerup_price}", True, white)
+    store_dict["powerup"]["de_spawner"]["tag"] = verdana_store.render(f"{de_spawner_powerup_price}", True, white)
+    store_dict["powerup"]["double_jump"]["tag"] = verdana_store.render(f"{double_jump_powerup_price}", True, white)
+    store_dict["powerup"]["double_coins"]["tag"] = verdana_store.render(f"{double_coins_powerup_price}", True, white)
 
     get_image("others", "coin", "coin.png", coin_shop_image_size)
-    get_image("others", "chest", "chest.png", shop_image_size)
-    get_image("elixir", "health", "chest.png", shop_image_size)
-    get_image("elixir", "speed", "chest.png", shop_image_size)
-    get_image("powerup", "invincibility", "chest.png", shop_image_size)
-    get_image("powerup", "de_spawner", "chest.png", shop_image_size)
-    get_image("powerup", "double_jump", "double_jump.png", shop_image_size)
-    get_image("powerup", "double_coins", "double_coins.png", shop_image_size)
+    get_image("others", "chest", "chest.png", (150, 105))
+    get_image("elixir", "health", "heart+1.png", (180, 122))
+    get_image("elixir", "speed", "blue_potion.png", (100, 144))
+    get_image("powerup", "invincibility", "invincibility.png", (150, 151))
+    get_image("powerup", "de_spawner", "yellow_potion.png", (100, 148))
+    get_image("powerup", "double_jump", "double_jump.png", (120, 120))
+    get_image("powerup", "double_coins", "double_coins.png", (120, 120))
 
     get_combined("others", "chest")
     get_combined("elixir", "health")
