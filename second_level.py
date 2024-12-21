@@ -1,11 +1,4 @@
-import pygame
-import sys
-from avatar import Avatar
-from settings import settings_function
 from config import *
-from thrid_level import execute_game_third_level
-
-
 
 # define the tile size
 tile_size = 150

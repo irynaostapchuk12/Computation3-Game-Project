@@ -1,9 +1,5 @@
-import pygame
 from config import *
-import avatar
-
-
-
+from characters import avatar
 
 
 class Invincibility(pygame.sprite.Sprite):
@@ -14,7 +10,7 @@ class Invincibility(pygame.sprite.Sprite):
         self.invincibility_x_spawn = invincibility_x_spawn
         self.invincibility_y_spawn = invincibility_y_spawn
 
-        self.invincibility_image = pygame.image.load(f"images/icons/invincibility.png").convert_alpha()
+        self.invincibility_image = pygame.image.load(f"../images/icons/invincibility.png").convert_alpha()
         self.invincibility_image = pygame.transform.scale(self.invincibility_image, game_icons_size)
         self.invincibility_rect = self.invincibility_image.get_rect(topleft=(self.invincibility_x_spawn, self.invincibility_y_spawn))
 
@@ -51,7 +47,7 @@ class Double_jump(pygame.sprite.Sprite):
         self.double_jump_x_spawn = double_jump_x_spawn
         self.double_jump_y_spawn = double_jump_y_spawn
 
-        self.double_jump_image = pygame.image.load(f"images/icons/double_jump.png").convert_alpha()
+        self.double_jump_image = pygame.image.load(f"../images/icons/double_jump.png").convert_alpha()
         self.double_jump_image = pygame.transform.scale(self.double_jump_image, game_icons_size)
         self.double_jump_rect = self.double_jump_image.get_rect(topleft=(self.double_jump_x_spawn, self.double_jump_y_spawn))
 

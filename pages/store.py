@@ -141,7 +141,7 @@ def get_combined(type, name):
     combined_surface = pygame.Surface((combined_width + 50, combined_height + 50), pygame.SRCALPHA)
 
 
-    wood_board = pygame.image.load(f"images/menus/wood_board.png").convert_alpha()
+    wood_board = pygame.image.load(f"../images/menus/wood_board.png").convert_alpha()
     wood_board = pygame.transform.scale(wood_board,(combined_width + 40, combined_height + 60))
 
     combined_surface.blit(wood_board, (0, 0))
@@ -181,7 +181,7 @@ def store():
 
 
 
-    background_image_shop = pygame.image.load(f"images/backgrounds/back_of_credits.jpg").convert_alpha()
+    background_image_shop = pygame.image.load(f"../images/backgrounds/back_of_credits.jpg").convert_alpha()
     background_image_shop = pygame.transform.scale(background_image_shop, screen_resolution)
 
 

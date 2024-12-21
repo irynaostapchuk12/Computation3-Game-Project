@@ -1,4 +1,4 @@
-from interface import *
+from pages.interface import *
 
 
 def main():

@@ -1,6 +1,6 @@
 from config import *
 import pygame
-import weapon
+from characters import weapon
 import config
 
 

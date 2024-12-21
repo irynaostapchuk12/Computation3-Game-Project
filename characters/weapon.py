@@ -11,11 +11,8 @@
 #direction
 
 
-import pygame
 import math
 from config import *
-import avatar
-
 
 
 class Sword:

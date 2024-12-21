@@ -1,9 +1,6 @@
-
-import pygame
-import sys
 from player import Player
 from shed import shed
-from settings import Settings_
+from pages.settings import Settings_
 from config import *
 
 

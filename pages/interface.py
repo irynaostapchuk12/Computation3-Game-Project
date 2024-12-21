@@ -1,11 +1,9 @@
-import sys
 import pygame.image
 from pygame import mouse
 from game import *
 from config import *  # importing colors and the like
 from store import store
 from settings import Settings
-from chest import chest
 
 
 def interface():
@@ -19,9 +17,9 @@ def interface():
     screen = pygame.display.set_mode(screen_resolution)  # show the user something
 
     # Carregar a imagem e redimensionar
-    imagem_inicial = pygame.image.load("backgroundgame_level/principal_page_menu_segundatentativa.png")
+    imagem_inicial = pygame.image.load("../backgroundgame_level/principal_page_menu_segundatentativa.png")
     imagem_inicial = pygame.transform.scale(imagem_inicial, screen_resolution)
-    settings_icon = pygame.image.load("backgroundgame_level/settings_button.png")
+    settings_icon = pygame.image.load("../backgroundgame_level/settings_button.png")
     # load image for background levels
     # image_level_one  = pygame.image.load("backgroundgame_level/background_of_level1.png").convert()
 
@@ -171,9 +169,9 @@ def interface():
 # Under construction screen
 def credits_():
     # setting up the background and the screen
-    back_of_credits = pygame.image.load("backgroundgame_level/menus_back.png")
-    background_credits = pygame.image.load("backgroundgame_level/credits_on_back.png")
-    botao_atras = pygame.image.load("backgroundgame_level/botao_atras_das_palavras.png")
+    back_of_credits = pygame.image.load("../backgroundgame_level/menus_back.png")
+    background_credits = pygame.image.load("../backgroundgame_level/credits_on_back.png")
+    botao_atras = pygame.image.load("../backgroundgame_level/botao_atras_das_palavras.png")
 
     # scaling the background image into our selected resolution
     back_of_credits = pygame.transform.scale(back_of_credits, resolution_back_jungle)
