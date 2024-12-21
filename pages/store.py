@@ -142,8 +142,13 @@ def get_combined(type, name):
 
 
 <<<<<<< Updated upstream:pages/store.py
+<<<<<<< Updated upstream:pages/store.py
     wood_board = pygame.image.load(f"../images/menus/wood_board.png").convert_alpha()
     wood_board = pygame.transform.scale(wood_board,(combined_width + 40, combined_height + 60))
+=======
+    wood_board = pygame.image.load(f"images/menus/wood_board.png").convert_alpha()
+    #wood_board = pygame.transform.scale(wood_board,(combined_width + 40, combined_height + 60))
+>>>>>>> Stashed changes:store.py
 =======
     wood_board = pygame.image.load(f"images/menus/wood_board.png").convert_alpha()
     #wood_board = pygame.transform.scale(wood_board,(combined_width + 40, combined_height + 60))
@@ -191,7 +196,11 @@ def store():
 
 
 <<<<<<< Updated upstream:pages/store.py
+<<<<<<< Updated upstream:pages/store.py
     background_image_shop = pygame.image.load(f"../images/backgrounds/back_of_credits.jpg").convert_alpha()
+=======
+    background_image_shop = pygame.image.load(f"images/menus/menus_back.png").convert_alpha()
+>>>>>>> Stashed changes:store.py
 =======
     background_image_shop = pygame.image.load(f"images/menus/menus_back.png").convert_alpha()
 >>>>>>> Stashed changes:store.py
