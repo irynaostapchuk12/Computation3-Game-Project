@@ -4,11 +4,16 @@ from pygame import mouse
 from game import *
 from config import *  # importing colors and the like
 from store import store
-from settings import settings_function
+from settings import Settings
+from chest import chest
 
 
 def interface():
     pygame.init()  # calling pygame
+
+    settings = Settings()
+
+    #settings_instance = settings.Settings()
 
     # creating the screen at the set resolution
     screen = pygame.display.set_mode(screen_resolution)  # show the user something
@@ -16,7 +21,7 @@ def interface():
     # Carregar a imagem e redimensionar
     imagem_inicial = pygame.image.load("backgroundgame_level/principal_page_menu_segundatentativa.png")
     imagem_inicial = pygame.transform.scale(imagem_inicial, screen_resolution)
-    settings = pygame.image.load("backgroundgame_level/settings_button.png")
+    settings_icon = pygame.image.load("backgroundgame_level/settings_button.png")
     # load image for background levels
     # image_level_one  = pygame.image.load("backgroundgame_level/background_of_level1.png").convert()
 
@@ -44,7 +49,7 @@ def interface():
     rules_rect = rules_text.get_rect(center=(266 + 200 // 2, 420 + 60 // 2))  # text centered in the button
     credits_rect = credits_text.get_rect(center=(266 + 200 // 2, 493 + 60 // 2))  # text centered in the button
     quit_rect = quit_text.get_rect(center=(266 + 200 // 2, 565 + 60 // 2))  # text centered in the button
-    settings_rect = settings.get_rect(topleft=(30, 50))  # position ajusted
+    settings_rect = settings_icon.get_rect(topleft=(30, 50))  # position ajusted
 
     # main interface loop (will run until the user quits)
     while True:
@@ -90,7 +95,7 @@ def interface():
             # settings image - click
             if ev.type == pygame.MOUSEBUTTONDOWN:
                 if settings_rect.collidepoint(ev.pos):
-                    settings_function()
+                    settings.run()
 
 
 
@@ -136,7 +141,7 @@ def interface():
         screen.blit(game_name_text, game_name_rect)
 
         # showing settings image
-        screen.blit(settings, (30, 50))
+        screen.blit(settings_icon, (30, 50))
 
         # rules button
         screen.blit(rules_text, rules_rect)
