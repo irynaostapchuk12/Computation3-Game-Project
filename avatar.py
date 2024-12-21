@@ -5,14 +5,16 @@ import config
 
 
 class Avatar(pygame.sprite.Sprite):
-    def __init__(self, x_avatar_spawn, y_avatar_spawn, image, screen):
+    def __init__(self, x_avatar_spawn, y_avatar_spawn, screen, skin):
         super().__init__()
 
         self.x = x_avatar_spawn
         self.y = y_avatar_spawn
 
-        self.image = pygame.image.load(image).convert_alpha()  # Ensure image is loaded correctly
-        self.image = pygame.transform.scale(self.image, (config.avatar_width, config.avatar_height))
+
+        self.samurai_1, self.samurai_2, self.samurai_stop = self.load_skin(skin, "sword")# load animation frames
+        self.archery_1, self.archery_2, self.archery_stop = self.load_skin(skin, "Archery")
+
         self.rect = self.image.get_rect(topleft=(self.x, self.y))
 
         # gravity and movement attributes
@@ -28,15 +30,9 @@ class Avatar(pygame.sprite.Sprite):
         self.direction = True  # true if it is to the right
         self.current_weapon = "sword"
 
-        # load animation frames
-        self.run_1 = pygame.image.load("run_1.png").convert_alpha()
-        self.run_1 = pygame.transform.scale(self.run_1, (config.avatar_width, config.avatar_height))
 
-        self.run_2 = pygame.image.load("run_2.png").convert_alpha()
-        self.run_2 = pygame.transform.scale(self.run_2, (config.avatar_width, config.avatar_height))
 
-        self.stopped = pygame.image.load("stopped.png").convert_alpha()
-        self.stopped = pygame.transform.scale(self.stopped, (config.avatar_width, config.avatar_height))
+
 
         # animation control variables
         self.animation_timer = 0
@@ -57,6 +53,44 @@ class Avatar(pygame.sprite.Sprite):
 
         self.rect.topleft = (self.x, self.y)
 
+
+    def generate(self):
+        pass
+
+
+
+
+    def load_skin(self, skin, weapon):
+        run_1 = pygame.image.load(f"images/{skin}_{weapon} (1).png").convert_alpha()
+        run_1 = pygame.transform.scale(run_1, (config.avatar_width, config.avatar_height))
+
+        run_2 = pygame.image.load(f"images/{skin}_{weapon} (2).png").convert_alpha()
+        run_2 = pygame.transform.scale(run_2, (config.avatar_width, config.avatar_height))
+
+        stopped = pygame.image.load(f"images/{skin}_{weapon} (3).png").convert_alpha()
+        stopped = pygame.transform.scale(stopped, (config.avatar_width, config.avatar_height))
+
+        return run_1, run_2, stopped
+
+
+    def animate(self, image_1, image_2, image_stop):
+        current_time = pygame.time.get_ticks()
+
+
+        if self.is_moving:
+            # switching frames every 500ms
+            if current_time - self.animation_timer > self.animation_interval:
+                self.animation_timer = current_time
+                self.current_frame = 1 - self.current_frame  # Toggle between 0 and 1
+
+            # updating the image based on the current frame
+            self.image = image_1 if self.current_frame == 0 else image_2
+        else:
+            # stopped image when not moving
+            self.image = image_stop
+
+
+
     def lateral_movement(self, list_of_left_wall, list_of_right_wall):
         key = pygame.key.get_pressed()
 
@@ -75,28 +109,21 @@ class Avatar(pygame.sprite.Sprite):
         if key[pygame.K_LEFT] and self.x > 0 and not collided_left_wall:
             self.x -= self.speed
             self.direction_avatar = False
-            print(self.x)
+            self.is_moving = True
 
 
         elif key[pygame.K_RIGHT] and self.x < 720 and not collided_right_wall:
             self.x += self.speed
             self.direction = True
-            print(self.x)
+            self.is_moving = True
 
-    def animate(self):
-        current_time = pygame.time.get_ticks()
+        if self.current_weapon == "sword":
+            self.animate(self.samurai_1, self.samurai_2, self.samurai_stop)
 
-        if self.is_moving:
-            # switching frames every 500ms
-            if current_time - self.animation_timer > self.animation_interval:
-                self.animation_timer = current_time
-                self.current_frame = 1 - self.current_frame  # Toggle between 0 and 1
+        elif self.current_weapon == "bow and arrow":
+            self.animate(self.archery_1, self.archery_2, self.archery_stop)
 
-            # updating the image based on the current frame
-            self.image = self.run_1 if self.current_frame == 0 else self.run_2
-        else:
-            # stopped image when not moving
-            self.image = self.stopped
+
 
 
     def fall(self, list_of_grounds):
