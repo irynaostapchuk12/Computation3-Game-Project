@@ -1,8 +1,8 @@
-from pages.interface import *
+from game_loop import *
 
 
 def main():
-    interface()
+    game_loop()
 
 
 if __name__ == '__main__':

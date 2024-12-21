@@ -2,6 +2,77 @@ from config import *
 from characters import avatar
 
 
+class Powerup(pygame.sprite.Sprite):
+    def __init__(self, x, y, powerup, screen):
+        super().__init__()
+
+        self.x = x
+        self.y = y
+
+        self.screen = screen
+
+        self.image = pygame.image.load(f"images/icons/{powerup}.png").convert_alpha()
+        self.image = pygame.transform.scale(self.image, game_icons_size)
+        self.rect = self.image.get_rect(topleft=(self.x, self.y))
+
+        self.invincibility_not_used = True
+        self.invincibility_timer = 0
+
+    def invincibility_icon(self):
+
+        if self.invincibility_not_used:
+            self.screen.blit(self.image, (self.x, self.y))
+
+
+        if avatar.Avatar.rect.colliderect(self.rect) and self.invincibility_not_used:
+            self.invincibility_not_used = False
+            self.invincibility_timer = fps*4
+            avatar.Avatar.invincibility_in_use = True
+
+
+
+        if not self.invincibility_not_used and self.invincibility_timer > 0:
+            self.invincibility_timer -= 1
+
+
+        elif not self.invincibility_not_used and self.invincibility_timer <= 0:
+            avatar.Avatar.invincibility_in_use = False
+            self.kill()
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 class Invincibility(pygame.sprite.Sprite):
 
     def __init__(self, invincibility_x_spawn, invincibility_y_spawn):
