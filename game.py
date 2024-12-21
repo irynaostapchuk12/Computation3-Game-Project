@@ -178,19 +178,3 @@ def execute_game():
     pygame.display.update()
 
 
-
-
-def game_loop():
-    # by default I start the game in the main area
-    current_state = "level_1"
-
-    # "endless" game loop:
-    while True:
-        if current_state == "level_1":
-            current_state = execute_game()
-        elif current_state == "level_2":
-            pass
-            #current_state = shed(avatar)
-
-
-
