@@ -4,11 +4,8 @@ from pygame import mouse
 from game import *
 from config import *  # importing colors and the like
 from store import store
-<<<<<<< Updated upstream
 from settings import Settings
-=======
 from chest import chest
->>>>>>> Stashed changes
 
 
 def interface():
@@ -98,12 +95,8 @@ def interface():
             # settings image - click
             if ev.type == pygame.MOUSEBUTTONDOWN:
                 if settings_rect.collidepoint(ev.pos):
-<<<<<<< Updated upstream
                     settings.run()
-=======
-                    chest()
 
->>>>>>> Stashed changes
 
 
             # if the user has the mouse over the word-changes color
