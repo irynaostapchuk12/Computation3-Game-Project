@@ -1,7 +1,7 @@
 import pygame
 import sys
 from avatar import Avatar
-from settings import settings_function
+from settings import Settings
 from config import *
 
 # from second_level import execute_game_second_level
