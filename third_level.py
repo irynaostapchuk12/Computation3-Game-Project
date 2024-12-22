@@ -184,7 +184,7 @@ def execute_game_levelthree():
                 scroll_speed = -avatar.speed
             else:
                 scroll_speed = 0  # Para o movimento se o fundo atingir o limite direito
-                the_end_of_game()
+                button_when_scroll_stop_levelthree(screen)
         elif keys[pygame.K_LEFT]:
             if avatar.rect.x > 100:  # Limita o avatar ao lado esquerdo da tela
                 avatar.rect.x -= avatar.speed
