@@ -4,8 +4,8 @@ from characters import *
 from items import *
 from pages import *
 from config import *
-
-
+from second_level import *
+from third_level import *
 
 def game_loop():
     # by default I start the game in the main area
@@ -35,10 +35,10 @@ def game_loop():
             current_state = execute_game()
 
         elif current_state == "level_2":
-            current_state = execute_game()
+            current_state = execute_game_second_level()
 
         elif current_state == "level_3":
-            current_state = execute_game()
+            current_state = execute_game_third_level()
 
 
 

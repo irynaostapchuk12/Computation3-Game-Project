@@ -1,5 +1,6 @@
 from config import *
-
+from avatar import Avatar
+import game_loop # this is the file that contains the game loop
 # define the tile size
 tile_size = 150
 fps = 60
@@ -80,18 +81,19 @@ list_of_grounds = world.list_of_grounds
 
 
 
-def execute_game_second_level(player):
+def execute_game_second_level():
     # SETUP:
     bigimage = pygame.image.load("images/backgrounds/background_of_level2.png").convert()
     clock = pygame.time.Clock()
     pygame.display.set_caption("Jungle Rex")
+    avatar = Avatar(screen, 40, 0, "JungleRex")
 
     running = True
     bg_x = 0
     bg_width = bigimage.get_width()
 
     all_sprites = pygame.sprite.Group()
-    all_sprites.add(player)
+    all_sprites.add(avatar)
 
     while running:
         clock.tick(fps)  # Control frame rate
@@ -101,20 +103,20 @@ def execute_game_second_level(player):
         # world.update()  # Update the world to scroll platforms
 
         # Check if the player is in the middle of the screen
-        if player.rect.centerx > 750 // 2:
+        if avatar.rect.centerx > 750 // 2:
             # Ensure scrolling stops when the background reaches its extremity
             if bg_x > -(bg_width - screen.get_width()):  # Limit scroll to the image width
-                scroll_speed -= player.speed  # Scroll the platforms
-                bg_x -= player.speed  # Scroll the background
-                player.rect.centerx = 750 // 2  # Keep player in the center of the screen
+                scroll_speed -= avatar.speed  # Scroll the platforms
+                bg_x -= avatar.speed  # Scroll the background
+                avatar.rect.centerx = 750 // 2  # Keep player in the center of the screen
             else:
                 scroll_speed = 0  # Stop scrolling completely
                 button_when_scroll_stop_leveltwo()
-        elif player.rect.centerx < 750 // 2 and bg_x < 0:
+        elif avatar.rect.centerx < 750 // 2 and bg_x < 0:
             # Allow scrolling back when the player moves left
-            scroll_speed += player.speed  # Scroll the platforms back
-            bg_x += player.speed  # Scroll the background back
-            player.rect.centerx = 750 // 2  # Keep player in the center of the screen
+            scroll_speed += avatar.speed  # Scroll the platforms back
+            bg_x += avatar.speed  # Scroll the background back
+            avatar.rect.centerx = 750 // 2  # Keep player in the center of the screen
 
         screen.blit(bigimage, (bg_x, -125))  # Draw the background
         world.draw(scroll_speed)  # Draw the platforms
@@ -130,7 +132,7 @@ def execute_game_second_level(player):
                 running = False
             if event.type == pygame.MOUSEBUTTONDOWN:
                 if settings_rect.collidepoint(event.pos):
-                    Settings_()
+                    current_state = "settings"
 
         pygame.display.flip()
     pygame.display.update()
@@ -156,7 +158,7 @@ def button_when_scroll_stop_leveltwo():
 
             if ev.type == pygame.MOUSEBUTTONDOWN:
                 if button_rect.collidepoint(ev.pos):
-                    execute_game_second_level()
+                    current_state = "level_two"
 
             if button_rect.collidepoint(mouse):
                 button_text = poppins.render("CLICK HERE TO NEXT LEVEL", True, (255, 255, 255))
@@ -165,21 +167,5 @@ def button_when_scroll_stop_leveltwo():
 
         screen.blit(button_text, button_rect)
         pygame.display.update()
-
-
-def game_loop():
-    # creating the player for the game - only done once :)
-    player = Player()
-
-    # by default I start the game in the main area
-    current_state = "main"
-
-    # "endless" game loop:
-    while True:
-        if current_state == "main":
-            current_state = execute_game_second_level(player)
-        elif current_state == "shed":
-            current_state = shed(player)
-
 
 

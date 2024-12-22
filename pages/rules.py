@@ -5,8 +5,8 @@ import sys
 
 def rules():
     screen = pygame.display.set_mode(screen_resolution)
-    background = pygame.image.load("images/backgrounds/back_of_credits.jpg")
-
+    background = pygame.image.load("backgroundgame_level/menus_back.png")
+    final_background = pygame.transform.scale(background, screen_resolution)
     back_text = corbelfont().render("back", True, white)
 
     rule_images = [
@@ -57,7 +57,7 @@ def rules():
             if keys[pygame.K_RIGHT] and rule_index < len(rule_images) - 1:
                 rule_index += 1
 
-        screen.blit(background, (0, 0))
+        screen.blit(final_background, (0, 0))
         screen.blit(rule_images[rule_index], (0, 0))
         screen.blit(botao_atras, botao_atras_rect)
         screen.blit(back_text, back_rect)
