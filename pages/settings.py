@@ -49,6 +49,12 @@ class Settings:
         self.brightness_step = 51
         self.min_brightness = 51
 
+
+
+        self.clock = pygame.time.Clock()
+
+
+    def play(self):
         # Music control variables
         pygame.mixer.init()
         pygame.mixer.music.load("sounds/Ian Post - Super Duper.mp3")  # Replace with your music file path
@@ -58,8 +64,6 @@ class Settings:
         self.volume_step = 1
         self.min_vol = 0
         self.max_vol = 5
-
-        self.clock = pygame.time.Clock()
 
     def run(self):
         while True:

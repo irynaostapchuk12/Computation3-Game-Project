@@ -11,6 +11,7 @@ def game_loop():
     # by default I start the game in the main area
     current_state = "interface"
     settings = Settings()
+    settings.play()
 
     # "endless" game loop:
     while True:
