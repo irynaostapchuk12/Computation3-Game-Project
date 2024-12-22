@@ -21,11 +21,12 @@ class Powerup(pygame.sprite.Sprite):
 
         self.timer = 0
 
-    def icon(self):
+    def generate(self):
 
         if self.unused:
             self.screen.blit(self.image, (self.x, self.y))
 
+    def use(self):
         if pygame.sprite.spritecollideany(self, self.avatar) and self.unused:
             self.unused = False
             self.timer = fps*4

@@ -1,9 +1,10 @@
+import weapons
 from config import *
 import pygame
 from weapon import *
 
 class Skeleton(pygame.sprite.Sprite):
-    def __init__(self, x, y, left_side_platform=0, right_side_platform=720):
+    def __init__(self, x, y, avatar, left_side_platform=0, right_side_platform=720):
         super().__init__()
         self.speed = 1
 
@@ -25,6 +26,9 @@ class Skeleton(pygame.sprite.Sprite):
         self.animation_interval = 500  # 500ms between frame switches
         self.current_frame = 0  # 0 for run_1, 1 for run_2
         self.is_moving = False
+
+        self.bone = weapons.Sword(999, self.x, self.y, self.direction)
+        self.avatar = avatar
 
 
     def load_skin(self, skin):
@@ -80,8 +84,17 @@ class Skeleton(pygame.sprite.Sprite):
             self.direction = False
 
 
+    def attack(self):
+        if ((self.avatar.y > self.y + self.rect.height or
+             self.avatar.y < self.y) and
+            (self.avatar.x < self.x and not self.direction or
+             self.avatar.x > self.x and self.direction)):
+
+            return self.bone.attack_area()
+
 
     def update(self, left_side_platform=0, right_side_platform=720):
         self.movement()
         self.animate(self.skeleton_1, self.skeleton_2, self.skeleton_stopped)
+        self.attack()
 

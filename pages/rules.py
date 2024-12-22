@@ -8,7 +8,6 @@ def rules():
     background = pygame.image.load("images/backgrounds/back_of_credits.jpg")
 
     back_text = corbelfont().render("back", True, white)
-    back_rect = back_text.get_rect(center=(360,360))
 
     rule_images = [
         pygame.image.load('images/menus/rule_1.png'),
@@ -23,33 +22,33 @@ def rules():
     botao_atras = pygame.image.load("backgroundgame_level/botao_atras_das_palavras.png")
     back_text = custom_font.render("BACK", True , deep_black)
 
-    botao_atras_rect = botao_atras.get_rect(center=(278 + 200 // 2, 540 + 60 // 2))
-    back_rect = back_text.get_rect(center=(355, 487))
+    botao_atras_rect = botao_atras.get_rect(center=(375, 750))
+    back_rect = back_text.get_rect(center=(350, 665))
 
 
-
+#239, 300
+#355, 487
     rule_index = 0
 
 
     while True:
 
-
+        mouse = pygame.mouse.get_pos()
 
         for ev in pygame.event.get():
             if ev.type == pygame.QUIT:
                 pygame.quit()
 
-            mouse = pygame.mouse.get_pos()
 
             # rules button
             if ev.type == pygame.MOUSEBUTTONDOWN:
-                    if back_rect.collidepoint(ev.pos):
-                        return "interface"
+                if back_rect.collidepoint(ev.pos):
+                    return "interface"
 
-                    if back_rect.collidepoint(mouse):
-                        back_text = poppins.render("BACK", True, green)
-                    else:
-                        back_text = poppins.render("BACK", True, deep_black)
+            if back_rect.collidepoint(mouse):
+                back_text = poppins.render("BACK", True, green)
+            else:
+                back_text = poppins.render("BACK", True, deep_black)
 
             keys = pygame.key.get_pressed()
             if keys[pygame.K_LEFT] and rule_index > 0:
@@ -60,6 +59,8 @@ def rules():
 
         screen.blit(background, (0, 0))
         screen.blit(rule_images[rule_index], (0, 0))
+        screen.blit(botao_atras, botao_atras_rect)
         screen.blit(back_text, back_rect)
+
 
         pygame.display.update()

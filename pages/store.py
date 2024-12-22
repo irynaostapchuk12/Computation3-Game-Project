@@ -1,11 +1,9 @@
 import pygame
 
-#from game import execute_game
 from config import *  # importing colors and the like
-
+from items.inventory import *
 import sys
 
-pygame.init()  # calling pygame
 
 
 store_dict = {
@@ -144,10 +142,6 @@ def get_combined(type, name):
 
     wood_board = pygame.image.load(f"images/menus/wood_board.png").convert_alpha()
     wood_board = pygame.transform.scale(wood_board,(combined_width + 40, combined_height + 60))
-    wood_board = pygame.image.load(f"images/menus/wood_board.png").convert_alpha()
-    #wood_board = pygame.transform.scale(wood_board,(combined_width + 40, combined_height + 60))
-    wood_board = pygame.image.load(f"images/menus/wood_board.png").convert_alpha()
-    #wood_board = pygame.transform.scale(wood_board,(combined_width + 40, combined_height + 60))
 
     # to center the boards
     #wood_board_x = (combined_surface.get_width() - wood_board.get_width()) // 2
@@ -213,6 +207,7 @@ def store():
     store_dict["powerup"]["de_spawner"]["tag"] = verdana_store.render(f"{de_spawner_powerup_price}", True, white)
     store_dict["powerup"]["double_jump"]["tag"] = verdana_store.render(f"{double_jump_powerup_price}", True, white)
     store_dict["powerup"]["double_coins"]["tag"] = verdana_store.render(f"{double_coins_powerup_price}", True, white)
+    my_coins_text = verdana_store.render(f"{inventory_dict['others']['coin']}", True, white)
 
     get_image("others", "coin", "coin.png", coin_shop_image_size)
     get_image("others", "chest", "chest.png", (150, 105))
@@ -231,9 +226,12 @@ def store():
     get_combined("powerup", "double_jump")
     get_combined("powerup", "double_coins")
 
-
-
-
+    combined_width = store_dict["others"]["coin"]["image"].get_width() + my_coins_text.get_width() + 10
+    combined_height = max(store_dict["others"]["coin"]["image"].get_height(), my_coins_text.get_height()) + 10
+    combined_surface = pygame.Surface((combined_width, combined_height), pygame.SRCALPHA)
+    combined_surface.blit(my_coins_text, (0, 0))
+    combined_surface.blit(store_dict["others"]["coin"]["image"], (my_coins_text.get_width() + 10, 0))
+    combined_rect = combined_surface.get_rect(topleft=(0, 0))
     while True:
 
         # getting the mouse position
@@ -248,24 +246,31 @@ def store():
 
             if ev.type == pygame.MOUSEBUTTONDOWN:
                 if store_dict["elixir"]["health"]["combined"]["rect"].collidepoint(mouse):  # Check if mouse is inside the box
+                    purchase_item("elixir", "health", health_elixir_price)
                     print("Box clicked!")
 
                 if store_dict["elixir"]["speed"]["combined"]["rect"].collidepoint(mouse):  # Check if mouse is inside the box
+                    purchase_item("elixir", "speed", speed_elixir_price)
                     print("Box clicked!")
 
                 if store_dict["powerup"]["invincibility"]["combined"]["rect"].collidepoint(mouse):  # Check if mouse is inside the box
+                    purchase_item("powerup", "invincibility", invincibility_powerup_price)
                     print("Box clicked!")
 
                 if store_dict["powerup"]["de_spawner"]["combined"]["rect"].collidepoint(mouse):  # Check if mouse is inside the box
+                    purchase_item("powerup", "de_spawner", de_spawner_powerup_price)
                     print("Box clicked!")
 
                 if store_dict["powerup"]["double_jump"]["combined"]["rect"].collidepoint(mouse):  # Check if mouse is inside the box
+                    purchase_item("powerup", "double_jump", double_jump_powerup_price)
                     print("Box clicked!")
 
                 if store_dict["powerup"]["double_coins"]["combined"]["rect"].collidepoint(mouse):  # Check if mouse is inside the box
+                    purchase_item("powerup", "double_coins", double_coins_powerup_price)
                     print("Box clicked!")
 
                 if store_dict["others"]["chest"]["combined"]["rect"].collidepoint(mouse):  # Check if mouse is inside the box
+                    purchase_item("others", "chest", chest_price)
                     print("Box clicked!")
 
 
@@ -277,7 +282,7 @@ def store():
         scroll_surface.blit(store_dict["powerup"]["de_spawner"]["combined"]["surface"], store_dict["powerup"]["de_spawner"]["combined"]["rect"].topleft)
         scroll_surface.blit(store_dict["powerup"]["double_jump"]["combined"]["surface"], store_dict["powerup"]["double_jump"]["combined"]["rect"].topleft)
         scroll_surface.blit(store_dict["powerup"]["double_coins"]["combined"]["surface"], store_dict["powerup"]["double_coins"]["combined"]["rect"].topleft)
-
+        scroll_surface.blit(my_coins_text, (combined_rect.topleft))
 
         keys = pygame.key.get_pressed()
         if keys[pygame.K_UP]:

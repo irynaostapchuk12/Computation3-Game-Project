@@ -51,6 +51,7 @@ def purchase_item(type, name, price):
 def use_item(type, name):
     if inventory_dict[type][name] >= 1:
         inventory_dict[type][name] -= 1
+
         print("used an item")
 
     else:
