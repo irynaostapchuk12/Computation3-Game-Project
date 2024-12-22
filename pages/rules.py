@@ -8,17 +8,28 @@ def rules():
     background = pygame.image.load("images/backgrounds/back_of_credits.jpg")
 
     back_text = corbelfont().render("back", True, white)
-    back_rect = back_text.get_rect(center=(355,487))
+    back_rect = back_text.get_rect(center=(360,360))
 
     rule_images = [
         pygame.image.load('images/menus/rule_1.png'),
         pygame.image.load('images/menus/rule_2.png'),
         pygame.image.load('images/menus/rule_3.png'),
     ]
+    rule_images[0] = pygame.transform.scale(rule_images[0], rule_board_size)
+    rule_images[1] = pygame.transform.scale(rule_images[1], rule_board_size)
+    rule_images[2] = pygame.transform.scale(rule_images[2], rule_board_size)
+
+
+    botao_atras = pygame.image.load("backgroundgame_level/botao_atras_das_palavras.png")
+    back_text = custom_font.render("BACK", True , deep_black)
+
+    botao_atras_rect = botao_atras.get_rect(center=(278 + 200 // 2, 540 + 60 // 2))
+    back_rect = back_text.get_rect(center=(355, 487))
+
+
+
     rule_index = 0
 
-    mouse = pygame.mouse.get_pos()
-    keys = pygame.key.get_pressed()
 
     while True:
 
@@ -28,16 +39,19 @@ def rules():
             if ev.type == pygame.QUIT:
                 pygame.quit()
 
+            mouse = pygame.mouse.get_pos()
+
             # rules button
             if ev.type == pygame.MOUSEBUTTONDOWN:
-                if 90 <= mouse[0] <= 230 and 480 <= mouse[1] <= 540:
-                    return "interface"
+                    if back_rect.collidepoint(ev.pos):
+                        return "interface"
 
-                if back_rect.collidepoint(mouse):
-                    back_text = corbelfont().render("BACK", True, green)
-                else:
-                    back_text = corbelfont().render("BACK", True, deep_black)
+                    if back_rect.collidepoint(mouse):
+                        back_text = poppins.render("BACK", True, green)
+                    else:
+                        back_text = poppins.render("BACK", True, deep_black)
 
+            keys = pygame.key.get_pressed()
             if keys[pygame.K_LEFT] and rule_index > 0:
                 rule_index -= 1
 

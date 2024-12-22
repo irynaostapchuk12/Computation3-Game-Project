@@ -124,7 +124,7 @@ def execute_game():
     bg_x = 0
     bg_width = bigimage.get_width()
 
-    avatar = Avatar(40, 0, "images/avatar/JungleRex (1).png", bigimage)
+    avatar = Avatar(screen, 40, 0, "JungleRex")
 
     all_sprites = pygame.sprite.Group()
     all_sprites.add(avatar)

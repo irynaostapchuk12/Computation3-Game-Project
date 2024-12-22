@@ -55,6 +55,8 @@ arrow_size = (100, 100)
 
 game_icons_size = (10,10)
 
+rule_board_size = (720, 720)
+
 
 
 #CHARACTER STATS
@@ -110,6 +112,17 @@ def corbelfont(size=20):
 #corbelfont = pygame.font.SysFont("Corbel", 20)
 poppins = pygame.font.Font("fonts/Cocogoose-Classic-Medium-trial.ttf")
 comicsansfont = pygame.font.SysFont("Comic Sans MS", 50)
+# creating the fonts:
+custom_font = "leters/Cocogoose-Classic-Medium-trial.ttf"
+font_size = 30
+custom_font = pygame.font.SysFont(custom_font, font_size)
+poppins = pygame.font.SysFont("Poppins-Regular.ttf", 35)
+verdana = pygame.font.SysFont("Verdana", 40)
+
+
+
+
+
 
 # setting the fonts
 font_size = 45

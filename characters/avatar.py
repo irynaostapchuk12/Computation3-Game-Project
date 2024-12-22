@@ -12,7 +12,7 @@ class Avatar(pygame.sprite.Sprite):
 
         self.x = x
         self.y = y
-        self.samurai_1, self.samurai_2, self.samurai_stop = self.load_skin(skin, "sword")  # load animation frames
+        self.samurai_1, self.samurai_2, self.samurai_stop = self.load_skin(skin, "Samurai")  # load animation frames
         self.archery_1, self.archery_2, self.archery_stop = self.load_skin(skin, "Archery")
 
         self.image = self.samurai_stop

@@ -6,9 +6,9 @@ from config import *  # importing colors and the like
 
 def credits_():
     # setting up the background and the screen
-    back_of_credits = pygame.image.load("../backgroundgame_level/menus_back.png")
-    background_credits = pygame.image.load("../backgroundgame_level/credits_on_back.png")
-    botao_atras = pygame.image.load("../backgroundgame_level/botao_atras_das_palavras.png")
+    back_of_credits = pygame.image.load("backgroundgame_level/menus_back.png")
+    background_credits = pygame.image.load("backgroundgame_level/credits_on_back.png")
+    botao_atras = pygame.image.load("backgroundgame_level/botao_atras_das_palavras.png")
 
     # scaling the background image into our selected resolution
     back_of_credits = pygame.transform.scale(back_of_credits, resolution_back_jungle)

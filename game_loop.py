@@ -23,7 +23,7 @@ def game_loop():
             current_state = rules()
 
         elif current_state == "credits":
-            current_state = credits
+            current_state = credits_()
 
         elif current_state == "interface":
             current_state = interface()
