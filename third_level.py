@@ -1,4 +1,4 @@
-from avatar import Avatar
+from avatar import *
 from config import *
 import game_loop
 
@@ -14,7 +14,7 @@ global all_sprites
 class World:
     def __init__(self, data):
         self.tile_list = []
-        self.platform_for_game = pygame.image.load("backgroundgame_level/platform_levels.png")
+        self.platform_for_game = pygame.image.load("images/backgrounds/platform_levels.png")
         self.load_data(data)
         self.scroll_speed = 55  # Speed at which platforms scroll
         self.scroll_timer = 0  # Timer to control scrolling
