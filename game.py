@@ -133,7 +133,7 @@ def execute_game():
         clock.tick(fps)  # Control frame rate
         mouse = pygame.mouse.get_pos()
         all_sprites.update(list_of_left_wall, list_of_right_wall, list_of_grounds, double_jump, list_of_roofs)
-        scroll_speed = 0
+        scroll_speed = 3
         # world.update()  # Update the world to scroll platforms
 
 
@@ -141,21 +141,19 @@ def execute_game():
 
 
         # Check if the player is in the middle of the screen
-        if avatar.rect.centerx > 750 // 2:
+        if avatar.rect.x > 500 and bg_x < bg_width - 720:
             # Ensure scrolling stops when the background reaches its extremity
-            if bg_x > -(bg_width - screen.get_width()):  # Limit scroll to the image width
-                scroll_speed -= avatar.speed  # Scroll the platforms
-                bg_x -= avatar.speed  # Scroll the background
-                avatar.rect.x -= scroll_speed # Keep player in the center of the screen
-            else:
-                scroll_speed = 0  # Stop scrolling completely
-                button_when_scroll_stop()
+            print(avatar.rect.x ,  "> 500   " + bg_x + "<" + bg_width - 720)
 
-        elif avatar.rect.centerx < 750 // 2 and bg_x < 0:
+            bg_x -= scroll_speed  # Scroll the background
+            avatar.rect.x -= scroll_speed # Keep player in the center of the screen
+
+
+        elif avatar.rect.x < 200 and bg_x > 500:
+            print(1)
             # Allow scrolling back when the player moves left
-            scroll_speed += avatar.speed  # Scroll the platforms back
-            bg_x += avatar.speed  # Scroll the background back
-            avatar.rect.x -= scroll_speed  # Keep player in the center of the screen
+            bg_x += scroll_speed  # Scroll the background back
+            avatar.rect.x += scroll_speed  # Keep player in the center of the screen
 
         screen.blit(bigimage, (bg_x, -125))  # Draw the background
         world.draw(scroll_speed)  # Draw the platforms
