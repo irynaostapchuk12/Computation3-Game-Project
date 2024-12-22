@@ -3,6 +3,7 @@ import random
 import math
 from characters.avatar import Avatar
 from config import *
+from pages.settings import Settings
 
 # Configuração inicial da tela
 screen = pygame.display.set_mode((720, 720))
@@ -64,6 +65,8 @@ def confetiiis(confetis_esquerda, confetis_direita, screen):
 # Função principal do jogo
 def the_end_of_game():
     square_transition(screen)
+    settings = Settings()
+
     poppins = pygame.font.Font("fonts/Cocogoose-Classic-Medium-trial.ttf", 35)
     button_text = poppins.render("CONGRATSS!:)", True, (0, 0, 0))
 
@@ -111,7 +114,7 @@ def the_end_of_game():
                 running = False
             if event.type == pygame.MOUSEBUTTONDOWN:
                 if settings_rect.collidepoint(event.pos):
-                    current_state = "settings"
+                    return "settings"
 
         pygame.display.flip()
 

@@ -1,6 +1,7 @@
 from characters.avatar import Avatar
 from config import *
 from third_level import execute_game_levelthree
+from pages.settings import Settings
 # define the tile size
 tile_size = 150
 screen = pygame.display.set_mode((720, 720))
@@ -106,7 +107,6 @@ def button_when_scroll_stop_leveltwo(screen):
                 sys.exit()
             if event.type == pygame.MOUSEBUTTONDOWN and button_rect.collidepoint(event.pos):
                 square_transition(screen)  # Chama o efeito de fade antes de mudar para o próximo nível
-                execute_game_levelthree()  # Chama o segundo nível
                 return
 
         button_text = poppins.render("CLICK HERE TO NEXT LEVEL", True,
@@ -153,7 +153,7 @@ def square_transition(screen, color=(0, 0, 0), duration=1500):
 
 def execute_game_second_level():
     square_transition(screen)
-
+    settings = Settings()
     # SETUP:
     double_jump = False
     bigimage = pygame.image.load("images/backgrounds/background_of_level2.png").convert()
@@ -184,6 +184,7 @@ def execute_game_second_level():
             else:
                 scroll_speed = 0  # Para o movimento se o fundo atingir o limite direito
                 button_when_scroll_stop_leveltwo(screen)
+                return "level_3"
         elif keys[pygame.K_LEFT]:
             if avatar.rect.x > 100:  # Limita o avatar ao lado esquerdo da tela
                 avatar.rect.x -= avatar.speed
@@ -208,12 +209,15 @@ def execute_game_second_level():
         settings = pygame.image.load("backgroundgame_level/settings_button.png")
         settings_rect = settings.get_rect(topleft=(30, 50))
         screen.blit(settings, (30, 50))
-
         # Event loop
         for event in pygame.event.get():
             if event.type == pygame.QUIT:
                 pygame.quit()
             if event.type == pygame.MOUSEBUTTONDOWN:
+                # settings image - click
                 if settings_rect.collidepoint(event.pos):
-                    current_state = "settings"
+                    pygame.display.flip()  # Atualiza a tela
+
+                    return "settings_level_2"
+
         pygame.display.flip()  # Atualiza a tela

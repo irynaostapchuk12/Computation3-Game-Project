@@ -1,6 +1,7 @@
 import pygame
 import sys
 from config import *
+
 class Settings:
     def __init__(self):
         # Initialize Pygame and create screen
@@ -65,7 +66,7 @@ class Settings:
         self.min_vol = 0
         self.max_vol = 5
 
-    def run(self):
+    def run(self, back="interface"):
         while True:
             mouse = pygame.mouse.get_pos()
 
@@ -88,7 +89,7 @@ class Settings:
 
                      #BACK
                     if self.back_board_rect.collidepoint(ev.pos):
-                         return "interface"  # Go back to the main interface
+                         return back  # Go back to the main interface
 
             # BRIGHTNESS level bar
             br_level_index = (self.brightness_level - self.min_brightness) // self.brightness_step

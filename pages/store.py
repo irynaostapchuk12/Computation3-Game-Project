@@ -171,6 +171,12 @@ store_dict = {
 
 
 
+def check_balance():
+    balance = inventory_dict["others"]["coin"]
+    balance_text = verdana_store.render(f"{balance}", True, deep_black)
+    balance_text_rect = balance_text.get_rect(center=(630, 70))
+    return (balance_text, balance_text_rect)
+
 def get_image(type, name, image, size):
     if type == "elixir" or type == "powerup" or type == "others":
         store_dict[type][name]["image"] = pygame.image.load(f"images/icons/{image}").convert_alpha()
@@ -257,9 +263,9 @@ def store():
     balance_board = pygame.image.load("images/menus/wooden_board_3.png").convert_alpha()
     balance_board_rect = balance_board.get_rect(center = (650, 70))
 
-    balance = inventory_dict["others"]["coin"]
-    balance_text = verdana_store.render(f"{balance}", True, deep_black)
-    balance_text_rect = balance_text.get_rect(center=(630, 70))
+
+    balance_text = check_balance()[0]
+    balance_text_rect = check_balance()[1]
 
     back_board = pygame.image.load("images/menus/wooden_board_4.png").convert_alpha()
     back_board_rect = back_board.get_rect(center=(100, 70))
@@ -402,6 +408,10 @@ def store():
 
                 if back_board_rect.collidepoint(mouse):
                     return "interface"
+
+            balance_text = check_balance()[0]
+            balance_text_rect = check_balance()[1]
+
 
             if back_text_rect.collidepoint(mouse):
                 back_text = custom_font_intro.render("Back", True, green)

@@ -2,6 +2,7 @@ from characters.avatar import Avatar
 from config import *
 import game_loop
 from the_end import the_end_of_game
+from pages.settings import Settings
 
 
 # define the tile size
@@ -108,7 +109,6 @@ def button_when_scroll_stop_levelthree(screen):
                 sys.exit()
             if event.type == pygame.MOUSEBUTTONDOWN and button_rect.collidepoint(event.pos):
                 square_transition(screen)  # Chama o efeito de fade antes de mudar para o próximo nível
-                the_end_of_game()  # Chama o ultimo nível
                 return
 
         button_text = poppins.render("YOU WONN", True, (255, 255, 255) if button_rect.collidepoint(mouse) else (0, 0, 0))
@@ -154,6 +154,7 @@ def square_transition(screen, color=(0, 0, 0), duration=1500):
 
 def execute_game_levelthree():
     square_transition(screen)
+    settings = Settings()
 
     # SETUP:
     double_jump = False
@@ -185,6 +186,8 @@ def execute_game_levelthree():
             else:
                 scroll_speed = 0  # Para o movimento se o fundo atingir o limite direito
                 button_when_scroll_stop_levelthree(screen)
+                return "the_end_of_game"
+
         elif keys[pygame.K_LEFT]:
             if avatar.rect.x > 100:  # Limita o avatar ao lado esquerdo da tela
                 avatar.rect.x -= avatar.speed
@@ -216,5 +219,6 @@ def execute_game_levelthree():
                 pygame.quit()
             if event.type == pygame.MOUSEBUTTONDOWN:
                 if settings_rect.collidepoint(event.pos):
-                    current_state = "settings"
+                    return "settings_level_3"
+
         pygame.display.flip()  # Atualiza a tela
