@@ -305,7 +305,6 @@ def store():
         scroll_surface.blit(store_dict["powerup"]["de_spawner"]["combined"]["surface"], store_dict["powerup"]["de_spawner"]["combined"]["rect"].topleft)
         scroll_surface.blit(store_dict["powerup"]["double_jump"]["combined"]["surface"], store_dict["powerup"]["double_jump"]["combined"]["rect"].topleft)
         scroll_surface.blit(store_dict["powerup"]["double_coins"]["combined"]["surface"], store_dict["powerup"]["double_coins"]["combined"]["rect"].topleft)
-        scroll_surface.blit(my_coins_text, (combined_rect.topleft))
 
         keys = pygame.key.get_pressed()
         if keys[pygame.K_UP]:

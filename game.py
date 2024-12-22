@@ -1,6 +1,5 @@
 from characters.avatar import Avatar
 from config import *
-import game_loop
 
 # from second_level import execute_game_second_level
 
@@ -15,7 +14,7 @@ global all_sprites
 class World:
     def __init__(self, data):
         self.tile_list = []
-        self.platform_for_game = pygame.image.load("backgroundgame_level/platform_levels.png")
+        self.platform_for_game = pygame.image.load("images/backgrounds/platform_levels.png")
         self.load_data(data)
         self.scroll_speed = 55  # Speed at which platforms scroll
         self.scroll_timer = 0  # Timer to control scrolling
@@ -117,7 +116,7 @@ def execute_game():
     # SETUP:
 
     double_jump = False
-    bigimage = pygame.image.load("backgroundgame_level/background_of_level1.png").convert()
+    bigimage = pygame.image.load("images/backgrounds/background_of_level1.png").convert()
     clock = pygame.time.Clock()
     pygame.display.set_caption("Jungle Rex")
 
@@ -147,7 +146,7 @@ def execute_game():
             if bg_x > -(bg_width - screen.get_width()):  # Limit scroll to the image width
                 scroll_speed -= avatar.speed  # Scroll the platforms
                 bg_x -= avatar.speed  # Scroll the background
-                avatar.rect.centerx = 750 // 2  # Keep player in the center of the screen
+                avatar.rect.x -= scroll_speed # Keep player in the center of the screen
             else:
                 scroll_speed = 0  # Stop scrolling completely
                 button_when_scroll_stop()
@@ -156,7 +155,7 @@ def execute_game():
             # Allow scrolling back when the player moves left
             scroll_speed += avatar.speed  # Scroll the platforms back
             bg_x += avatar.speed  # Scroll the background back
-            avatar.rect.centerx = 750 // 2  # Keep player in the center of the screen
+            avatar.rect.x -= scroll_speed  # Keep player in the center of the screen
 
         screen.blit(bigimage, (bg_x, -125))  # Draw the background
         world.draw(scroll_speed)  # Draw the platforms
