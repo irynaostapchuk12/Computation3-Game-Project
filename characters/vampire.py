@@ -29,7 +29,7 @@ import pygame
 from weapon import *
 
 class Vampire(pygame.sprite.Sprite):
-    def __init__(self, x, y, avatar, left_side_platform=0, right_side_platform=720):
+    def __init__(self, x, y, avatar, bat_image, left_side_platform=0, right_side_platform=720):
         super().__init__()
         self.speed = 1
 
@@ -41,8 +41,8 @@ class Vampire(pygame.sprite.Sprite):
         self.right_side_platform = right_side_platform
 
 
-        self.skeleton_1, self.skeleton_2, self.skeleton_stopped = self.load_skin("skeleton")
-        self.image = self.skeleton_stopped
+        self.vampire_1, self.vampire_2, self.vampire_stopped = self.load_skin("vampire")
+        self.image = self.vampire_stopped
 
         self.rect = self.image.get_rect(topleft=(self.x, self.y))
 
@@ -52,21 +52,22 @@ class Vampire(pygame.sprite.Sprite):
         self.current_frame = 0  # 0 for run_1, 1 for run_2
         self.is_moving = False
 
-        self.bone = weapons.Sword(999, self.x, self.y, self.direction)
-        self.avatar = avatar
 
+        self.last_bullet_time = 0
+        self.shooting_interval = 1000  # Shoot every second
+        self.bat_image = bat_image
 
     def load_skin(self, skin):
-        run_1 = pygame.image.load(f"images/enemy/{skin} (1).png").convert_alpha()
-        run_1 = pygame.transform.scale(run_1, (avatar_width, avatar_height))
+            run_1 = pygame.image.load(f"images/enemy/{skin} (1).png").convert_alpha()
+            run_1 = pygame.transform.scale(run_1, (avatar_width, avatar_height))
 
-        run_2 = pygame.image.load(f"images/enemy/{skin} (2).png").convert_alpha()
-        run_2 = pygame.transform.scale(run_2, (avatar_width, avatar_height))
+            run_2 = pygame.image.load(f"images/enemy/{skin} (2).png").convert_alpha()
+            run_2 = pygame.transform.scale(run_2, (avatar_width, avatar_height))
 
-        stopped = pygame.image.load(f"images/enemy/{skin} (3).png").convert_alpha()
-        stopped = pygame.transform.scale(stopped, (avatar_width, avatar_height))
+            stopped = pygame.image.load(f"images/enemy/{skin} (3).png").convert_alpha()
+            stopped = pygame.transform.scale(stopped, (avatar_width, avatar_height))
 
-        return run_1, run_2, stopped
+            return run_1, run_2, stopped
 
     def animate(self, image_1, image_2, image_stop):
         current_time = pygame.time.get_ticks()
