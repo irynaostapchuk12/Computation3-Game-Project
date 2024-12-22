@@ -56,15 +56,7 @@ class Avatar(pygame.sprite.Sprite):
 
         self.rect.topleft = (self.x, self.y)
 
-    def generate(self, x, y, skin):
-        self.x = x
-        self.y = y
-        self.samurai_1, self.samurai_2, self.samurai_stop = self.load_skin(skin, "sword")  # load animation frames
-        self.archery_1, self.archery_2, self.archery_stop = self.load_skin(skin, "Archery")
 
-        self.rect = self.image.get_rect(topleft=(self.x, self.y))
-
-        self.screen.blit(self.image, (self.x, self.y))
 
     def load_skin(self, skin, weapon):
         run_1 = pygame.image.load(f"images/avatar/{skin}_{weapon} (1).png").convert_alpha()
