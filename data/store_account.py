@@ -1,5 +1,11 @@
 import json
 
+import progress
+from items import inventory
+
+data_to_store = {"progress": progress.progress_dict,
+                 "inventory": inventory.inventory}
+
 # Função para salvar dados
 def store_data(data, archive="game_data.json"):
     with open(archive, "w") as f:
@@ -15,3 +21,4 @@ def load_data(archive="game_data.json"):
 
 
 
+store_data(data_to_store, "game_data.json")

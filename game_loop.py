@@ -6,8 +6,12 @@ from pages import *
 from config import *
 from second_level import *
 from third_level import *
+from data import store_account
 
 def game_loop():
+
+    store_account.load_data()
+
     # by default I start the game in the main area
     current_state = "interface"
     settings = Settings()
