@@ -6,7 +6,7 @@ from config import *  # importing colors and the like
 import sys
 
 inventory_dict = {
-                  "others": {"coin" : 0},
+                  "others": {"coin" : 100},
 
                   "powerup": {
                             "invincibility": 0,
