@@ -15,6 +15,7 @@ class Avatar(pygame.sprite.Sprite):
         self.samurai_1, self.samurai_2, self.samurai_stop = self.load_skin(skin, "sword")  # load animation frames
         self.archery_1, self.archery_2, self.archery_stop = self.load_skin(skin, "Archery")
 
+        self.image = self.samurai_stop
         self.rect = self.image.get_rect(topleft=(self.x, self.y))
 
         self.image = None
@@ -66,13 +67,13 @@ class Avatar(pygame.sprite.Sprite):
         self.screen.blit(self.image, (self.x, self.y))
 
     def load_skin(self, skin, weapon):
-        run_1 = pygame.image.load(f"images/{skin}_{weapon} (1).png").convert_alpha()
+        run_1 = pygame.image.load(f"images/avatar/{skin}_{weapon} (1).png").convert_alpha()
         run_1 = pygame.transform.scale(run_1, (config.avatar_width, config.avatar_height))
 
-        run_2 = pygame.image.load(f"images/{skin}_{weapon} (2).png").convert_alpha()
+        run_2 = pygame.image.load(f"images/avatar/{skin}_{weapon} (2).png").convert_alpha()
         run_2 = pygame.transform.scale(run_2, (config.avatar_width, config.avatar_height))
 
-        stopped = pygame.image.load(f"images/{skin}_{weapon} (3).png").convert_alpha()
+        stopped = pygame.image.load(f"images/avatar/{skin}_{weapon} (3).png").convert_alpha()
         stopped = pygame.transform.scale(stopped, (config.avatar_width, config.avatar_height))
 
         return run_1, run_2, stopped
@@ -80,8 +81,13 @@ class Avatar(pygame.sprite.Sprite):
     def animate(self, image_1, image_2, image_stop):
         current_time = pygame.time.get_ticks()
 
+        image_1_inv = pygame.transform.flip(image_1, True, False)
+        image_2_inv = pygame.transform.flip(image_2, True, False)
+        image_stop_inv = pygame.transform.flip(image_stop, True, False)
 
-        if self.is_moving:
+
+
+        if self.is_moving and self.direction:
             # switching frames every 500ms
             if current_time - self.animation_timer > self.animation_interval:
                 self.animation_timer = current_time
@@ -89,9 +95,23 @@ class Avatar(pygame.sprite.Sprite):
 
             # updating the image based on the current frame
             self.image = image_1 if self.current_frame == 0 else image_2
-        else:
+
+        elif self.is_moving and not self.direction:
+            # switching frames every 500ms
+            if current_time - self.animation_timer > self.animation_interval:
+                self.animation_timer = current_time
+                self.current_frame = 1 - self.current_frame  # Toggle between 0 and 1
+
+            # updating the image based on the current frame
+            self.image = image_1_inv if self.current_frame == 0 else image_2_inv
+
+        elif not self.is_moving and self.direction:
             # stopped image when not moving
             self.image = image_stop
+
+        elif not self.is_moving and not self.direction:
+            # stopped image when not moving
+            self.image = image_stop_inv
 
     def lateral_movement(self, list_of_left_wall, list_of_right_wall):
         key = pygame.key.get_pressed()

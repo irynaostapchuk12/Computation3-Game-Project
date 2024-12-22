@@ -1,3 +1,4 @@
+"""
 from config import *
 import pygame
 from weapon import *
@@ -74,3 +75,4 @@ zombie = Zombie(600, 50)
 all_sprites.add(vampire, skeleton, zombie)
 enemy_group.add(vampire, skeleton, zombie)
 
+"""
