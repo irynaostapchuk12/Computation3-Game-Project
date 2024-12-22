@@ -38,8 +38,18 @@ def game_loop():
             current_state = execute_game_second_level()
 
         elif current_state == "level_3":
-            current_state = execute_game_third_level()
+            current_state = execute_game_levelthree()
 
+        elif current_state == "settings_level_1":
+            current_state = settings.run("level_1")
 
+        elif current_state == "settings_level_2":
+            current_state = settings.run("level_2")
+
+        elif current_state == "settings_level_3":
+            current_state = settings.run("level_3")
+
+        elif current_state == "the_end_de_tudo":
+            current_state = the_end_of_game()
 
 

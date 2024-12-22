@@ -1,7 +1,8 @@
 from characters.avatar import Avatar
 from config import *
 from second_level import execute_game_second_level
-
+from pages.settings import Settings
+from pages.settings import Settings
 # define the tile size
 tile_size = 150
 screen = pygame.display.set_mode((720, 720))
@@ -94,10 +95,9 @@ def button_when_scroll_stop():
 
         for event in pygame.event.get():
             if event.type == pygame.QUIT:
-                sys.exit()
+                sys.exit() #
             if event.type == pygame.MOUSEBUTTONDOWN and button_rect.collidepoint(event.pos):
                 square_transition(screen)  # Chama o efeito de fade antes de mudar para o próximo nível
-                execute_game_second_level()  # Chama o segundo nível
                 return
 
         button_text = poppins.render("CLICK HERE TO NEXT LEVEL", True,
@@ -139,7 +139,9 @@ def square_transition(screen, color=(0, 0, 0), duration=1500):
 
 
 def execute_game():
+
     square_transition(screen)
+    settings = Settings()
 
     # SETUP:
     double_jump = False
@@ -163,34 +165,30 @@ def execute_game():
         scroll_speed = 0  # Inicializa scroll_speed como 0
 
         # Movimento do avatar e sincronização
-        if keys[pygame.K_RIGHT]:
-            if avatar.rect.x < 500:  # Limita o avatar ao centro da tela (direita)
-                avatar.rect.x += avatar.speed
-            elif bg_x > -(bg_width - screen.get_width()):  # Move o fundo e plataformas
-                scroll_speed = -avatar.speed
-            else:
-                scroll_speed = 0  # Para o movimento se o fundo atingir o limite direito
-                button_when_scroll_stop()
-        elif keys[pygame.K_LEFT]:
-            if avatar.rect.x > 100:  # Limita o avatar ao lado esquerdo da tela
-                avatar.rect.x -= avatar.speed
-            elif bg_x < 0:  # Move o fundo e plataformas
-                scroll_speed = avatar.speed
-            else:
-                scroll_speed = 0  # Para o movimento se o fundo atingir o limite esquerdo
+        if avatar.is_moving:
 
-        # Ajuste do fundo (big image)
-        bg_x += scroll_speed  # Move o fundo conforme a velocidade do scroll
+        # Check if the player is in the middle of the screen
+            if avatar.rect.x > 500 and bg_x < bg_width - 720 and avatar.direction:  # condição para puxaer imagem para lado
+            # Ensure scrolling stops when the background reaches its extremity
 
-        # Renderiza o fundo
-        screen.blit(bigimage, (bg_x, -125))
+                bg_x -= avatar.speed  # Scroll the background
+                avatar.x -= avatar.speed  # Keep player in the center of the screen
 
-        # Renderiza as plataformas
-        world.draw(scroll_speed)
+                for tile in world.tile_list:
+                    tile[1].x -= avatar.speed
 
-        # Renderiza o avatar
-        all_sprites.draw(screen)
 
+            elif avatar.rect.x < 200 and bg_x < 0 and not avatar.direction:
+                # Allow scrolling back when the player moves left
+                bg_x += avatar.speed  # Scroll the background back
+                avatar.x += avatar.speed  # Keep player in the center of the screen
+
+                for tile in world.tile_list:
+                    tile[1].x += avatar.speed
+
+        screen.blit(bigimage, (bg_x, -125))  # Draw the background
+        world.draw(0)  # Draw the platforms
+        all_sprites.draw(screen)  # Draw the player
         # Botão de configurações
         settings = pygame.image.load("backgroundgame_level/settings_button.png")
         settings_rect = settings.get_rect(topleft=(30, 50))
@@ -202,5 +200,6 @@ def execute_game():
                 running = False
             if event.type == pygame.MOUSEBUTTONDOWN:
                 if settings_rect.collidepoint(event.pos):
-                    current_state = "settings"
+                    return "settings_level_1"
+
         pygame.display.flip()  # Atualiza a tela
