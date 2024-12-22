@@ -8,13 +8,13 @@ clock = pygame.time.Clock()
 def chest():
     screen = pygame.display.set_mode(screen_resolution)
 
-    background = pygame.image.load("../images/menus/menus_back.png")
+    background = pygame.image.load("images/menus/menus_back.png")
     background = pygame.transform.scale(background, screen_resolution)
 
-    chest = pygame.image.load("../images/icons/chest.png")
+    chest = pygame.image.load("images/icons/chest.png")
     chest_rect = chest.get_rect(center = (360, 360))
 
-    card_back = pygame.image.load("../images/icons/card.png").convert_alpha()
+    card_back = pygame.image.load("images/icons/card.png").convert_alpha()
 
     card_options = ["images/icons/card_1.png", "images/icons/card_2.png", "images/icons/card_3.png" ]
 
