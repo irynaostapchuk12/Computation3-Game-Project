@@ -51,6 +51,9 @@ def interface():
     # main interface loop (will run until the user quits)
     while True:
 
+
+
+
         # getting the mouse position (future need)
         mouse = pygame.mouse.get_pos()
 

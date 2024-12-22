@@ -1,7 +1,7 @@
 import pygame
-
 from config import *  # importing colors and the like
 from items.inventory import *
+from .interface import interface
 import sys
 
 
@@ -184,13 +184,23 @@ def store():
 
 
 
-    background_image_shop = pygame.image.load(f"images/backgrounds/back_of_credits.jpg").convert_alpha()
-    background_image_shop = pygame.image.load(f"images/menus/menus_back.png").convert_alpha()
+    #background_image_shop = pygame.image.load(f"images/backgrounds/back_of_credits.jpg").convert_alpha()
+    #background_image_shop = pygame.image.load(f"images/menus/menus_back.png").convert_alpha()
     background_image_shop = pygame.image.load(f"images/menus/menus_back.png").convert_alpha()
     background_image_shop = pygame.transform.scale(background_image_shop, screen_resolution)
 
+    balance_board = pygame.image.load("images/menus/wooden_board_3.png").convert_alpha()
+    balance_board_rect = balance_board.get_rect(center = (650, 70))
 
+    balance = inventory_dict["others"]["coin"]
+    balance_text = verdana_store.render(f"{balance}", True, deep_black)
+    balance_text_rect = balance_text.get_rect(center=(630, 70))
 
+    back_board = pygame.image.load("images/menus/wooden_board_4.png").convert_alpha()
+    back_board_rect = back_board.get_rect(center=(100, 70))
+
+    back_text = verdana_settings.render("Back", True, deep_black)
+    back_text_rect = back_text.get_rect(center=(100, 74))
 
     store_dict["others"]["chest"]["text"] = verdana_store.render("CHEST", True, white)
     store_dict["elixir"]["health"]["text"] = verdana_store.render("HEALTH ELIXIR", True, white)
@@ -273,8 +283,21 @@ def store():
                     purchase_item("others", "chest", chest_price)
                     print("Box clicked!")
 
+                if back_board_rect.collidepoint(ev.pos):
+                    return "interface"
 
+            if back_text_rect.collidepoint(mouse):
+                back_text = custom_font_intro.render("Back", True, green)
+            else:
+                back_text = custom_font_intro.render("Back", True, green)
 
+        scroll_surface.blit(back_board, back_board_rect)
+        scroll_surface.blit(back_text, back_text_rect)
+
+        scroll_surface.blit(balance_board, balance_board_rect)
+        scroll_surface.blit(balance_text, balance_text_rect)
+
+        scroll_surface.blit(store_dict["others"]["coin"]["image"], (645, 61))
         scroll_surface.blit(store_dict["others"]["chest"]["combined"]["surface"], store_dict["others"]["chest"]["combined"]["rect"].topleft)
         scroll_surface.blit(store_dict["elixir"]["health"]["combined"]["surface"], store_dict["elixir"]["health"]["combined"]["rect"].topleft)
         scroll_surface.blit(store_dict["elixir"]["speed"]["combined"]["surface"], store_dict["elixir"]["speed"]["combined"]["rect"].topleft)

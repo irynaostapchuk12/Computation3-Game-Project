@@ -88,7 +88,7 @@ class Settings:
 
                      #BACK
                     if self.back_board_rect.collidepoint(ev.pos):
-                        return "interface"  # Go back to the main interface
+                         return "interface"  # Go back to the main interface
 
             # BRIGHTNESS level bar
             br_level_index = (self.brightness_level - self.min_brightness) // self.brightness_step
