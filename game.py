@@ -1,5 +1,6 @@
 from characters.avatar import Avatar
 from config import *
+import game_loop
 
 # from second_level import execute_game_second_level
 
@@ -101,7 +102,7 @@ def button_when_scroll_stop():
 
             if ev.type == pygame.MOUSEBUTTONDOWN:
                 if button_rect.collidepoint(ev.pos):
-                    execute_game_second_level()
+                    current_state = "level_two"
 
             if button_rect.collidepoint(mouse):
                 button_text = poppins.render("CLICK HERE TO NEXT LEVEL", True, (255, 255, 255))
@@ -172,7 +173,7 @@ def execute_game():
                 running = False
             if event.type == pygame.MOUSEBUTTONDOWN:
                 if settings_rect.collidepoint(event.pos):
-                    settings_function()
+                    current_state = "settings"
 
         pygame.display.flip()
     pygame.display.update()
