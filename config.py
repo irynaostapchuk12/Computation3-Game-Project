@@ -97,7 +97,7 @@ double_jump_powerup_shop_position = (30,740)
 double_coins_powerup_shop_position = (390,740)
 
 
-chest_shop_position = (210, 1060)
+chest_shop_position = (30, 1060)
 
 
 
