@@ -1,2 +1,2 @@
 from .avatar import Avatar
-from .enemy import Enemy
+from .skeleton import Skeleton
