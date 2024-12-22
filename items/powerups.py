@@ -38,7 +38,7 @@ class Powerup(ABC, pygame.sprite.Sprite):
 
     @abstractmethod
     def tone(self):
-        self.avatar.image.fill(self.colour, special_flags=pygame.BLEND_RGBA_MULT
+        self.avatar.image.fill(self.colour, special_flags=pygame.BLEND_RGBA_MULT)
 
     @abstractmethod
     def generate(self):

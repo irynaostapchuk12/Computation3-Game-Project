@@ -61,7 +61,7 @@ rule_board_size = (720, 720)
 
 #CHARACTER STATS
 
-speed_avatar = 3
+speed_avatar = 200
 health_avatar = 0
 
 
