@@ -32,7 +32,7 @@ class Avatar(pygame.sprite.Sprite):
         self.speed = config.speed_avatar
         self.health = config.health_avatar
         self.direction = True  # true if it is to the right
-        self.current_weapon = "sword"
+        self.current_weapon = "fist"
 
 
 
@@ -47,6 +47,8 @@ class Avatar(pygame.sprite.Sprite):
         # weapons        
         self.sword = Sword(999, self.x, self.y, self.direction)    # # need to fill it with var necessary
         self.bow_arrow = BowArrow("images/weapon/Weapon_Arrow.png", screen)  # need to fill it with var necessary
+        self.fist = Fist(self.x, self.y, self.direction)
+
 
     def update(self, list_of_left_wall, list_of_right_wall, list_of_grounds, double_jump, list_of_roofs):
         self.lateral_movement(list_of_left_wall, list_of_right_wall)
@@ -204,7 +206,10 @@ class Avatar(pygame.sprite.Sprite):
                 self.bow_arrow.move_arrow()
 
             if self.current_weapon == "sword":
-                self.sword.attack_area()
+                return self.sword.attack_area()
+
+            if self.current_weapon == "fist":
+                return self.fist.attack_area()
 
 
         if key[pygame.K_a]:       # switch to bow and arrow
@@ -212,3 +217,6 @@ class Avatar(pygame.sprite.Sprite):
 
         if key[pygame.K_s]:      # switch to sword
             self.current_weapon = "sword"
+
+        if key[pygame.K_d]:      # switch to fist
+            self.current_weapon = "fist"

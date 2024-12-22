@@ -4,11 +4,11 @@ from items.inventory import *
 from .interface import interface
 import sys
 
-jungle_rex_default_shop_position = (30, 1380)
-jungle_rex_princess_shop_position = (390, 1380)
-jungle_rex_warrior_shop_position = (30, 1700)
-jungle_rex_bussyman_shop_position = (390, 1700)
-
+jungle_rex_princess_shop_position = (390, 1060)
+jungle_rex_warrior_shop_position = (30, 1380)
+jungle_rex_bussyman_shop_position = (390, 1380)
+archery_shop_position = (30, 1700)
+samurai_shop_position = (390, 1700)
 
 
 store_dict = {
@@ -104,18 +104,7 @@ store_dict = {
                                                     },
                                     },
                 },
-    "skins": {  "JungleRex": {  # No weapon
-                                    "image": None,
-                                    "text": None,
-                                    "tag": None,
-                                    "combined": {
-                                        "width": None,
-                                        "height": None,
-                                        "surface": None,
-                                        "rect": None,
-                                        "position": jungle_rex_default_shop_position,
-                                    },
-                },
+    "skins": {
                 "Warrior": {
                                     "image": None,
                                     "text": None,
@@ -153,18 +142,46 @@ store_dict = {
                                         "position": jungle_rex_bussyman_shop_position,
                                     },
                 },
-    }
-}
+    },
+    "weapons": {
+                "Archery": {
+                                    "image": None,
+                                    "text": None,
+                                    "tag": None,
+                                    "combined": {
+                                        "width": None,
+                                        "height": None,
+                                        "surface": None,
+                                        "rect": None,
+                                        "position": archery_shop_position,
+                }
+    },
+                "Samurai": {
+                                    "image": None,
+                                    "text": None,
+                                    "tag": None,
+                                    "combined": {
+                                        "width": None,
+                                        "height": None,
+                                        "surface": None,
+                                        "rect": None,
+                                        "position": samurai_shop_position,
+        }
+}}}
 
 
 
 def get_image(type, name, image, size):
-    if type != "skins":
+    if type == "elixir" or type == "powerup" or type == "others":
         store_dict[type][name]["image"] = pygame.image.load(f"images/icons/{image}").convert_alpha()
         store_dict[type][name]["image"] = pygame.transform.scale(store_dict[type][name]["image"], size)
     if type == "skins":
         store_dict[type][name]["image"] = pygame.image.load(f"images/avatar/{name}/{name} 1.png").convert_alpha()
         store_dict[type][name]["image"] = pygame.transform.scale(store_dict[type][name]["image"], size)
+    if type == "weapons":
+        store_dict[type][name]["image"] = pygame.image.load(f"images/weapon/Weapon_{name}.png").convert_alpha()
+        store_dict[type][name]["image"] = pygame.transform.scale(store_dict[type][name]["image"], size)
+
 
 def get_combined(type, name):
 
@@ -196,13 +213,7 @@ def get_combined(type, name):
     combined_surface = pygame.Surface((combined_width + 90, combined_height + 90), pygame.SRCALPHA)
 
 
-
     wood_board = pygame.image.load(f"images/menus/wood_board.png").convert_alpha()
-    #wood_board = pygame.transform.scale(wood_board,(combined_width + 40, combined_height + 60))
-
-    # to center the boards
-    #wood_board_x = (combined_surface.get_width() - wood_board.get_width()) // 2
-    #wood_board_y = (combined_surface.get_height() - wood_board.get_height()) // 2
 
     combined_surface.blit(wood_board, (25, 0))
     combined_surface.blit(text, (60, 40))
@@ -270,10 +281,11 @@ def store():
     get_image("powerup", "double_coins", "double_coins.png", (120, 120))
 
     get_image("skins", "BusinessMan", "BusinessMan 1.png", (100, 100))
-    get_image("skins","JungleRex", "JungleRex 1.png", (120, 125))
     get_image("skins","Princess", "Princess 1.png", (120, 136))
-    get_image("skins","Warrior", "JungleRex 1.png", (120, 118))
+    get_image("skins", "Warrior", "Warrior 1.png", (120, 114))
 
+    get_image("weapons", "Archery", "Weapon_Archery.png", (120, 143))
+    get_image("weapons", "Samurai", "Weapon_Samurai.png", (120, 141))
 
     store_dict["others"]["chest"]["text"] = verdana_store.render("CHEST", True, white)
 
@@ -286,27 +298,31 @@ def store():
     store_dict["powerup"]["double_coins"]["text"] = verdana_store.render("DOUBLE COINS", True, white)
 
     store_dict["skins"]["BusinessMan"]["text"] = verdana_store.render("BUSINESS MAN", True, white)
-    store_dict["skins"]["JungleRex"]["text"] = verdana_store.render("JUNGLE REX", True, white)
     store_dict["skins"]["Warrior"]["text"] = verdana_store.render("WARRIOR", True, white)
     store_dict["skins"]["Princess"]["text"] = verdana_store.render("PRINCESS", True, white)
 
+    store_dict["weapons"]["Archery"]["text"] = verdana_store.render("ARCHERY", True, white)
+    store_dict["weapons"]["Samurai"]["text"] = verdana_store.render("SAMURAI", True, white)
 
-    store_dict["others"]["chest"]["tag"] = verdana_store.render(f"{chest_price}", True, white)
 
-    store_dict["elixir"]["health"]["tag"] = verdana_store.render(f"{health_elixir_price}", True, white)
-    store_dict["elixir"]["speed"]["tag"] = verdana_store.render(f"{speed_elixir_price}", True, white)
+    store_dict["others"]["chest"]["tag"] = verdana_store.render("20", True, white)
 
-    store_dict["powerup"]["invincibility"]["tag"] = verdana_store.render(f"{invincibility_powerup_price}", True, white)
-    store_dict["powerup"]["de_spawner"]["tag"] = verdana_store.render(f"{de_spawner_powerup_price}", True, white)
-    store_dict["powerup"]["double_jump"]["tag"] = verdana_store.render(f"{double_jump_powerup_price}", True, white)
-    store_dict["powerup"]["double_coins"]["tag"] = verdana_store.render(f"{double_coins_powerup_price}", True, white)
+    store_dict["elixir"]["health"]["tag"] = verdana_store.render("19", True, white)
+    store_dict["elixir"]["speed"]["tag"] = verdana_store.render("18", True, white)
+
+    store_dict["powerup"]["invincibility"]["tag"] = verdana_store.render("17", True, white)
+    store_dict["powerup"]["de_spawner"]["tag"] = verdana_store.render("22", True, white)
+    store_dict["powerup"]["double_jump"]["tag"] = verdana_store.render("12", True, white)
+    store_dict["powerup"]["double_coins"]["tag"] = verdana_store.render("10", True, white)
 
     my_coins_text = verdana_store.render(f"{inventory_dict['others']['coin']}", True, white)
 
-    store_dict["skins"]["BusinessMan"]["tag"] = verdana_store.render(f"{chest_price}", True, white)
-    store_dict["skins"]["JungleRex"]["tag"] = verdana_store.render(f"{chest_price}", True, white)
-    store_dict["skins"]["Warrior"]["tag"] = verdana_store.render(f"{chest_price}", True, white)
-    store_dict["skins"]["Princess"]["tag"] = verdana_store.render(f"{chest_price}", True, white)
+    store_dict["skins"]["BusinessMan"]["tag"] = verdana_store.render("14", True, white)
+    store_dict["skins"]["Warrior"]["tag"] = verdana_store.render("15", True, white)
+    store_dict["skins"]["Princess"]["tag"] = verdana_store.render("16", True, white)
+
+    store_dict["weapons"]["Archery"]["tag"] = verdana_store.render("7", True, white)
+    store_dict["weapons"]["Samurai"]["tag"] = verdana_store.render("9", True, white)
 
 
     get_combined("others", "chest")
@@ -317,9 +333,10 @@ def store():
     get_combined("powerup", "double_jump")
     get_combined("powerup", "double_coins")
     get_combined("skins", "BusinessMan")
-    get_combined("skins", "JungleRex")
     get_combined("skins", "Warrior")
     get_combined("skins", "Princess")
+    get_combined("weapons", "Archery")
+    get_combined("weapons", "Samurai")
 
     combined_width = store_dict["others"]["coin"]["image"].get_width() + my_coins_text.get_width() + 10
     combined_height = max(store_dict["others"]["coin"]["image"].get_height(), my_coins_text.get_height()) + 10
@@ -342,49 +359,45 @@ def store():
 
             if ev.type == pygame.MOUSEBUTTONDOWN:
                 if store_dict["elixir"]["health"]["combined"]["rect"].collidepoint(mouse):  # Check if mouse is inside the box
-                    purchase_item("elixir", "health", health_elixir_price)
-                    print("Box clicked!")
+                    purchase_item("elixir", "health", 19)
+
 
                 if store_dict["elixir"]["speed"]["combined"]["rect"].collidepoint(mouse):  # Check if mouse is inside the box
-                    purchase_item("elixir", "speed", speed_elixir_price)
-                    print("Box clicked!")
+                    purchase_item("elixir", "speed", 18)
+
 
                 if store_dict["powerup"]["invincibility"]["combined"]["rect"].collidepoint(mouse):  # Check if mouse is inside the box
-                    purchase_item("powerup", "invincibility", invincibility_powerup_price)
-                    print("Box clicked!")
+                    purchase_item("powerup", "invincibility", 17)
+
 
                 if store_dict["powerup"]["de_spawner"]["combined"]["rect"].collidepoint(mouse):  # Check if mouse is inside the box
-                    purchase_item("powerup", "de_spawner", de_spawner_powerup_price)
-                    print("Box clicked!")
+                    purchase_item("powerup", "de_spawner", 22)
+
 
                 if store_dict["powerup"]["double_jump"]["combined"]["rect"].collidepoint(mouse):  # Check if mouse is inside the box
-                    purchase_item("powerup", "double_jump", double_jump_powerup_price)
-                    print("Box clicked!")
+                    purchase_item("powerup", "double_jump", 12)
 
                 if store_dict["powerup"]["double_coins"]["combined"]["rect"].collidepoint(mouse):  # Check if mouse is inside the box
-                    purchase_item("powerup", "double_coins", double_coins_powerup_price)
-                    print("Box clicked!")
+                    purchase_item("powerup", "double_coins", 10)
 
                 if store_dict["others"]["chest"]["combined"]["rect"].collidepoint(mouse):  # Check if mouse is inside the box
-                    purchase_item("others", "chest", chest_price)
-                    print("Box clicked!")
-
-                if store_dict["skins"]["JungleRex"]["combined"]["rect"].collidepoint(mouse):  # Check if mouse is inside the box
-                    purchase_item("skins", "JungleRex", chest_price)
-                    print("Box clicked!")
+                    purchase_item("others", "chest", 20)
 
                 if store_dict["skins"]["Warrior"]["combined"]["rect"].collidepoint(
                         mouse):  # Check if mouse is inside the box
-                    purchase_item("skins", "Warrior", chest_price)
-                    print("Box clicked!")
+                    purchase_item("skins", "Warrior", 15)
 
                 if store_dict["skins"]["Princess"]["combined"]["rect"].collidepoint(mouse):  # Check if mouse is inside the box
-                    purchase_item("skins", "Princess", chest_price)
-                    print("Box clicked!")
+                    purchase_item("skins", "Princess", 16)
 
                 if store_dict["skins"]["BusinessMan"]["combined"]["rect"].collidepoint(mouse):  # Check if mouse is inside the box
-                    purchase_item("skins", "BusinessMan", chest_price)
-                    print("Box clicked!")
+                    purchase_item("skins", "BusinessMan", 14)
+
+                if store_dict["weapons"]["Archery"]["combined"]["rect"].collidepoint(mouse):  # Check if mouse is inside the box
+                    purchase_item("skins", "Archery", 7)
+
+                if store_dict["weapons"]["Samurai"]["combined"]["rect"].collidepoint(mouse):  # Check if mouse is inside the box
+                    purchase_item("skins", "Samurai", 9)
 
 
                 if back_board_rect.collidepoint(mouse):
@@ -412,7 +425,8 @@ def store():
         scroll_surface.blit(store_dict["skins"]["BusinessMan"]["combined"]["surface"], store_dict["skins"]["BusinessMan"]["combined"]["rect"].topleft)
         scroll_surface.blit(store_dict["skins"]["Warrior"]["combined"]["surface"], store_dict["skins"]["Warrior"]["combined"]["rect"].topleft)
         scroll_surface.blit(store_dict["skins"]["Princess"]["combined"]["surface"], store_dict["skins"]["Princess"]["combined"]["rect"].topleft)
-        scroll_surface.blit(store_dict["skins"]["JungleRex"]["combined"]["surface"], store_dict["skins"]["JungleRex"]["combined"]["rect"].topleft)
+        scroll_surface.blit(store_dict["weapons"]["Archery"]["combined"]["surface"], store_dict["weapons"]["Archery"]["combined"]["rect"].topleft)
+        scroll_surface.blit(store_dict["weapons"]["Samurai"]["combined"]["surface"],store_dict["weapons"]["Samurai"]["combined"]["rect"].topleft)
 
 
         keys = pygame.key.get_pressed()

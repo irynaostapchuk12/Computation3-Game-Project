@@ -28,7 +28,14 @@ inventory_dict = {
                             "BusinessMan": False,
                             "Princess": False,
                             "Warrior": False
+                  },
+                  "weapons": {
+                            "fist": True,
+                            "sword": False,
+                            "bow": False
                   }
+
+
 
                   }
 
@@ -38,8 +45,13 @@ inventory_dict = {
 
 def purchase_item(type, name, price):
     if price <= inventory_dict["others"]["coin"]:
-        inventory_dict[type][name] += 1
-        inventory_dict["others"]["coin"] -= price
+        if type == "skin" or type == "weapons":
+            inventory_dict[type][name] = True
+            inventory_dict["others"]["coin"] -= price
+
+        else:
+            inventory_dict[type][name] += 1
+            inventory_dict["others"]["coin"] -= price
 
 
     else:
