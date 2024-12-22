@@ -4,6 +4,11 @@ from items.inventory import *
 from .interface import interface
 import sys
 
+jungle_rex_default_shop_position = (200, 300)
+jungle_rex_princess_shop_position = (400, 400)
+jungle_rex_warrior_shop_position = (500, 200)
+jungle_rex_bussyman_shop_position = (600, 500)
+
 
 
 store_dict = {
@@ -99,18 +104,67 @@ store_dict = {
                                                     },
                                     },
                 },
-    "skins": {  "Business Man"
+    "skins": {  "JungleRex": {  # No weapon
+                                    "image": None,
+                                    "text": None,
+                                    "tag": None,
+                                    "combined": {
+                                        "width": None,
+                                        "height": None,
+                                        "surface": None,
+                                        "rect": None,
+                                        "position": jungle_rex_default_shop_position,
+                                    },
+                },
+                "Warrior": {
+                                    "image": None,
+                                    "text": None,
+                                    "tag": None,
+                                    "combined": {
+                                        "width": None,
+                                        "height": None,
+                                        "surface": None,
+                                        "rect": None,
+                                        "position": jungle_rex_warrior_shop_position,
+                                    },
+                },
+                "Princess": {
+                                    "image": None,
+                                    "text": None,
+                                    "tag": None,
+                                    "combined": {
+                                        "width": None,
+                                        "height": None,
+                                        "surface": None,
+                                        "rect": None,
+                                        "position": jungle_rex_princess_shop_position,
+                                    },
 
+                },
+                "BusinessMan": {
+                                    "image": None,
+                                    "text": None,
+                                    "tag": None,
+                                    "combined": {
+                                        "width": None,
+                                        "height": None,
+                                        "surface": None,
+                                        "rect": None,
+                                        "position": jungle_rex_bussyman_shop_position,
+                                    },
+                },
     }
-    }
+}
 
 
 
 def get_image(type, name, image, size):
-    store_dict[type][name]["image"] = pygame.image.load(f"images/icons/{image}").convert_alpha()
-    store_dict[type][name]["image"] = pygame.transform.scale(store_dict[type][name]["image"], size)
-
-
+    if type != "skin":
+        store_dict[type][name]["image"] = pygame.image.load(f"images/icons/{image}").convert_alpha()
+        store_dict[type][name]["image"] = pygame.transform.scale(store_dict[type][name]["image"], size)
+    if type == "skin":
+        store_dict[type][name]["image"] = pygame.image.load(f"images/avatar/{name}/{name} 1").convert_alpha()
+        store_dict[type][name]["image"] = pygame.transform.scale(store_dict[type][name]["image"], size)
 
 def get_combined(type, name):
 
@@ -144,7 +198,7 @@ def get_combined(type, name):
 
 
     wood_board = pygame.image.load(f"images/menus/wood_board.png").convert_alpha()
-    wood_board = pygame.transform.scale(wood_board,(combined_width + 40, combined_height + 60))
+    #wood_board = pygame.transform.scale(wood_board,(combined_width + 40, combined_height + 60))
 
     # to center the boards
     #wood_board_x = (combined_surface.get_width() - wood_board.get_width()) // 2
@@ -189,6 +243,7 @@ def store():
 
     #background_image_shop = pygame.image.load(f"images/backgrounds/back_of_credits.jpg").convert_alpha()
     #background_image_shop = pygame.image.load(f"images/menus/menus_back.png").convert_alpha()
+
     background_image_shop = pygame.image.load(f"images/menus/menus_back.png").convert_alpha()
     background_image_shop = pygame.transform.scale(background_image_shop, screen_resolution)
 
@@ -230,6 +285,11 @@ def store():
     get_image("powerup", "de_spawner", "yellow_potion.png", (100, 148))
     get_image("powerup", "double_jump", "double_jump.png", (120, 120))
     get_image("powerup", "double_coins", "double_coins.png", (120, 120))
+    #get_image("skin", "BusinessMan", "BusinessMan 1.png", (100, 100))
+    get_image("skin","JungleRex", "JungleRex 1.png", (100, 100))
+    get_image("skin","Princess", "Princess 1.png", (100, 100))
+    get_image("skin","Warrior", "JungleRex 1.png", (100, 100))
+
 
     get_combined("others", "chest")
     get_combined("elixir", "health")
@@ -238,6 +298,10 @@ def store():
     get_combined("powerup", "de_spawner")
     get_combined("powerup", "double_jump")
     get_combined("powerup", "double_coins")
+    get_combined("skin", "BusinessMan")
+    get_combined("skin", "JungleRex")
+    get_combined("skin", "Warrior")
+    get_combined("skin", "Princess")
 
     combined_width = store_dict["others"]["coin"]["image"].get_width() + my_coins_text.get_width() + 10
     combined_height = max(store_dict["others"]["coin"]["image"].get_height(), my_coins_text.get_height()) + 10
@@ -245,6 +309,7 @@ def store():
     combined_surface.blit(my_coins_text, (0, 0))
     combined_surface.blit(store_dict["others"]["coin"]["image"], (my_coins_text.get_width() + 10, 0))
     combined_rect = combined_surface.get_rect(topleft=(0, 0))
+
     while True:
 
         # getting the mouse position
@@ -284,6 +349,10 @@ def store():
 
                 if store_dict["others"]["chest"]["combined"]["rect"].collidepoint(mouse):  # Check if mouse is inside the box
                     purchase_item("others", "chest", chest_price)
+                    print("Box clicked!")
+
+                if store_dict["skins"]["JungleRex"]["combined"]["rect"].collidepoint(mouse):  # Check if mouse is inside the box
+                    purchase_item("skins", "JungleRex", chest_price)
                     print("Box clicked!")
 
                 if back_board_rect.collidepoint(mouse):
