@@ -99,6 +99,9 @@ store_dict = {
                                                     },
                                     },
                 },
+    "skins": {  "Business Man"
+
+    }
     }
 
 
