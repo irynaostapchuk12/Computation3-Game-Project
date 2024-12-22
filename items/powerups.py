@@ -1,5 +1,4 @@
 from config import *
-from characters import avatar
 
 
 class Powerup(pygame.sprite.Sprite):
@@ -27,8 +26,7 @@ class Powerup(pygame.sprite.Sprite):
         if self.unused:
             self.screen.blit(self.image, (self.x, self.y))
 
-
-        if pygame.sprite.spritecollide(self, avatar, dokill=False) and self.unused:
+        if pygame.sprite.spritecollideany(self, self.avatar) and self.unused:
             self.unused = False
             self.timer = fps*4
             self.in_use = True
