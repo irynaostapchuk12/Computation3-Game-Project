@@ -119,9 +119,3 @@ def the_end_of_game():
         pygame.display.flip()
 
 
-#PERGUNTAR
-# Inicialização do jogo
-if __name__ == "__main__":
-    pygame.init()
-    the_end_of_game()
-    pygame.quit()
