@@ -59,13 +59,13 @@ class Avatar(pygame.sprite.Sprite):
 
 
     def load_skin(self, skin, weapon):
-        run_1 = pygame.image.load(f"images/avatar/{skin}_{weapon} (1).png").convert_alpha()
+        run_1 = pygame.image.load(f"images/avatar/{skin}/{skin}_{weapon} 1.png").convert_alpha()
         run_1 = pygame.transform.scale(run_1, (config.avatar_width, config.avatar_height))
 
-        run_2 = pygame.image.load(f"images/avatar/{skin}_{weapon} (2).png").convert_alpha()
+        run_2 = pygame.image.load(f"images/avatar/{skin}/{skin}_{weapon} 2.png").convert_alpha()
         run_2 = pygame.transform.scale(run_2, (config.avatar_width, config.avatar_height))
 
-        stopped = pygame.image.load(f"images/avatar/{skin}_{weapon} (3).png").convert_alpha()
+        stopped = pygame.image.load(f"images/avatar/{skin}/{skin}_{weapon} 3.png").convert_alpha()
         stopped = pygame.transform.scale(stopped, (config.avatar_width, config.avatar_height))
 
         return run_1, run_2, stopped
@@ -122,7 +122,7 @@ class Avatar(pygame.sprite.Sprite):
 
         if key[pygame.K_LEFT] and self.x > 0 and not collided_left_wall:
             self.x -= self.speed
-            self.direction_avatar = False
+            self.direction = False
             self.is_moving = True
 
 
@@ -130,6 +130,9 @@ class Avatar(pygame.sprite.Sprite):
             self.x += self.speed
             self.direction = True
             self.is_moving = True
+
+        elif not (key[pygame.K_RIGHT] or key[pygame.K_LEFT]):
+            self.is_moving = False
 
         if self.current_weapon == "sword":
             self.animate(self.samurai_1, self.samurai_2, self.samurai_stop)
