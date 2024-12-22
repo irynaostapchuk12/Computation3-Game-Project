@@ -34,13 +34,13 @@ def square_transition(screen, color=(0, 0, 0), duration=1500):
 # Função para criar confetis
 def criar_confetis(quantidade, lado="esquerdo"):
     CORES = [(255, 0, 0), (0, 255, 0), (0, 0, 255), (255, 255, 0), (255, 0, 255), (0, 255, 255)]
-    LARGURA, ALTURA = screen.get_size()
+
     confetis = []
     for _ in range(quantidade):
         x = random.randint(0, 100)
         if lado == "direito":
-            x += LARGURA - 100
-        y = random.randint(0, ALTURA - 50)
+            x += 720 - 100
+        y = random.randint(0, 720)
         tamanho = random.randint(10, 20)
         cor = random.choice(CORES)
         angulo = random.randint(0, 360)
@@ -53,7 +53,7 @@ def confetiiis(confetis_esquerda, confetis_direita, screen):
         radianos = math.radians(angulo)
         fim_x = inicio[0] + comprimento * math.cos(radianos)
         fim_y = inicio[1] + comprimento * math.sin(radianos)
-        pygame.draw.line(ecrã, cor, inicio, (fim_x, fim_y), 2)
+        pygame.draw.line(ecrã, cor, inicio, (fim_x, fim_y), 3)
 
     for confetti in confetis_esquerda:
         desenhar_tracinho(screen, confetti["cor"], confetti["posicao"], confetti["tamanho"], confetti["angulo"])
@@ -64,9 +64,18 @@ def confetiiis(confetis_esquerda, confetis_direita, screen):
 # Função principal do jogo
 def the_end_of_game():
     square_transition(screen)
+    poppins = pygame.font.Font("fonts/Cocogoose-Classic-Medium-trial.ttf", 35)
+    button_text = poppins.render("CONGRATSS!:)", True, (0, 0, 0))
+
 
     # Setup inicial
     bigimage = pygame.image.load("images/menus/menus_back.png").convert()
+    bigimage= pygame.transform.scale(bigimage, screen_resolution)
+
+    platform = pygame.image.load("images/backgrounds/platform_levels.png")
+    platform = pygame.transform.scale(platform, (250,250))
+    avatare = pygame.image.load("images/avatar/JungleRex/JungleRex 3.png")
+    avatare = pygame.transform.scale(avatare, (200, 188))
     clock = pygame.time.Clock()
     avatar = Avatar(screen, 300, 300, "JungleRex")
     fps = 60
@@ -80,7 +89,7 @@ def the_end_of_game():
         clock.tick(fps)
 
         # Renderiza o fundo
-        screen.blit(bigimage, (0, 0))
+        screen.blit(bigimage, (0,0))
 
         # Desenha os confetis
         confetiiis(confetis_esquerda, confetis_direita, screen)
@@ -92,7 +101,9 @@ def the_end_of_game():
         settings = pygame.image.load("backgroundgame_level/settings_button.png")
         settings_rect = settings.get_rect(topleft=(30, 50))
         screen.blit(settings, (30, 50))
-
+        screen.blit(platform, (250, 250))
+        screen.blit(avatare, (289, 200))
+        screen.blit(button_text, (250,500))
         # Loop de eventos
         for event in pygame.event.get():
             if event.type == pygame.QUIT:
@@ -104,6 +115,8 @@ def the_end_of_game():
 
         pygame.display.flip()
 
+
+#PERGUNTAR
 # Inicialização do jogo
 if __name__ == "__main__":
     pygame.init()
