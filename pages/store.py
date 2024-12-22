@@ -4,10 +4,10 @@ from items.inventory import *
 from .interface import interface
 import sys
 
-jungle_rex_default_shop_position = (200, 300)
-jungle_rex_princess_shop_position = (400, 400)
-jungle_rex_warrior_shop_position = (500, 200)
-jungle_rex_bussyman_shop_position = (600, 500)
+jungle_rex_default_shop_position = (30, 1380)
+jungle_rex_princess_shop_position = (390, 1380)
+jungle_rex_warrior_shop_position = (30, 1700)
+jungle_rex_bussyman_shop_position = (390, 1700)
 
 
 
@@ -159,11 +159,11 @@ store_dict = {
 
 
 def get_image(type, name, image, size):
-    if type != "skin":
+    if type != "skins":
         store_dict[type][name]["image"] = pygame.image.load(f"images/icons/{image}").convert_alpha()
         store_dict[type][name]["image"] = pygame.transform.scale(store_dict[type][name]["image"], size)
-    if type == "skin":
-        store_dict[type][name]["image"] = pygame.image.load(f"images/avatar/{name}/{name} 1").convert_alpha()
+    if type == "skins":
+        store_dict[type][name]["image"] = pygame.image.load(f"images/avatar/{name}/{name} 1.png").convert_alpha()
         store_dict[type][name]["image"] = pygame.transform.scale(store_dict[type][name]["image"], size)
 
 def get_combined(type, name):
@@ -191,7 +191,7 @@ def get_combined(type, name):
 
 
 
-    combined_width = max(image_width, text_width, coin_width + tag_width) + 30
+    combined_width = max(image_width, text_width, coin_width + tag_width) + 48
     combined_height = image_height + text_height + max(coin_width, tag_width) + 40
     combined_surface = pygame.Surface((combined_width + 90, combined_height + 90), pygame.SRCALPHA)
 
@@ -240,10 +240,6 @@ def store():
     scroll_surface.fill((0, 0, 0, 0))
 
 
-
-    #background_image_shop = pygame.image.load(f"images/backgrounds/back_of_credits.jpg").convert_alpha()
-    #background_image_shop = pygame.image.load(f"images/menus/menus_back.png").convert_alpha()
-
     background_image_shop = pygame.image.load(f"images/menus/menus_back.png").convert_alpha()
     background_image_shop = pygame.transform.scale(background_image_shop, screen_resolution)
 
@@ -260,35 +256,57 @@ def store():
     back_text = verdana_settings.render("Back", True, deep_black)
     back_text_rect = back_text.get_rect(center=(100, 74))
 
+
+
+    get_image("others", "coin", "coin.png", coin_shop_image_size)
+    get_image("others", "chest", "chest.png", (150, 105))
+
+    get_image("elixir", "health", "heart+1.png", (180, 122))
+    get_image("elixir", "speed", "blue_potion.png", (100, 144))
+
+    get_image("powerup", "invincibility", "invincibility.png", (150, 151))
+    get_image("powerup", "de_spawner", "yellow_potion.png", (100, 148))
+    get_image("powerup", "double_jump", "double_jump.png", (120, 120))
+    get_image("powerup", "double_coins", "double_coins.png", (120, 120))
+
+    get_image("skins", "BusinessMan", "BusinessMan 1.png", (100, 100))
+    get_image("skins","JungleRex", "JungleRex 1.png", (120, 125))
+    get_image("skins","Princess", "Princess 1.png", (120, 136))
+    get_image("skins","Warrior", "JungleRex 1.png", (120, 118))
+
+
     store_dict["others"]["chest"]["text"] = verdana_store.render("CHEST", True, white)
+
     store_dict["elixir"]["health"]["text"] = verdana_store.render("HEALTH ELIXIR", True, white)
     store_dict["elixir"]["speed"]["text"] = verdana_store.render("SPEED ELIXIR", True, white)
+
     store_dict["powerup"]["invincibility"]["text"] = verdana_store.render("INVINCIBILITY", True, white)
     store_dict["powerup"]["de_spawner"]["text"] = verdana_store.render("DE-SPAWNER", True, white)
     store_dict["powerup"]["double_jump"]["text"] = verdana_store.render("DOUBLE JUMP", True, white)
     store_dict["powerup"]["double_coins"]["text"] = verdana_store.render("DOUBLE COINS", True, white)
 
+    store_dict["skins"]["BusinessMan"]["text"] = verdana_store.render("BUSINESS MAN", True, white)
+    store_dict["skins"]["JungleRex"]["text"] = verdana_store.render("JUNGLE REX", True, white)
+    store_dict["skins"]["Warrior"]["text"] = verdana_store.render("WARRIOR", True, white)
+    store_dict["skins"]["Princess"]["text"] = verdana_store.render("PRINCESS", True, white)
+
+
     store_dict["others"]["chest"]["tag"] = verdana_store.render(f"{chest_price}", True, white)
+
     store_dict["elixir"]["health"]["tag"] = verdana_store.render(f"{health_elixir_price}", True, white)
     store_dict["elixir"]["speed"]["tag"] = verdana_store.render(f"{speed_elixir_price}", True, white)
+
     store_dict["powerup"]["invincibility"]["tag"] = verdana_store.render(f"{invincibility_powerup_price}", True, white)
     store_dict["powerup"]["de_spawner"]["tag"] = verdana_store.render(f"{de_spawner_powerup_price}", True, white)
     store_dict["powerup"]["double_jump"]["tag"] = verdana_store.render(f"{double_jump_powerup_price}", True, white)
     store_dict["powerup"]["double_coins"]["tag"] = verdana_store.render(f"{double_coins_powerup_price}", True, white)
+
     my_coins_text = verdana_store.render(f"{inventory_dict['others']['coin']}", True, white)
 
-    get_image("others", "coin", "coin.png", coin_shop_image_size)
-    get_image("others", "chest", "chest.png", (150, 105))
-    get_image("elixir", "health", "heart+1.png", (180, 122))
-    get_image("elixir", "speed", "blue_potion.png", (100, 144))
-    get_image("powerup", "invincibility", "invincibility.png", (150, 151))
-    get_image("powerup", "de_spawner", "yellow_potion.png", (100, 148))
-    get_image("powerup", "double_jump", "double_jump.png", (120, 120))
-    get_image("powerup", "double_coins", "double_coins.png", (120, 120))
-    #get_image("skin", "BusinessMan", "BusinessMan 1.png", (100, 100))
-    get_image("skin","JungleRex", "JungleRex 1.png", (100, 100))
-    get_image("skin","Princess", "Princess 1.png", (100, 100))
-    get_image("skin","Warrior", "JungleRex 1.png", (100, 100))
+    store_dict["skins"]["BusinessMan"]["tag"] = verdana_store.render(f"{chest_price}", True, white)
+    store_dict["skins"]["JungleRex"]["tag"] = verdana_store.render(f"{chest_price}", True, white)
+    store_dict["skins"]["Warrior"]["tag"] = verdana_store.render(f"{chest_price}", True, white)
+    store_dict["skins"]["Princess"]["tag"] = verdana_store.render(f"{chest_price}", True, white)
 
 
     get_combined("others", "chest")
@@ -298,10 +316,10 @@ def store():
     get_combined("powerup", "de_spawner")
     get_combined("powerup", "double_jump")
     get_combined("powerup", "double_coins")
-    get_combined("skin", "BusinessMan")
-    get_combined("skin", "JungleRex")
-    get_combined("skin", "Warrior")
-    get_combined("skin", "Princess")
+    get_combined("skins", "BusinessMan")
+    get_combined("skins", "JungleRex")
+    get_combined("skins", "Warrior")
+    get_combined("skins", "Princess")
 
     combined_width = store_dict["others"]["coin"]["image"].get_width() + my_coins_text.get_width() + 10
     combined_height = max(store_dict["others"]["coin"]["image"].get_height(), my_coins_text.get_height()) + 10
@@ -355,6 +373,20 @@ def store():
                     purchase_item("skins", "JungleRex", chest_price)
                     print("Box clicked!")
 
+                if store_dict["skins"]["Warrior"]["combined"]["rect"].collidepoint(
+                        mouse):  # Check if mouse is inside the box
+                    purchase_item("skins", "Warrior", chest_price)
+                    print("Box clicked!")
+
+                if store_dict["skins"]["Princess"]["combined"]["rect"].collidepoint(mouse):  # Check if mouse is inside the box
+                    purchase_item("skins", "Princess", chest_price)
+                    print("Box clicked!")
+
+                if store_dict["skins"]["BusinessMan"]["combined"]["rect"].collidepoint(mouse):  # Check if mouse is inside the box
+                    purchase_item("skins", "BusinessMan", chest_price)
+                    print("Box clicked!")
+
+
                 if back_board_rect.collidepoint(mouse):
                     return "interface"
 
@@ -377,15 +409,17 @@ def store():
         scroll_surface.blit(store_dict["powerup"]["de_spawner"]["combined"]["surface"], store_dict["powerup"]["de_spawner"]["combined"]["rect"].topleft)
         scroll_surface.blit(store_dict["powerup"]["double_jump"]["combined"]["surface"], store_dict["powerup"]["double_jump"]["combined"]["rect"].topleft)
         scroll_surface.blit(store_dict["powerup"]["double_coins"]["combined"]["surface"], store_dict["powerup"]["double_coins"]["combined"]["rect"].topleft)
+        scroll_surface.blit(store_dict["skins"]["BusinessMan"]["combined"]["surface"], store_dict["skins"]["BusinessMan"]["combined"]["rect"].topleft)
+        scroll_surface.blit(store_dict["skins"]["Warrior"]["combined"]["surface"], store_dict["skins"]["Warrior"]["combined"]["rect"].topleft)
+        scroll_surface.blit(store_dict["skins"]["Princess"]["combined"]["surface"], store_dict["skins"]["Princess"]["combined"]["rect"].topleft)
+        scroll_surface.blit(store_dict["skins"]["JungleRex"]["combined"]["surface"], store_dict["skins"]["JungleRex"]["combined"]["rect"].topleft)
+
 
         keys = pygame.key.get_pressed()
         if keys[pygame.K_UP]:
             scroll_y = max(scroll_y - scroll_speed, 0)  # Prevent scrolling above content
         if keys[pygame.K_DOWN]:
             scroll_y = min(scroll_y + scroll_speed,scrollable_shop_height - 720)  # Prevent scrolling below content
-
-
-
 
 
         #screen.fill(deep_black)
