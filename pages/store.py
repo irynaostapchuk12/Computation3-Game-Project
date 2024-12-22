@@ -283,13 +283,13 @@ def store():
                     purchase_item("others", "chest", chest_price)
                     print("Box clicked!")
 
-                if back_board_rect.collidepoint(ev.pos):
+                if back_board_rect.collidepoint(mouse):
                     return "interface"
 
             if back_text_rect.collidepoint(mouse):
                 back_text = custom_font_intro.render("Back", True, green)
             else:
-                back_text = custom_font_intro.render("Back", True, green)
+                back_text = custom_font_intro.render("Back", True, deep_black)
 
         scroll_surface.blit(back_board, back_board_rect)
         scroll_surface.blit(back_text, back_text_rect)
