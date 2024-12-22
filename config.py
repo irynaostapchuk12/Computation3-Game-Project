@@ -110,7 +110,7 @@ def corbelfont(size=20):
     return pygame.font.SysFont("Corbel", size)
 
 #corbelfont = pygame.font.SysFont("Corbel", 20)
-poppins = pygame.font.Font("fonts/Cocogoose-Classic-Medium-trial.ttf")
+#poppins = pygame.font.Font("fonts/Cocogoose-Classic-Medium-trial.ttf")
 comicsansfont = pygame.font.SysFont("Comic Sans MS", 50)
 # creating the fonts:
 custom_font = "leters/Cocogoose-Classic-Medium-trial.ttf"
