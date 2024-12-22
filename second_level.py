@@ -1,13 +1,13 @@
 from characters.avatar import Avatar
 from config import *
-
-
-
+from third_level import execute_game_levelthree
 # define the tile size
 tile_size = 150
 screen = pygame.display.set_mode((720, 720))
 
 global all_sprites
+
+
 def fade_in(screen, color=(0, 0, 0), duration=1000):
     fade_surface = pygame.Surface(screen.get_size())
     fade_surface.fill(color)
@@ -16,6 +16,7 @@ def fade_in(screen, color=(0, 0, 0), duration=1000):
         screen.blit(fade_surface, (0, 0))
         pygame.display.update()
         pygame.time.delay(int(duration / 255))
+
 
 class World:
     def __init__(self, data):
@@ -30,14 +31,14 @@ class World:
         self.list_of_roofs = []
         self.list_of_grounds = []
 
-
     def load_data(self, data):
         row_count = 0
         for row in data:
             col_count = 0
             for tile in row:
                 if tile == 1:
-                    self.image = pygame.transform.scale(self.platform_for_game,(tile_size, tile_size))  # Load the platform image
+                    self.image = pygame.transform.scale(self.platform_for_game,
+                                                        (tile_size, tile_size))  # Load the platform image
                     self.rect = self.image.get_rect()  # Get the rectangle of the platform image
                     self.rect.x = col_count * (tile_size * 0.715)  # Position the platform in the column
                     self.rect.y = row_count * (tile_size * 0.715)  # Position the platform in the row
@@ -52,15 +53,18 @@ class World:
             tile[1].x += scroll_speed
             screen.blit(tile[0], tile[1])  # Draw the platform image at the platform rectangle
 
-
     def get_limits(self):
 
         for tile in self.tile_list:
             self.rect = tile[1]
-            left_wall = pygame.Rect(self.rect.x, self.rect.y + 80, 1, self.rect.height)  # (x=100, y=100, width=200, height=150)
-            right_wall = pygame.Rect(self.rect.x + self.rect.width, self.rect.y +80, 1, self.rect.height)  # (x=100, y=100, width=200, height=150)
-            roof = pygame.Rect(self.rect.x, self.rect.y + self.rect.height, self.rect.width, 1)  # (x=100, y=100, width=200, height=150)
-            ground = pygame.Rect(self.rect.x, self.rect.y + 70, self.rect.width, 1)  # (x=100, y=100, width=200, height=150)
+            left_wall = pygame.Rect(self.rect.x, self.rect.y + 80, 1,
+                                    self.rect.height)  # (x=100, y=100, width=200, height=150)
+            right_wall = pygame.Rect(self.rect.x + self.rect.width, self.rect.y + 80, 1,
+                                     self.rect.height)  # (x=100, y=100, width=200, height=150)
+            roof = pygame.Rect(self.rect.x, self.rect.y + self.rect.height, self.rect.width,
+                               1)  # (x=100, y=100, width=200, height=150)
+            ground = pygame.Rect(self.rect.x, self.rect.y + 70, self.rect.width,
+                                 1)  # (x=100, y=100, width=200, height=150)
 
             self.list_of_left_wall.append(left_wall)
             self.list_of_right_wall.append(right_wall)
@@ -71,10 +75,12 @@ class World:
 world_data = [
     # draw the first row
     [0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
-    [0, 0, 0, 0, 0, 0, 0, 0, 1, 1, 1, 0, 0, 0, 0, 0, 0, 0, 0, 1, 1, 1, 0],
-    [0, 1, 1, 1, 1, 0, 0, 1, 0, 0, 0, 1, 1, 1, 0, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0, 1, 1, 0, 0, 1, 0, 0, 0, 0, 1, 1, 1, 1, 1, 0, 0, 1, 1, 1, 0, 0, 0],
-    [1, 0, 0, 0, 0, 1, 1, 0, 0, 0, 0, 0, 0, 0, 1, 1, 1, 1, 0, 0, 0, 0, 0, 1, 1, 1, 0, 0, 1, 1, 0, 1, 1, 1, 1, 0, 0, 0, 0, 0, 1, 1, 0, 0, 0, 1, 1, 1],
-    [0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+    [0, 0, 1, 0, 0, 0, 0, 1, 1, 1, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 1, 0],
+    [0, 1, 0, 1, 0, 0, 1, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 1, 0, 0, 1, 1, 0, 0, 1, 1, 0, 0, 1, 0, 0, 0, 1, 1, 1, 0,
+     1, 1, 0, 0, 1, 1, 1, 0, 0, 0],
+    [1, 0, 0, 0, 1, 1, 0, 0, 0, 0, 0, 0, 1, 1, 1, 0, 0, 0, 1, 0, 0, 0, 0, 0, 1, 1, 0, 0, 1, 1, 0, 1, 1, 1, 0, 0, 0, 1,
+     0, 0, 1, 1, 0, 0, 0, 1, 1, 1],
+    [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 1, 1, 0],
 
 ]
 
@@ -87,9 +93,30 @@ list_of_roofs = world.list_of_roofs
 list_of_grounds = world.list_of_grounds
 
 
+def button_when_scroll_stop_leveltwo(screen):
+    poppins = pygame.font.Font("fonts/Cocogoose-Classic-Medium-trial.ttf", 35)
+    button_text = poppins.render("CLICK HERE TO NEXT LEVEL", True, (0, 0, 0))
+    button_rect = button_text.get_rect(center=(screen.get_width() // 2, screen.get_height() // 2))
+
+    while True:
+        mouse = pygame.mouse.get_pos()
+
+        for event in pygame.event.get():
+            if event.type == pygame.QUIT:
+                sys.exit()
+            if event.type == pygame.MOUSEBUTTONDOWN and button_rect.collidepoint(event.pos):
+                square_transition(screen)  # Chama o efeito de fade antes de mudar para o próximo nível
+                execute_game_levelthree()  # Chama o segundo nível
+                return
+
+        button_text = poppins.render("CLICK HERE TO NEXT LEVEL", True,
+                                     (255, 255, 255) if button_rect.collidepoint(mouse) else (0, 0, 0))
+        screen.blit(button_text, button_rect)
+        pygame.display.update()
+
 
 # Função para criar um efeito de fade
-def square_transition(screen, color= (0, 0, 0), duration=1500):
+def square_transition(screen, color=(0, 0, 0), duration=1500):
     """
     Efeito de transição em formato de quadrado.
     - `color`: Cor do quadrado.
@@ -177,7 +204,6 @@ def execute_game_second_level():
         # Renderiza o avatar
         all_sprites.draw(screen)
 
-
         # Botão de configurações
         settings = pygame.image.load("backgroundgame_level/settings_button.png")
         settings_rect = settings.get_rect(topleft=(30, 50))
@@ -186,30 +212,8 @@ def execute_game_second_level():
         # Event loop
         for event in pygame.event.get():
             if event.type == pygame.QUIT:
-                running = False
+                pygame.quit()
             if event.type == pygame.MOUSEBUTTONDOWN:
                 if settings_rect.collidepoint(event.pos):
                     current_state = "settings"
-
-        pygame.display.flip() # Atualiza a tela
-def button_when_scroll_stop_leveltwo(screen):
-    poppins = pygame.font.Font("fonts/Cocogoose-Classic-Medium-trial.ttf", 35)
-    button_text = poppins.render("CLICK HERE TO NEXT LEVEL", True, (0, 0, 0))
-    button_rect = button_text.get_rect(center=(screen.get_width() // 2, screen.get_height() // 2))
-
-    while True:
-        mouse = pygame.mouse.get_pos()
-
-        for event in pygame.event.get():
-            if event.type == pygame.QUIT:
-                sys.exit()
-            if event.type == pygame.MOUSEBUTTONDOWN and button_rect.collidepoint(event.pos):
-                square_transition(screen)  # Chama o efeito de fade antes de mudar para o próximo nível
-                execute_game_second_level()  # Chama o segundo nível
-                return
-
-        button_text = poppins.render("CLICK HERE TO NEXT LEVEL", True, (255, 255, 255) if button_rect.collidepoint(mouse) else (0, 0, 0))
-        screen.blit(button_text, button_rect)
-        pygame.display.update()
-
-
+        pygame.display.flip()  # Atualiza a tela

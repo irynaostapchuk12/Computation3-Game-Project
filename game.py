@@ -1,8 +1,6 @@
 from characters.avatar import Avatar
 from config import *
-
-# from second_level import execute_game_second_level
-
+from second_level import execute_game_second_level
 
 # define the tile size
 tile_size = 150
@@ -24,14 +22,14 @@ class World:
         self.list_of_roofs = []
         self.list_of_grounds = []
 
-
     def load_data(self, data):
         row_count = 0
         for row in data:
             col_count = 0
             for tile in row:
                 if tile == 1:
-                    self.image = pygame.transform.scale(self.platform_for_game,(tile_size, tile_size))  # Load the platform image
+                    self.image = pygame.transform.scale(self.platform_for_game,
+                                                        (tile_size, tile_size))  # Load the platform image
                     self.rect = self.image.get_rect()  # Get the rectangle of the platform image
                     self.rect.x = col_count * (tile_size * 0.715)  # Position the platform in the column
                     self.rect.y = row_count * (tile_size * 0.715)  # Position the platform in the row
@@ -46,15 +44,18 @@ class World:
             tile[1].x += scroll_speed
             screen.blit(tile[0], tile[1])  # Draw the platform image at the platform rectangle
 
-
     def get_limits(self):
 
         for tile in self.tile_list:
             self.rect = tile[1]
-            left_wall = pygame.Rect(self.rect.x, self.rect.y + 80, 1, self.rect.height)  # (x=100, y=100, width=200, height=150)
-            right_wall = pygame.Rect(self.rect.x + self.rect.width, self.rect.y +80, 1, self.rect.height)  # (x=100, y=100, width=200, height=150)
-            roof = pygame.Rect(self.rect.x, self.rect.y + self.rect.height, self.rect.width, 1)  # (x=100, y=100, width=200, height=150)
-            ground = pygame.Rect(self.rect.x, self.rect.y + 70, self.rect.width, 1)  # (x=100, y=100, width=200, height=150)
+            left_wall = pygame.Rect(self.rect.x, self.rect.y + 80, 1,
+                                    self.rect.height)  # (x=100, y=100, width=200, height=150)
+            right_wall = pygame.Rect(self.rect.x + self.rect.width, self.rect.y + 80, 1,
+                                     self.rect.height)  # (x=100, y=100, width=200, height=150)
+            roof = pygame.Rect(self.rect.x, self.rect.y + self.rect.height, self.rect.width,
+                               1)  # (x=100, y=100, width=200, height=150)
+            ground = pygame.Rect(self.rect.x, self.rect.y + 70, self.rect.width,
+                                 1)  # (x=100, y=100, width=200, height=150)
 
             self.list_of_left_wall.append(left_wall)
             self.list_of_right_wall.append(right_wall)
@@ -66,8 +67,10 @@ world_data = [
     # draw the first row
     [0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
     [0, 0, 0, 0, 0, 0, 0, 0, 1, 1, 1, 0, 0, 0, 0, 0, 0, 0, 0, 1, 1, 1, 0],
-    [0, 1, 1, 1, 1, 0, 0, 1, 0, 0, 0, 1, 1, 1, 0, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0, 1, 1, 0, 0, 1, 0, 0, 0, 0, 1, 1, 1, 1, 1, 0, 0, 1, 1, 1, 0, 0, 0],
-    [1, 0, 0, 0, 0, 1, 1, 0, 0, 0, 0, 0, 0, 0, 1, 1, 1, 1, 0, 0, 0, 0, 0, 1, 1, 1, 0, 0, 1, 1, 0, 1, 1, 1, 1, 0, 0, 0, 0, 0, 1, 1, 0, 0, 0, 1, 1, 1],
+    [0, 1, 1, 1, 1, 0, 0, 1, 0, 0, 0, 1, 1, 1, 0, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0, 1, 1, 0, 0, 1, 0, 0, 0, 0, 1, 1, 1,
+     1, 1, 0, 0, 1, 1, 1, 0, 0, 0],
+    [1, 0, 0, 0, 0, 1, 1, 0, 0, 0, 0, 0, 0, 0, 1, 1, 1, 1, 0, 0, 0, 0, 0, 1, 1, 1, 0, 0, 1, 1, 0, 1, 1, 1, 1, 0, 0, 0,
+     0, 0, 1, 1, 0, 0, 0, 1, 1, 1],
     [0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
 
 ]
@@ -83,96 +86,121 @@ list_of_grounds = world.list_of_grounds
 
 def button_when_scroll_stop():
     poppins = pygame.font.Font("fonts/Cocogoose-Classic-Medium-trial.ttf", 35)
-
-    # creating the button
-    button_text = poppins.render("CLICK HERE TO NEXT LEVEL", True, deep_black)
-    button_rect = button_text.get_rect(center=(90 + 540 // 2, 123 + 60 // 2))
+    button_text = poppins.render("CLICK HERE TO NEXT LEVEL", True, (0, 0, 0))
+    button_rect = button_text.get_rect(center=(screen.get_width() // 2, screen.get_height() // 2))
 
     while True:
-
-        # getting the mouse position (future need)
         mouse = pygame.mouse.get_pos()
 
-        # event detection (future work)
-        for ev in pygame.event.get():
-            # seeing if the user hits the red x button
-            if ev.type == pygame.QUIT:
+        for event in pygame.event.get():
+            if event.type == pygame.QUIT:
                 sys.exit()
+            if event.type == pygame.MOUSEBUTTONDOWN and button_rect.collidepoint(event.pos):
+                square_transition(screen)  # Chama o efeito de fade antes de mudar para o próximo nível
+                execute_game_second_level()  # Chama o segundo nível
+                return
 
-            if ev.type == pygame.MOUSEBUTTONDOWN:
-                if button_rect.collidepoint(ev.pos):
-                    current_state = "level_two"
-
-            if button_rect.collidepoint(mouse):
-                button_text = poppins.render("CLICK HERE TO NEXT LEVEL", True, (255, 255, 255))
-            else:
-                button_text = poppins.render("CLICK HERE TO NEXT LEVEL", True, (0, 0, 0))
-
+        button_text = poppins.render("CLICK HERE TO NEXT LEVEL", True,
+                                     (255, 255, 255) if button_rect.collidepoint(mouse) else (0, 0, 0))
         screen.blit(button_text, button_rect)
         pygame.display.update()
 
 
-def execute_game():
-    # SETUP:
+def square_transition(screen, color=(0, 0, 0), duration=1500):
+    """
+    Efeito de transição em formato de quadrado.
+    - `color`: Cor do quadrado.
+    - `duration`: Duração total do efeito em milissegundos (5 segundos no caso).
+    """
+    screen_width, screen_height = screen.get_size()
+    center_x, center_y = screen_width // 2, screen_height // 2
 
+    # Calcula o número de frames e o incremento por frame
+    clock = pygame.time.Clock()
+    total_frames = duration // 30  # Número de frames (assumindo 30ms por frame)
+    max_size = max(screen_width, screen_height) * 2  # Tamanho máximo do quadrado
+    step = max_size / total_frames  # Incremento do tamanho por frame
+
+    size = 0  # Tamanho inicial do quadrado
+
+    for _ in range(total_frames):
+        # Calcula a posição e o tamanho do quadrado
+        rect_x = center_x - size // 2
+        rect_y = center_y - size // 2
+
+        # Desenha o quadrado crescente
+        pygame.draw.rect(screen, color, (rect_x, rect_y, size, size))
+
+        pygame.display.update()
+        clock.tick(60)  # Garante 30ms por frame (aproximadamente 33 FPS)
+
+        # Aumenta o tamanho do quadrado
+        size += step
+
+
+def execute_game():
+    square_transition(screen)
+
+    # SETUP:
     double_jump = False
     bigimage = pygame.image.load("images/backgrounds/background_of_level1.png").convert()
     clock = pygame.time.Clock()
     pygame.display.set_caption("Jungle Rex")
 
     running = True
-    bg_x = 0
+    bg_x = 0  # Posição horizontal da big image
     bg_width = bigimage.get_width()
 
     avatar = Avatar(screen, 40, 0, "JungleRex")
-
     all_sprites = pygame.sprite.Group()
     all_sprites.add(avatar)
 
     while running:
         clock.tick(fps)  # Control frame rate
-        mouse = pygame.mouse.get_pos()
         all_sprites.update(list_of_left_wall, list_of_right_wall, list_of_grounds, double_jump, list_of_roofs)
-        scroll_speed = 3
-        # world.update()  # Update the world to scroll platforms
 
+        keys = pygame.key.get_pressed()  # Verifica quais teclas estão pressionadas
+        scroll_speed = 0  # Inicializa scroll_speed como 0
 
+        # Movimento do avatar e sincronização
+        if keys[pygame.K_RIGHT]:
+            if avatar.rect.x < 500:  # Limita o avatar ao centro da tela (direita)
+                avatar.rect.x += avatar.speed
+            elif bg_x > -(bg_width - screen.get_width()):  # Move o fundo e plataformas
+                scroll_speed = -avatar.speed
+            else:
+                scroll_speed = 0  # Para o movimento se o fundo atingir o limite direito
+                button_when_scroll_stop()
+        elif keys[pygame.K_LEFT]:
+            if avatar.rect.x > 100:  # Limita o avatar ao lado esquerdo da tela
+                avatar.rect.x -= avatar.speed
+            elif bg_x < 0:  # Move o fundo e plataformas
+                scroll_speed = avatar.speed
+            else:
+                scroll_speed = 0  # Para o movimento se o fundo atingir o limite esquerdo
 
+        # Ajuste do fundo (big image)
+        bg_x += scroll_speed  # Move o fundo conforme a velocidade do scroll
 
+        # Renderiza o fundo
+        screen.blit(bigimage, (bg_x, -125))
 
-        # Check if the player is in the middle of the screen
-        if avatar.rect.x > 500 and bg_x < bg_width - 720:
-            # Ensure scrolling stops when the background reaches its extremity
-            print(avatar.rect.x ,  "> 500   " + bg_x + "<" + bg_width - 720)
+        # Renderiza as plataformas
+        world.draw(scroll_speed)
 
-            bg_x -= scroll_speed  # Scroll the background
-            avatar.rect.x -= scroll_speed # Keep player in the center of the screen
+        # Renderiza o avatar
+        all_sprites.draw(screen)
 
-
-        elif avatar.rect.x < 200 and bg_x > 500:
-            print(1)
-            # Allow scrolling back when the player moves left
-            bg_x += scroll_speed  # Scroll the background back
-            avatar.rect.x += scroll_speed  # Keep player in the center of the screen
-
-        screen.blit(bigimage, (bg_x, -125))  # Draw the background
-        world.draw(scroll_speed)  # Draw the platforms
-        all_sprites.draw(screen)  # Draw the player
-
-
-        # setting the settings button
+        # Botão de configurações
         settings = pygame.image.load("backgroundgame_level/settings_button.png")
         settings_rect = settings.get_rect(topleft=(30, 50))
         screen.blit(settings, (30, 50))
 
+        # Event loop
         for event in pygame.event.get():
             if event.type == pygame.QUIT:
                 running = False
             if event.type == pygame.MOUSEBUTTONDOWN:
                 if settings_rect.collidepoint(event.pos):
                     current_state = "settings"
-
-        pygame.display.flip()
-    pygame.display.update()
-
-
+        pygame.display.flip()  # Atualiza a tela
