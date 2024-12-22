@@ -11,3 +11,4 @@ def store_progress(level):
 
     elif level == "the_end":
         progress_dict["level_3"] = True
+
