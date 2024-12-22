@@ -6,9 +6,9 @@ from config import *  # importing colors and the like
 import sys
 
 inventory_dict = {
-                "others": {"coin" : 0,
+                  "others": {"coin" : 0},
 
-              "powerup": {
+                  "powerup": {
                             "invincibility": 0,
 
                             "de_spawner":   0,
@@ -17,14 +17,23 @@ inventory_dict = {
 
                             "double_coins": 0,
 
-              },
-              "elixir": {
+                  },
+                  "elixir": {
                             "health": 0,
 
-                            "speed": 0}
-              }
+                            "speed": 0
+                  },
+                  "skin": {
+                            "JungleRex": True,
+                            "BusinessMan": False,
+                            "Princess": False,
+                            "Warrior": False
+                  }
 
-            }
+                  }
+
+
+
 
 
 def purchase_item(type, name, price):
