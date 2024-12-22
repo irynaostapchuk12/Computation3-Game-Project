@@ -2,8 +2,7 @@ import pygame.image
 from pygame import mouse
 from game import *
 from config import *  # importing colors and the like
-from store import store
-from settings import Settings
+from .settings import Settings
 
 
 def interface():
@@ -17,9 +16,9 @@ def interface():
     screen = pygame.display.set_mode(screen_resolution)  # show the user something
 
     # Carregar a imagem e redimensionar
-    imagem_inicial = pygame.image.load("../backgroundgame_level/principal_page_menu_segundatentativa.png")
+    imagem_inicial = pygame.image.load("backgroundgame_level/principal_page_menu_segundatentativa.png")
     imagem_inicial = pygame.transform.scale(imagem_inicial, screen_resolution)
-    settings_icon = pygame.image.load("../backgroundgame_level/settings_button.png")
+    settings_icon = pygame.image.load("backgroundgame_level/settings_button.png")
     # load image for background levels
     # image_level_one  = pygame.image.load("backgroundgame_level/background_of_level1.png").convert()
 
